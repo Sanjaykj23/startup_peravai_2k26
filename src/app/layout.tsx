@@ -14,8 +14,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className="min-h-screen flex flex-col bg-slate-950 text-slate-100 antialiased">
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <body className="min-h-screen flex flex-col bg-slate-950 text-slate-100 antialiased" suppressHydrationWarning>
         {/* Navigation Bar */}
         <header className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
