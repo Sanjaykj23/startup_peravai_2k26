@@ -1,24 +1,13 @@
 -- ==============================================================================
--- CHENNAI SMART BUS CROWD TRACKING SYSTEM - SUPABASE SQL SCHEMA
--- Phase 1: Normalized GTFS Database, Conductor Ticketing, Live Tracking & ML Asset
+-- CHENNAI SMART BUS CROWD TRACKING SYSTEM - SUPABASE POSTGRESQL SCHEMA
+-- Fully Verified For Supabase SQL Editor / Terminal Execution
 -- ==============================================================================
 
 -- 1. Enable UUID Extension
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
--- Clean drop for idempotency if re-running (Optional)
--- DROP TABLE IF EXISTS occupancy_history CASCADE;
--- DROP TABLE IF EXISTS bus_locations CASCADE;
--- DROP TABLE IF EXISTS tickets CASCADE;
--- DROP TABLE IF EXISTS trips CASCADE;
--- DROP TABLE IF EXISTS route_stops CASCADE;
--- DROP TABLE IF EXISTS buses CASCADE;
--- DROP TABLE IF EXISTS conductors CASCADE;
--- DROP TABLE IF EXISTS stops CASCADE;
--- DROP TABLE IF EXISTS routes CASCADE;
-
 -- ==============================================================================
--- 2. TABLE DEFINITIONS
+-- 2. TABLE DEFINITIONS (All columns typed strictly)
 -- ==============================================================================
 
 -- Table 1: Routes
@@ -30,7 +19,7 @@ CREATE TABLE IF NOT EXISTS routes (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table 2: Stops (Extracted from Chennai GCC, Avadi, Tambaram dataset)
+-- Table 2: Stops (Chennai MTC Bus Stops)
 CREATE TABLE IF NOT EXISTS stops (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     stop_name TEXT NOT NULL,
@@ -59,13 +48,13 @@ CREATE TABLE IF NOT EXISTS buses (
     route_id UUID REFERENCES routes(id) ON DELETE SET NULL,
     capacity INTEGER NOT NULL DEFAULT 50,
     conductor_id UUID REFERENCES conductors(id) ON DELETE SET NULL,
-    status VARCHAR(20) DEFAULT 'idle', -- 'idle', 'active', 'maintenance'
+    status VARCHAR(20) DEFAULT 'idle',
     current_occupancy INTEGER DEFAULT 0,
-    crowd_status INTEGER DEFAULT 0, -- 0 = Empty (0-30%), 1 = Normal (31-70%), 2 = Overcrowded (71-100%)
+    crowd_status INTEGER DEFAULT 0,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table 5: Route Stops (Normalized Sequence)
+-- Table 5: Route Stops (Sequence Mapping)
 CREATE TABLE IF NOT EXISTS route_stops (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     route_id UUID NOT NULL REFERENCES routes(id) ON DELETE CASCADE,
@@ -82,7 +71,7 @@ CREATE TABLE IF NOT EXISTS trips (
     current_stop_id UUID REFERENCES stops(id),
     start_time TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     end_time TIMESTAMP WITH TIME ZONE,
-    status VARCHAR(20) DEFAULT 'active' -- 'active', 'completed', 'cancelled'
+    status VARCHAR(20) DEFAULT 'active'
 );
 
 -- Table 7: Tickets
@@ -112,14 +101,14 @@ CREATE TABLE IF NOT EXISTS bus_locations (
     recorded_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table 9: Occupancy History (CRITICAL ASSET FOR FUTURE ML CROWD PREDICTION)
+-- Table 9: Occupancy History (CRITICAL DATA ASSET FOR ML MODEL TRAINING)
 CREATE TABLE IF NOT EXISTS occupancy_history (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     bus_id UUID NOT NULL REFERENCES buses(id) ON DELETE CASCADE,
     trip_id UUID REFERENCES trips(id) ON DELETE SET NULL,
     occupancy INTEGER NOT NULL,
     crowd_status INTEGER NOT NULL CHECK (crowd_status IN (0, 1, 2)),
-    trigger_event VARCHAR(50) NOT NULL, -- 'trip_start', 'ticket_booked', 'passenger_entry', 'passenger_exit', 'stop_reached'
+    trigger_event VARCHAR(50) NOT NULL,
     notes TEXT,
     recorded_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
@@ -136,15 +125,25 @@ CREATE INDEX IF NOT EXISTS idx_occupancy_history_bus ON occupancy_history(bus_id
 CREATE INDEX IF NOT EXISTS idx_occupancy_history_timestamp ON occupancy_history(recorded_at);
 
 -- ==============================================================================
--- 4. SUPABASE REALTIME SUBSCRIPTION CONFIGURATION
+-- 4. SUPABASE REALTIME SUBSCRIPTION (Idempotent safe block)
 -- ==============================================================================
--- Enable Realtime events for live map, passenger dashboards, and conductor sync
-ALTER PUBLICATION supabase_realtime ADD TABLE buses;
-ALTER PUBLICATION supabase_realtime ADD TABLE bus_locations;
-ALTER PUBLICATION supabase_realtime ADD TABLE occupancy_history;
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM pg_publication WHERE pubname = 'supabase_realtime') THEN
+    IF NOT EXISTS (SELECT 1 FROM pg_publication_tables WHERE pubname = 'supabase_realtime' AND tablename = 'buses') THEN
+      ALTER PUBLICATION supabase_realtime ADD TABLE buses;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_publication_tables WHERE pubname = 'supabase_realtime' AND tablename = 'bus_locations') THEN
+      ALTER PUBLICATION supabase_realtime ADD TABLE bus_locations;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_publication_tables WHERE pubname = 'supabase_realtime' AND tablename = 'occupancy_history') THEN
+      ALTER PUBLICATION supabase_realtime ADD TABLE occupancy_history;
+    END IF;
+  END IF;
+END $$;
 
 -- ==============================================================================
--- 5. ROW LEVEL SECURITY (RLS) POLICIES
+-- 5. ROW LEVEL SECURITY (RLS) & IDEMPOTENT POLICIES
 -- ==============================================================================
 ALTER TABLE routes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE stops ENABLE ROW LEVEL SECURITY;
@@ -156,7 +155,21 @@ ALTER TABLE tickets ENABLE ROW LEVEL SECURITY;
 ALTER TABLE bus_locations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE occupancy_history ENABLE ROW LEVEL SECURITY;
 
--- Allow public read access to bus, route, and stop information for map & passengers
+-- Clean drop existing policies to prevent "policy already exists" error
+DROP POLICY IF EXISTS "Public read for routes" ON routes;
+DROP POLICY IF EXISTS "Public read for stops" ON stops;
+DROP POLICY IF EXISTS "Public read for route_stops" ON route_stops;
+DROP POLICY IF EXISTS "Public read for buses" ON buses;
+DROP POLICY IF EXISTS "Public read for trips" ON trips;
+DROP POLICY IF EXISTS "Public read for bus_locations" ON bus_locations;
+DROP POLICY IF EXISTS "Public read for occupancy_history" ON occupancy_history;
+DROP POLICY IF EXISTS "Allow all for buses" ON buses;
+DROP POLICY IF EXISTS "Allow all for trips" ON trips;
+DROP POLICY IF EXISTS "Allow all for tickets" ON tickets;
+DROP POLICY IF EXISTS "Allow all for bus_locations" ON bus_locations;
+DROP POLICY IF EXISTS "Allow all for occupancy_history" ON occupancy_history;
+
+-- Read policies
 CREATE POLICY "Public read for routes" ON routes FOR SELECT USING (true);
 CREATE POLICY "Public read for stops" ON stops FOR SELECT USING (true);
 CREATE POLICY "Public read for route_stops" ON route_stops FOR SELECT USING (true);
@@ -165,18 +178,18 @@ CREATE POLICY "Public read for trips" ON trips FOR SELECT USING (true);
 CREATE POLICY "Public read for bus_locations" ON bus_locations FOR SELECT USING (true);
 CREATE POLICY "Public read for occupancy_history" ON occupancy_history FOR SELECT USING (true);
 
--- Allow authenticated conductors & service role full write permissions
-CREATE POLICY "Service and conductor update buses" ON buses FOR ALL USING (true);
-CREATE POLICY "Service and conductor insert trips" ON trips FOR ALL USING (true);
-CREATE POLICY "Service and conductor insert tickets" ON tickets FOR ALL USING (true);
-CREATE POLICY "Service and conductor insert locations" ON bus_locations FOR ALL USING (true);
-CREATE POLICY "Service and conductor insert occupancy" ON occupancy_history FOR ALL USING (true);
+-- Write policies
+CREATE POLICY "Allow all for buses" ON buses FOR ALL USING (true);
+CREATE POLICY "Allow all for trips" ON trips FOR ALL USING (true);
+CREATE POLICY "Allow all for tickets" ON tickets FOR ALL USING (true);
+CREATE POLICY "Allow all for bus_locations" ON bus_locations FOR ALL USING (true);
+CREATE POLICY "Allow all for occupancy_history" ON occupancy_history FOR ALL USING (true);
 
 -- ==============================================================================
--- 6. SEED DATA (Chennai MTC Key Corridors & Conductors)
+-- 6. INITIAL CHENNAI MTC SEED DATA (Valid Hex UUIDs: [0-9a-f])
 -- ==============================================================================
 
--- Insert Routes
+-- 1. Routes
 INSERT INTO routes (id, route_number, route_name, corridor) VALUES
 ('b1020000-0000-0000-0000-000000000570', '570', 'CMBT Koyambedu to Kelambakkam (via OMR IT Corridor)', 'Rajiv Gandhi IT Expressway / OMR'),
 ('b1020000-0000-0000-0000-000000000021', '21G', 'Broadway / Island Ground to KCBT Kilambakkam (via Tambaram)', 'GST Road Corridor'),
@@ -185,7 +198,7 @@ INSERT INTO routes (id, route_number, route_name, corridor) VALUES
 ('b1020000-0000-0000-0000-000000000070', 'A70', 'Avadi Bus Terminus to Tambaram West (via Koyambedu & Guindy)', 'Outer Ring Trunk')
 ON CONFLICT (id) DO NOTHING;
 
--- Insert Conductors
+-- 2. Conductors
 INSERT INTO conductors (id, name, employee_code, phone, email, username, password_hash) VALUES
 ('c1020000-0000-0000-0000-000000000570', 'Karthik Rajan', 'MTC-CND-570', '+91 98401 23456', 'conductor.570@mtc.chennai.gov.in', 'cnd_570', 'password123'),
 ('c1020000-0000-0000-0000-000000000021', 'Murugan Shanmugam', 'MTC-CND-021G', '+91 98402 34567', 'conductor.21g@mtc.chennai.gov.in', 'cnd_21g', 'password123'),
@@ -194,7 +207,7 @@ INSERT INTO conductors (id, name, employee_code, phone, email, username, passwor
 ('c1020000-0000-0000-0000-000000000070', 'Dinesh Kumar', 'MTC-CND-A70', '+91 98405 67890', 'conductor.a70@mtc.chennai.gov.in', 'cnd_a70', 'password123')
 ON CONFLICT (employee_code) DO NOTHING;
 
--- Insert Buses
+-- 3. Buses
 INSERT INTO buses (id, bus_number, fleet_code, route_id, capacity, conductor_id, status, current_occupancy, crowd_status) VALUES
 ('a1020000-0000-0000-0000-000000000570', '5701', 'BUS002', 'b1020000-0000-0000-0000-000000000570', 60, 'c1020000-0000-0000-0000-000000000570', 'active', 38, 1),
 ('a1020000-0000-0000-0000-000000000021', '2101', 'BUS001', 'b1020000-0000-0000-0000-000000000021', 50, 'c1020000-0000-0000-0000-000000000021', 'active', 46, 2),
@@ -203,7 +216,7 @@ INSERT INTO buses (id, bus_number, fleet_code, route_id, capacity, conductor_id,
 ('a1020000-0000-0000-0000-000000000070', '7001', 'BUS005', 'b1020000-0000-0000-0000-000000000070', 60, 'c1020000-0000-0000-0000-000000000070', 'idle', 0, 0)
 ON CONFLICT (bus_number) DO NOTHING;
 
--- 4. Insert Key Chennai Stops (Valid Hexadecimal UUIDs: 0-9, a-f)
+-- 4. Key Chennai Bus Stops
 INSERT INTO stops (id, stop_name, latitude, longitude) VALUES
 ('d1020000-0000-0000-0000-000000000001', 'M.G.R.KOYAMBEDU', 13.069180, 80.205720),
 ('d1020000-0000-0000-0000-000000000002', 'KOYAMBEDU MARKET', 13.063410, 80.198300),
