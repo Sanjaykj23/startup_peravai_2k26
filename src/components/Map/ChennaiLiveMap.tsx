@@ -26,6 +26,9 @@ export const ChennaiLiveMap: React.FC<ChennaiLiveMapProps> = ({
   const userMarkerRef = useRef<any>(null);
   const routeLayerRef = useRef<any>(null);
   const routeCacheRef = useRef<Map<string, any[]>>(new Map());
+  const prevSelectedBusIdRef = useRef<string | null>(null);
+  const lastDrawnRouteBusIdRef = useRef<string | null>(null);
+  const lastDrawnStopIdRef = useRef<string | null>(null);
   const [activeBus, setActiveBus] = useState<Bus | null>(null);
   const [isClient, setIsClient] = useState(false);
   const [selectedRouteInfo, setSelectedRouteInfo] = useState<{
@@ -80,6 +83,10 @@ export const ChennaiLiveMap: React.FC<ChennaiLiveMapProps> = ({
         routeLayerRef.current = routeLayer;
 
         mapInstanceRef.current = map;
+
+        setTimeout(() => {
+          map.invalidateSize();
+        }, 250);
       }
     }
 
@@ -106,16 +113,22 @@ export const ChennaiLiveMap: React.FC<ChennaiLiveMapProps> = ({
       const routeLayer = routeLayerRef.current;
 
       if (!routeLayer) return;
-      routeLayer.clearLayers();
 
       if (!selectedBusId) {
+        routeLayer.clearLayers();
         setSelectedRouteInfo(null);
+        lastDrawnRouteBusIdRef.current = null;
+        lastDrawnStopIdRef.current = null;
+        prevSelectedBusIdRef.current = null;
         return;
       }
 
       const selectedBus = buses.find(b => b.id === selectedBusId);
       if (!selectedBus || !selectedBus.route_id) {
+        routeLayer.clearLayers();
         setSelectedRouteInfo(null);
+        lastDrawnRouteBusIdRef.current = null;
+        lastDrawnStopIdRef.current = null;
         return;
       }
 
@@ -164,6 +177,32 @@ export const ChennaiLiveMap: React.FC<ChennaiLiveMapProps> = ({
           }
         });
       }
+
+      const currentStopId = selectedBus.current_trip?.current_stop_id || validStops[currentIdx]?.stop_id || null;
+      const isAlreadyDrawn = lastDrawnRouteBusIdRef.current === selectedBusId && lastDrawnStopIdRef.current === currentStopId;
+
+      // Update selected route info HUD
+      const nextStop = validStops[currentIdx + 1];
+      setSelectedRouteInfo({
+        busNumber: selectedBus.bus_number,
+        routeNumber: selectedBus.route_number,
+        routeName: selectedBus.route_name,
+        currentStopName: validStops[currentIdx]?.stop_name || 'Origin',
+        nextStopName: nextStop ? nextStop.stop_name : 'Final Terminus',
+        remainingStopsCount: Math.max(0, validStops.length - 1 - currentIdx),
+        totalStopsCount: validStops.length,
+        routeCoords: allCoords
+      });
+
+      // If route & stop sequence are already drawn on map, do not wipe layers or re-trigger fitBounds
+      if (isAlreadyDrawn) {
+        return;
+      }
+
+      // Re-draw route path
+      routeLayer.clearLayers();
+      lastDrawnRouteBusIdRef.current = selectedBusId;
+      lastDrawnStopIdRef.current = currentStopId;
 
       const pastCoords = allCoords.slice(0, currentIdx + 1);
       const forwardCoords = allCoords.slice(currentIdx);
@@ -266,27 +305,28 @@ export const ChennaiLiveMap: React.FC<ChennaiLiveMapProps> = ({
         });
       });
 
-      // Update selected route info HUD
-      const nextStop = validStops[currentIdx + 1];
-      setSelectedRouteInfo({
-        busNumber: selectedBus.bus_number,
-        routeNumber: selectedBus.route_number,
-        routeName: selectedBus.route_name,
-        currentStopName: validStops[currentIdx]?.stop_name || 'Origin',
-        nextStopName: nextStop ? nextStop.stop_name : 'Final Terminus',
-        remainingStopsCount: Math.max(0, validStops.length - 1 - currentIdx),
-        totalStopsCount: validStops.length,
-        routeCoords: allCoords
-      });
-
-      // Fit map bounds to show the entire route with padding
-      if (allCoords.length > 1) {
-        map.fitBounds(L.latLngBounds(allCoords), {
-          padding: [70, 70],
-          maxZoom: 15,
-          animate: true,
-          duration: 0.9
-        });
+      // Fit map bounds ONCE when a new bus selection is made
+      const isNewSelection = prevSelectedBusIdRef.current !== selectedBusId;
+      if (isNewSelection) {
+        prevSelectedBusIdRef.current = selectedBusId;
+        if (allCoords.length > 1) {
+          map.fitBounds(L.latLngBounds(allCoords), {
+            padding: [70, 70],
+            maxZoom: 15,
+            animate: true,
+            duration: 0.6
+          });
+          setTimeout(() => {
+            if (mapInstanceRef.current) {
+              mapInstanceRef.current.invalidateSize({ pan: false });
+            }
+          }, 350);
+        } else if (selectedBus.current_location) {
+          map.panTo([selectedBus.current_location.latitude, selectedBus.current_location.longitude], {
+            animate: true,
+            duration: 0.6
+          });
+        }
       }
     }
 
@@ -409,14 +449,21 @@ export const ChennaiLiveMap: React.FC<ChennaiLiveMapProps> = ({
           </div>
         `;
 
+        const markerKey = `${markerBg}-${isSelected ? '1' : '0'}`;
+
         if (currentMarkers.has(bus.id)) {
           const marker = currentMarkers.get(bus.id);
           marker.setLatLng([latitude, longitude]);
-          marker.setIcon(customIcon);
+          // Only replace DOM icon if crowd color or selection state changed (avoids DOM churn & hover flicker)
+          if ((marker as any)._customKey !== markerKey) {
+            marker.setIcon(customIcon);
+            (marker as any)._customKey = markerKey;
+          }
           marker.setPopupContent(popupContent);
         } else {
           const marker = L.marker([latitude, longitude], { icon: customIcon }).addTo(map);
-          marker.bindPopup(popupContent, { offset: [0, -44], autoPan: true });
+          (marker as any)._customKey = markerKey;
+          marker.bindPopup(popupContent, { offset: [0, -44], autoPan: false });
           marker.on('click', (e: any) => {
             if (e?.originalEvent) e.originalEvent.stopPropagation();
             setActiveBus(bus);
@@ -434,26 +481,6 @@ export const ChennaiLiveMap: React.FC<ChennaiLiveMapProps> = ({
           currentMarkers.delete(id);
         }
       });
-
-      // Pan to selected bus if provided
-      if (selectedBusId) {
-        const selected = buses.find(b => b.id === selectedBusId);
-        if (selected?.current_location) {
-          const targetCoords: [number, number] = [
-            selected.current_location.latitude,
-            selected.current_location.longitude
-          ];
-          map.flyTo(targetCoords, Math.max(map.getZoom(), 14), {
-            duration: 0.8
-          });
-          const marker = currentMarkers.get(selectedBusId);
-          if (marker) {
-            setTimeout(() => {
-              marker.openPopup();
-            }, 300);
-          }
-        }
-      }
     }
 
     updateMarkers();
@@ -499,7 +526,7 @@ export const ChennaiLiveMap: React.FC<ChennaiLiveMapProps> = ({
       <div ref={mapContainerRef} className="w-full h-full" />
 
       {/* Map Legend Overlay */}
-      <div className="absolute top-4 left-4 z-[500] bg-slate-900/90 backdrop-blur-md border border-slate-700/80 rounded-xl p-3 shadow-xl text-xs text-slate-200">
+      <div className="absolute top-4 left-4 z-[1000] bg-slate-900/90 backdrop-blur-md border border-slate-700/80 rounded-xl p-3 shadow-xl text-xs text-slate-200 pointer-events-auto">
         <div className="font-bold text-amber-400 mb-2 flex items-center gap-1.5 uppercase tracking-wider text-[11px]">
           <BusIcon className="w-3.5 h-3.5" />
           <span>Chennai Live Bus Legend</span>
@@ -522,7 +549,7 @@ export const ChennaiLiveMap: React.FC<ChennaiLiveMapProps> = ({
 
       {/* Floating Google Maps-Style Route Info HUD */}
       {selectedRouteInfo && (
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[500] max-w-lg w-[92%] sm:w-auto bg-slate-900/95 backdrop-blur-md border border-sky-500/50 rounded-2xl p-3 shadow-2xl text-xs text-slate-100 flex items-center justify-between gap-4">
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] max-w-lg w-[92%] sm:w-auto bg-slate-900/95 backdrop-blur-md border border-sky-500/50 rounded-2xl p-3 shadow-2xl text-xs text-slate-100 flex items-center justify-between gap-4 pointer-events-auto">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 border border-sky-500/40 flex items-center justify-center font-black text-sm shrink-0">
               <Navigation className="w-5 h-5 fill-current" />

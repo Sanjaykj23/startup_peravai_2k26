@@ -212,7 +212,7 @@ export default function MapPage() {
         <ChennaiLiveMap
           buses={filteredBuses}
           selectedBusId={selectedBusId}
-          onBusSelect={bus => setSelectedBusId(bus.id)}
+          onBusSelect={bus => setSelectedBusId(bus ? bus.id : null)}
           className="w-full h-full"
         />
       </div>
