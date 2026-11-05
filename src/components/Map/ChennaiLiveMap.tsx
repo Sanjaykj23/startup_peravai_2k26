@@ -24,8 +24,20 @@ export const ChennaiLiveMap: React.FC<ChennaiLiveMapProps> = ({
   const mapInstanceRef = useRef<any>(null);
   const markersRef = useRef<Map<string, any>>(new Map());
   const userMarkerRef = useRef<any>(null);
+  const routeLayerRef = useRef<any>(null);
+  const routeCacheRef = useRef<Map<string, any[]>>(new Map());
   const [activeBus, setActiveBus] = useState<Bus | null>(null);
   const [isClient, setIsClient] = useState(false);
+  const [selectedRouteInfo, setSelectedRouteInfo] = useState<{
+    busNumber: string;
+    routeNumber: string;
+    routeName: string;
+    currentStopName: string;
+    nextStopName: string;
+    remainingStopsCount: number;
+    totalStopsCount: number;
+    routeCoords: [number, number][];
+  } | null>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -63,6 +75,10 @@ export const ChennaiLiveMap: React.FC<ChennaiLiveMapProps> = ({
 
         L.control.zoom({ position: 'bottomright' }).addTo(map);
 
+        // Dedicated layer group for Google Maps-style route paths and station pins
+        const routeLayer = L.layerGroup().addTo(map);
+        routeLayerRef.current = routeLayer;
+
         mapInstanceRef.current = map;
       }
     }
@@ -77,6 +93,209 @@ export const ChennaiLiveMap: React.FC<ChennaiLiveMapProps> = ({
       }
     };
   }, [isClient]);
+
+  // Highlight Route Path for Selected Bus (Google Maps Transit Style)
+  useEffect(() => {
+    if (!mapInstanceRef.current || !isClient) return;
+
+    let isCancelled = false;
+
+    async function drawSelectedRoute() {
+      const L = (await import('leaflet')).default;
+      const map = mapInstanceRef.current;
+      const routeLayer = routeLayerRef.current;
+
+      if (!routeLayer) return;
+      routeLayer.clearLayers();
+
+      if (!selectedBusId) {
+        setSelectedRouteInfo(null);
+        return;
+      }
+
+      const selectedBus = buses.find(b => b.id === selectedBusId);
+      if (!selectedBus || !selectedBus.route_id) {
+        setSelectedRouteInfo(null);
+        return;
+      }
+
+      // Check cache first or fetch route stops
+      let stops = routeCacheRef.current.get(selectedBus.route_id);
+      if (!stops) {
+        try {
+          const res = await fetch(`/api/routes?routeId=${selectedBus.route_id}`);
+          const data = await res.json();
+          if (data.stops) {
+            stops = data.stops;
+            routeCacheRef.current.set(selectedBus.route_id, data.stops);
+          }
+        } catch (e) {
+          console.error('Failed to load route stops:', e);
+        }
+      }
+
+      if (isCancelled || !stops || stops.length === 0) return;
+
+      const validStops = stops
+        .filter((s: any) => s.latitude && s.longitude)
+        .sort((a: any, b: any) => a.stop_sequence - b.stop_sequence);
+
+      if (validStops.length === 0) return;
+
+      const allCoords: [number, number][] = validStops.map((s: any) => [
+        Number(s.latitude),
+        Number(s.longitude)
+      ]);
+
+      // Determine current bus stop index in route sequence
+      let currentIdx = 0;
+      if (selectedBus.current_trip?.current_stop_id) {
+        const found = validStops.findIndex((s: any) => s.stop_id === selectedBus.current_trip?.current_stop_id);
+        if (found >= 0) currentIdx = found;
+      } else if (selectedBus.current_location) {
+        const busLat = selectedBus.current_location.latitude;
+        const busLon = selectedBus.current_location.longitude;
+        let minDist = Infinity;
+        validStops.forEach((s: any, idx: number) => {
+          const dist = Math.hypot(s.latitude - busLat, s.longitude - busLon);
+          if (dist < minDist) {
+            minDist = dist;
+            currentIdx = idx;
+          }
+        });
+      }
+
+      const pastCoords = allCoords.slice(0, currentIdx + 1);
+      const forwardCoords = allCoords.slice(currentIdx);
+
+      // 1. Draw Past Route Path (subtle / dotted)
+      if (pastCoords.length > 1) {
+        L.polyline(pastCoords, {
+          color: '#64748b',
+          weight: 4,
+          dashArray: '6, 8',
+          opacity: 0.65,
+          lineCap: 'round'
+        }).addTo(routeLayer);
+      }
+
+      // 2. Draw Forward Route Path (Google Maps Glowing Transit Style)
+      if (forwardCoords.length > 1) {
+        // Outer glow
+        L.polyline(forwardCoords, {
+          color: '#0284c7',
+          weight: 9,
+          opacity: 0.35,
+          lineCap: 'round',
+          lineJoin: 'round'
+        }).addTo(routeLayer);
+
+        // Core bright path
+        L.polyline(forwardCoords, {
+          color: '#38bdf8',
+          weight: 5,
+          opacity: 0.95,
+          lineCap: 'round',
+          lineJoin: 'round'
+        }).addTo(routeLayer);
+
+        // Animated flow dashes indicating motion direction
+        L.polyline(forwardCoords, {
+          color: '#ffffff',
+          weight: 2.5,
+          opacity: 0.95,
+          dashArray: '8, 14',
+          className: 'gmap-flow-dashes',
+          lineCap: 'round'
+        }).addTo(routeLayer);
+      }
+
+      // 3. Draw Station / Stop Nodes along the route
+      validStops.forEach((s: any, idx: number) => {
+        const isPast = idx < currentIdx;
+        const isCurrent = idx === currentIdx;
+        const isLast = idx === validStops.length - 1;
+
+        if (isCurrent) return; // Bus marker is already anchored here
+
+        const latLng: [number, number] = [Number(s.latitude), Number(s.longitude)];
+
+        let stopMarker: any;
+        if (isLast) {
+          // Final Terminus Destination Pin
+          stopMarker = L.circleMarker(latLng, {
+            radius: 8,
+            fillColor: '#ef4444',
+            color: '#ffffff',
+            weight: 2.5,
+            fillOpacity: 1
+          }).addTo(routeLayer);
+        } else if (isPast) {
+          // Visited Stop
+          stopMarker = L.circleMarker(latLng, {
+            radius: 4,
+            fillColor: '#64748b',
+            color: '#334155',
+            weight: 1.5,
+            fillOpacity: 0.8
+          }).addTo(routeLayer);
+        } else {
+          // Upcoming Stop (Google Maps transit dot)
+          stopMarker = L.circleMarker(latLng, {
+            radius: 6,
+            fillColor: '#ffffff',
+            color: '#0284c7',
+            weight: 3,
+            fillOpacity: 1
+          }).addTo(routeLayer);
+        }
+
+        stopMarker.bindTooltip(`
+          <div style="font-family: system-ui, sans-serif; text-align: left;">
+            <div style="font-size: 10px; color: ${isLast ? '#f87171' : isPast ? '#94a3b8' : '#38bdf8'}; font-weight: 800; text-transform: uppercase;">
+              ${isLast ? '🏁 Final Terminus' : isPast ? '✓ Visited Stop' : '➔ Upcoming Stop'}
+            </div>
+            <div style="font-size: 12px; font-weight: 800; color: #ffffff;">
+              #${s.stop_sequence}: ${s.stop_name}
+            </div>
+          </div>
+        `, {
+          className: 'gmap-stop-tooltip',
+          direction: 'top',
+          offset: [0, -8]
+        });
+      });
+
+      // Update selected route info HUD
+      const nextStop = validStops[currentIdx + 1];
+      setSelectedRouteInfo({
+        busNumber: selectedBus.bus_number,
+        routeNumber: selectedBus.route_number,
+        routeName: selectedBus.route_name,
+        currentStopName: validStops[currentIdx]?.stop_name || 'Origin',
+        nextStopName: nextStop ? nextStop.stop_name : 'Final Terminus',
+        remainingStopsCount: Math.max(0, validStops.length - 1 - currentIdx),
+        totalStopsCount: validStops.length,
+        routeCoords: allCoords
+      });
+
+      // Fit map bounds to show the entire route with padding
+      if (allCoords.length > 1) {
+        map.fitBounds(L.latLngBounds(allCoords), {
+          padding: [70, 70],
+          maxZoom: 15,
+          animate: true,
+          duration: 0.9
+        });
+      }
+    }
+
+    drawSelectedRoute();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [selectedBusId, buses, isClient]);
 
   // Update Bus Markers
   useEffect(() => {
@@ -300,6 +519,59 @@ export const ChennaiLiveMap: React.FC<ChennaiLiveMapProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Floating Google Maps-Style Route Info HUD */}
+      {selectedRouteInfo && (
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[500] max-w-lg w-[92%] sm:w-auto bg-slate-900/95 backdrop-blur-md border border-sky-500/50 rounded-2xl p-3 shadow-2xl text-xs text-slate-100 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 border border-sky-500/40 flex items-center justify-center font-black text-sm shrink-0">
+              <Navigation className="w-5 h-5 fill-current" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="font-mono font-black text-sm text-amber-400">
+                  Bus {selectedRouteInfo.busNumber}
+                </span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                  Route {selectedRouteInfo.routeNumber}
+                </span>
+              </div>
+              <div className="text-[11px] text-slate-300 truncate max-w-[280px]">
+                <span className="text-slate-400">Next:</span> <strong className="text-sky-300">{selectedRouteInfo.nextStopName}</strong>
+                <span className="text-slate-500 ml-1.5">({selectedRouteInfo.remainingStopsCount} stops remaining)</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              onClick={() => {
+                if (mapInstanceRef.current && selectedRouteInfo.routeCoords.length > 0) {
+                  import('leaflet').then(L => {
+                    mapInstanceRef.current.fitBounds(L.default.latLngBounds(selectedRouteInfo.routeCoords), {
+                      padding: [60, 60],
+                      animate: true
+                    });
+                  });
+                }
+              }}
+              className="px-2.5 py-1.5 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 text-[11px] font-bold transition-colors"
+              title="Fit entire route on map"
+            >
+              Fit Route
+            </button>
+            <button
+              onClick={() => {
+                if (onBusSelect) onBusSelect(null as any);
+              }}
+              className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors"
+              title="Close route highlight"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Recenter Button */}
       <button

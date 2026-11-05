@@ -55,3 +55,32 @@ body {
 .leaflet-popup-tip {
   background: #ffffff !important;
 }
+
+/* Google Maps Style Transit Line Animation */
+@keyframes gmapFlowDashes {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -22;
+  }
+}
+
+.gmap-flow-dashes {
+  animation: gmapFlowDashes 1.2s linear infinite;
+}
+
+.gmap-stop-tooltip {
+  background: #0f172a !important;
+  color: #f8fafc !important;
+  border: 1px solid #334155 !important;
+  border-radius: 8px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 4px 8px !important;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.4) !important;
+}
+
+.gmap-stop-tooltip:before {
+  border-top-color: #0f172a !important;
+}
