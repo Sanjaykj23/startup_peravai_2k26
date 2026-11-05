@@ -335,9 +335,9 @@ export default function AdminPage() {
             <tbody className="divide-y divide-slate-800/60 font-mono text-[11px]">
               {(analytics?.recentOccupancyHistory || []).map((h: OccupancyHistory) => (
                 <tr key={h.id} className="hover:bg-slate-800/30">
-                  <td className="py-2 px-3 text-slate-400">
-                    {new Date(h.recorded_at).toLocaleTimeString('en-IN')}{' '}
-                    <span className="text-[9px] text-slate-600">
+                  <td className="py-2 px-3 text-slate-400" suppressHydrationWarning>
+                    <span suppressHydrationWarning>{new Date(h.recorded_at).toLocaleTimeString('en-IN')}</span>{' '}
+                    <span className="text-[9px] text-slate-600" suppressHydrationWarning>
                       {new Date(h.recorded_at).toLocaleDateString('en-IN')}
                     </span>
                   </td>

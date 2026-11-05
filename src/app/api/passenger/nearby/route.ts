@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
     const userLon = lon ? parseFloat(lon) : APP_CONFIG.map.defaultCenter[1];
     const radiusKm = radius ? parseFloat(radius) : APP_CONFIG.map.nearbyRadiusKm;
 
-    const nearbyBuses = BusRepository.getNearbyBuses(userLat, userLon, radiusKm);
+    const nearbyBuses = await BusRepository.getNearbyBuses(userLat, userLon, radiusKm);
 
     return NextResponse.json({
       success: true,

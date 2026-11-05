@@ -10,8 +10,8 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
         return NextResponse.json({ error: 'Starting Stop is required to start a trip' }, { status: 400 });
       }
 
-      const trip = BusRepository.startTrip(params.id, startStopId);
-      const updatedBus = BusRepository.getBusById(params.id);
+      const trip = await BusRepository.startTrip(params.id, startStopId);
+      const updatedBus = await BusRepository.getBusById(params.id);
 
       return NextResponse.json({
         success: true,
@@ -22,8 +22,8 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     }
 
     if (action === 'end') {
-      const trip = BusRepository.endTrip(params.id);
-      const updatedBus = BusRepository.getBusById(params.id);
+      const trip = await BusRepository.endTrip(params.id);
+      const updatedBus = await BusRepository.getBusById(params.id);
 
       return NextResponse.json({
         success: true,

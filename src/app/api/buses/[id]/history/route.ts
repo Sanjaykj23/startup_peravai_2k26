@@ -6,7 +6,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     const { searchParams } = new URL(req.url);
     const limit = Number(searchParams.get('limit')) || 100;
 
-    const history = BusRepository.getOccupancyHistory(params.id, limit);
+    const history = await BusRepository.getOccupancyHistory(params.id, limit);
 
     return NextResponse.json({
       success: true,

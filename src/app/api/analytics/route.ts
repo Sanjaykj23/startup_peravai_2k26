@@ -6,11 +6,11 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const format = searchParams.get('format'); // 'json' or 'csv'
 
-    const analytics = BusRepository.getAdminAnalytics();
+    const analytics = await BusRepository.getAdminAnalytics();
 
     if (format === 'csv') {
       // Export occupancy history as CSV dataset for ML training
-      const history = BusRepository.getOccupancyHistory(undefined, 1000);
+      const history = await BusRepository.getOccupancyHistory(undefined, 1000);
       const csvHeader = 'id,bus_id,trip_id,occupancy,crowd_status,recorded_at,trigger_event,notes\n';
       const csvRows = history.map(h => 
         `"${h.id}","${h.bus_id}","${h.trip_id || ''}",${h.occupancy},${h.crowd_status},"${h.recorded_at}","${h.trigger_event}","${(h.notes || '').replace(/"/g, '""')}"`

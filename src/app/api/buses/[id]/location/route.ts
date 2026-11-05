@@ -9,8 +9,8 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
       return NextResponse.json({ error: 'Latitude and Longitude are required' }, { status: 400 });
     }
 
-    const loc = BusRepository.updateBusLocation(params.id, Number(latitude), Number(longitude), Number(speed) || 25);
-    const bus = BusRepository.getBusById(params.id);
+    const loc = await BusRepository.updateBusLocation(params.id, Number(latitude), Number(longitude), Number(speed) || 25);
+    const bus = await BusRepository.getBusById(params.id);
 
     return NextResponse.json({
       success: true,

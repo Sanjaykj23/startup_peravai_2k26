@@ -3,7 +3,7 @@ import { BusRepository } from '@/services/db/repository';
 
 export async function POST(req: NextRequest) {
   try {
-    BusRepository.resetDatabase();
+    await BusRepository.resetDatabase();
     return NextResponse.json({
       success: true,
       message: 'Database reset to initial GTFS seed data'

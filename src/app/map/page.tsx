@@ -27,6 +27,11 @@ export default function MapPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const fetchBuses = async () => {
     setIsRefreshing(true);
@@ -79,8 +84,8 @@ export default function MapPage() {
                 <Bus className="w-5 h-5 text-amber-400" />
                 <span>Chennai Live Fleet</span>
               </h1>
-              <p className="text-[11px] text-slate-400">
-                Updated {lastUpdated.toLocaleTimeString('en-IN')}
+              <p className="text-[11px] text-slate-400" suppressHydrationWarning>
+                Updated {mounted ? lastUpdated.toLocaleTimeString('en-IN') : 'Live'}
               </p>
             </div>
             <button

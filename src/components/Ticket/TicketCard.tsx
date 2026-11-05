@@ -109,9 +109,9 @@ export const TicketCard: React.FC<TicketCardProps> = ({ ticket, compact = false 
           ))}
         </div>
 
-        <div className="mt-2 flex items-center justify-between text-[10px] text-slate-500 font-mono">
-          <span>{new Date(ticket.created_at).toLocaleTimeString('en-IN')}</span>
-          <span>{new Date(ticket.created_at).toLocaleDateString('en-IN')}</span>
+        <div className="mt-2 flex items-center justify-between text-[10px] text-slate-500 font-mono" suppressHydrationWarning>
+          <span suppressHydrationWarning>{new Date(ticket.created_at).toLocaleTimeString('en-IN')}</span>
+          <span suppressHydrationWarning>{new Date(ticket.created_at).toLocaleDateString('en-IN')}</span>
         </div>
       </div>
     </div>

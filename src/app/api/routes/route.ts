@@ -6,23 +6,23 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const routeId = searchParams.get('routeId');
 
-    const routes = BusRepository.getAllRoutes();
-    const db = BusRepository.getDatabase();
+    const routes = await BusRepository.getAllRoutes();
+    const stops = await BusRepository.getAllStops();
 
     if (routeId) {
-      const stops = BusRepository.getRouteStops(routeId);
+      const routeStops = await BusRepository.getRouteStops(routeId);
       const route = routes.find(r => r.id === routeId);
       return NextResponse.json({
         success: true,
         route,
-        stops
+        stops: routeStops
       });
     }
 
     return NextResponse.json({
       success: true,
       routes,
-      stops: db.stops
+      stops
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message || 'Error fetching routes' }, { status: 500 });

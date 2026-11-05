@@ -8,14 +8,14 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
 
     let result;
     if (action === 'exit') {
-      result = BusRepository.recordPassengersExiting(params.id, qty, currentStopName);
+      result = await BusRepository.recordPassengersExiting(params.id, qty, currentStopName);
     } else if (action === 'enter') {
-      result = BusRepository.recordPassengersEntering(params.id, qty);
+      result = await BusRepository.recordPassengersEntering(params.id, qty);
     } else {
       return NextResponse.json({ error: 'Action must be enter or exit' }, { status: 400 });
     }
 
-    const bus = BusRepository.getBusById(params.id);
+    const bus = await BusRepository.getBusById(params.id);
 
     return NextResponse.json({
       success: true,

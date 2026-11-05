@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Gender must be Male or Female' }, { status: 400 });
     }
 
-    const ticket = BusRepository.issueTicket({
+    const ticket = await BusRepository.issueTicket({
       bus_id,
       source_stop_id,
       destination_stop_id,
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
       passenger_phone
     });
 
-    const updatedBus = BusRepository.getBusById(bus_id);
+    const updatedBus = await BusRepository.getBusById(bus_id);
 
     return NextResponse.json({
       success: true,
@@ -45,19 +45,11 @@ export async function GET(req: NextRequest) {
     const busId = searchParams.get('busId');
     const phone = searchParams.get('phone');
 
-    const db = BusRepository.getDatabase();
-    let tickets = [...db.tickets];
-
-    if (busId) {
-      tickets = tickets.filter(t => t.bus_id === busId);
-    }
-    if (phone) {
-      tickets = tickets.filter(t => t.passenger_phone === phone);
-    }
+    const tickets = await BusRepository.getTickets(busId || undefined, phone || undefined);
 
     return NextResponse.json({
       success: true,
-      tickets: tickets.reverse()
+      tickets
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message || 'Error fetching tickets' }, { status: 500 });

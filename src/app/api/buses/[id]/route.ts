@@ -3,12 +3,12 @@ import { BusRepository } from '@/services/db/repository';
 
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const bus = BusRepository.getBusById(params.id);
+    const bus = await BusRepository.getBusById(params.id);
     if (!bus) {
       return NextResponse.json({ error: 'Bus not found' }, { status: 404 });
     }
 
-    const routeStops = BusRepository.getRouteStops(bus.route_id);
+    const routeStops = await BusRepository.getRouteStops(bus.route_id);
 
     return NextResponse.json({
       success: true,

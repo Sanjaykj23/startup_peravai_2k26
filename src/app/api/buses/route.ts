@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const status = searchParams.get('status');
 
-    let buses = BusRepository.getAllBuses();
+    let buses = await BusRepository.getAllBuses();
     if (status) {
       buses = buses.filter(b => b.status === status);
     }
