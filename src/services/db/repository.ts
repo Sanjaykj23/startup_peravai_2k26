@@ -205,7 +205,14 @@ export class BusRepository {
                 longitude: Number(loc.longitude),
                 recorded_at: loc.recorded_at,
                 speed: loc.speed
-              } : null,
+              } : {
+                id: `fallback-${b.id}`,
+                bus_id: b.id,
+                latitude: 13.069180,
+                longitude: 80.205720,
+                recorded_at: new Date().toISOString(),
+                speed: 0
+              },
               current_trip: trip ? {
                 id: trip.id,
                 bus_id: trip.bus_id,
@@ -237,7 +244,14 @@ export class BusRepository {
       return {
         ...b,
         current_trip: activeTrip,
-        current_location: latestLoc,
+        current_location: latestLoc || {
+          id: `fallback-${b.id}`,
+          bus_id: b.id,
+          latitude: 13.069180,
+          longitude: 80.205720,
+          recorded_at: new Date().toISOString(),
+          speed: 0
+        },
         crowd_status: crowd.status,
         occupancy_percentage: crowd.percentage
       };
@@ -312,12 +326,15 @@ export class BusRepository {
   }
 
   // --- TRIPS ---
-  static async startTrip(busId: string, startStopId: string): Promise<Trip> {
+  static async startTrip(busId: string, startStopId: string, endStopId?: string): Promise<Trip> {
     const bus = await this.getBusById(busId);
     if (!bus) throw new Error('Bus not found');
 
     const routeStops = await this.getRouteStops(bus.route_id);
     const startStop = routeStops.find(rs => rs.stop_id === startStopId) || routeStops[0];
+    const endStop = endStopId
+      ? routeStops.find(rs => rs.stop_id === endStopId)
+      : routeStops.length > 0 ? routeStops[routeStops.length - 1] : undefined;
 
     const supabase = getSupabaseClient();
     let tripId = uuidv4();
@@ -393,8 +410,12 @@ export class BusRepository {
       conductor_id: bus.conductor_id,
       start_stop_id: startStopId,
       start_stop_name: startStop?.stop_name || 'Starting Stop',
+      end_stop_id: endStop?.stop_id || endStopId,
+      end_stop_name: endStop?.stop_name || 'Destination Terminus',
       current_stop_id: startStopId,
       current_stop_name: startStop?.stop_name || 'Starting Stop',
+      current_stop_sequence: startStop?.stop_sequence || 1,
+      visited_stop_ids: [startStopId],
       start_time: new Date().toISOString(),
       status: 'active'
     };
@@ -407,6 +428,149 @@ export class BusRepository {
     });
 
     return trip;
+  }
+
+  static async advanceCurrentStop(busId: string, newStopId: string): Promise<{
+    message: string;
+    exitedCount: number;
+    bus: Bus;
+    trip: Trip | null;
+  }> {
+    const bus = await this.getBusById(busId);
+    if (!bus) throw new Error('Bus not found');
+
+    const routeStops = await this.getRouteStops(bus.route_id);
+    const newStop = routeStops.find(rs => rs.stop_id === newStopId);
+    if (!newStop) throw new Error('Stop not found in current route sequence');
+
+    const supabase = getSupabaseClient();
+    let exitedCount = 0;
+    let activeTrip: any = bus.current_trip;
+
+    if (supabase) {
+      try {
+        if (!activeTrip) {
+          const { data: tripData } = await supabase
+            .from('trips')
+            .select('*')
+            .eq('bus_id', bus.id)
+            .eq('status', 'active')
+            .single();
+          activeTrip = tripData;
+        }
+
+        // Deboard passengers whose destination is this stop
+        if (activeTrip) {
+          const { data: ticketsAtStop } = await supabase
+            .from('tickets')
+            .select('id')
+            .eq('trip_id', activeTrip.id)
+            .eq('destination_stop_id', newStopId);
+
+          exitedCount = ticketsAtStop ? ticketsAtStop.length : 0;
+        }
+
+        const newOccupancy = Math.max(0, (bus.current_occupancy || 0) - exitedCount);
+        const crowd = getCrowdInfo(newOccupancy, bus.capacity);
+
+        // Update trip current stop
+        if (activeTrip) {
+          await supabase
+            .from('trips')
+            .update({ current_stop_id: newStopId })
+            .eq('id', activeTrip.id);
+        }
+
+        // Update bus occupancy and crowd status in Supabase
+        await supabase
+          .from('buses')
+          .update({
+            current_occupancy: newOccupancy,
+            crowd_status: crowd.status,
+            status: 'active'
+          })
+          .eq('id', bus.id);
+
+        // Insert new location in bus_locations in Supabase
+        if (newStop.latitude && newStop.longitude) {
+          await supabase.from('bus_locations').insert({
+            bus_id: bus.id,
+            latitude: newStop.latitude,
+            longitude: newStop.longitude,
+            speed: 24.0
+          });
+        }
+
+        // Record occupancy history row in Supabase
+        await supabase.from('occupancy_history').insert({
+          bus_id: bus.id,
+          trip_id: activeTrip?.id || null,
+          occupancy: newOccupancy,
+          crowd_status: crowd.status,
+          trigger_event: 'stop_reached',
+          notes: `Bus arrived at ${newStop.stop_name || 'Stop'}. ${exitedCount} passenger(s) deboarded.`
+        });
+      } catch (e) {
+        console.error('advanceCurrentStop Supabase error:', e);
+      }
+    }
+
+    // Local DB & Redis mirror
+    const db = loadDatabase();
+    const localBus = db.buses.find(b => b.id === bus.id || b.bus_number === bus.bus_number);
+    const newOccupancy = Math.max(0, (bus.current_occupancy || 0) - exitedCount);
+    const crowd = getCrowdInfo(newOccupancy, bus.capacity);
+
+    if (localBus) {
+      localBus.current_occupancy = newOccupancy;
+      localBus.crowd_status = crowd.status;
+      localBus.occupancy_percentage = crowd.percentage;
+      localBus.status = 'active';
+    }
+
+    const localTrip = db.trips.find(t => t.bus_id === bus.id && t.status === 'active');
+    if (localTrip) {
+      localTrip.current_stop_id = newStopId;
+      localTrip.current_stop_name = newStop.stop_name || 'Stop';
+      localTrip.current_stop_sequence = newStop.stop_sequence;
+      if (!localTrip.visited_stop_ids) localTrip.visited_stop_ids = [];
+      if (!localTrip.visited_stop_ids.includes(newStopId)) {
+        localTrip.visited_stop_ids.push(newStopId);
+      }
+    }
+
+    if (newStop.latitude && newStop.longitude) {
+      db.bus_locations.push({
+        id: uuidv4(),
+        bus_id: bus.id,
+        latitude: newStop.latitude,
+        longitude: newStop.longitude,
+        speed: 24.0,
+        recorded_at: new Date().toISOString()
+      });
+    }
+    saveDatabase(db);
+
+    // Redis cache update
+    RedisCacheService.updateBusRealtimeState(bus.fleet_code || bus.bus_number, {
+      occupancy: newOccupancy,
+      crowd_status: crowd.status,
+      location: newStop.latitude && newStop.longitude ? {
+        latitude: newStop.latitude,
+        longitude: newStop.longitude,
+        timestamp: new Date().toISOString()
+      } : undefined
+    });
+
+    const updatedBus = await this.getBusById(bus.id);
+    const updatedTrip = localTrip || (updatedBus ? updatedBus.current_trip : null);
+
+    return {
+      message: `Arrived at ${newStop.stop_name}! ${exitedCount > 0 ? `${exitedCount} passenger(s) deboarded.` : 'Location updated.'}`,
+      exitedCount,
+      bus: updatedBus || bus,
+      trip: updatedTrip || null
+    };
   }
 
   static async endTrip(busId: string): Promise<Trip | null> {

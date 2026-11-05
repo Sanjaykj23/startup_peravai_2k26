@@ -1787,9 +1787,9 @@
       "conductor_id": "72fae51b-5573-5c78-a8fa-fa9dffefd97a",
       "conductor_name": "Karthik Rajan",
       "status": "active",
-      "current_occupancy": 18,
+      "current_occupancy": 0,
       "crowd_status": 0,
-      "occupancy_percentage": 30,
+      "occupancy_percentage": 0,
       "current_trip": {
         "id": "a51caea8-ea9e-40cd-9626-86a4da667067",
         "bus_id": "cd5ea9a7-07f6-5b1a-b4ea-8c3947045fd3",
@@ -1846,9 +1846,9 @@
       "conductor_id": "4dfeaa7f-f771-5c4e-8c53-6591fec26356",
       "conductor_name": "Anand Velu",
       "status": "active",
-      "current_occupancy": 12,
+      "current_occupancy": 13,
       "crowd_status": 0,
-      "occupancy_percentage": 17,
+      "occupancy_percentage": 19,
       "current_trip": {
         "id": "trip-5e-init",
         "bus_id": "035387c1-ffa2-5c3e-8c96-2e654ddf67b8",
@@ -1951,6 +1951,75 @@
       "current_stop_name": "M.G.R.KOYAMBEDU",
       "start_time": "2026-11-05T19:47:59.232Z",
       "status": "active"
+    },
+    {
+      "id": "4f373832-61ed-4098-95b1-91a09c89e262",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "route_id": "b1020000-0000-0000-0000-000000000570",
+      "conductor_id": "c1020000-0000-0000-0000-000000000570",
+      "start_stop_id": "d1020000-0000-0000-0000-000000000001",
+      "start_stop_name": "M.G.R.KOYAMBEDU",
+      "current_stop_id": "d1020000-0000-0000-0000-000000000001",
+      "current_stop_name": "M.G.R.KOYAMBEDU",
+      "start_time": "2026-11-05T20:29:03.057Z",
+      "status": "completed",
+      "end_time": "2026-11-05T20:33:47.757Z"
+    },
+    {
+      "id": "64fe70d1-4d38-45fc-98c1-2e995333c2b5",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "route_id": "b1020000-0000-0000-0000-000000000570",
+      "conductor_id": "c1020000-0000-0000-0000-000000000570",
+      "start_stop_id": "d1020000-0000-0000-0000-000000000005",
+      "start_stop_name": "GUINDY TVK ESTATE",
+      "current_stop_id": "d1020000-0000-0000-0000-000000000002",
+      "current_stop_name": "KOYAMBEDU MARKET",
+      "start_time": "2026-11-05T20:33:53.876Z",
+      "status": "active",
+      "current_stop_sequence": 2,
+      "visited_stop_ids": [
+        "d1020000-0000-0000-0000-000000000002"
+      ]
+    },
+    {
+      "id": "faea5306-5a65-40d0-9500-7b8e12f889ae",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "route_id": "b1020000-0000-0000-0000-000000000570",
+      "conductor_id": "c1020000-0000-0000-0000-000000000570",
+      "start_stop_id": "d1020000-0000-0000-0000-000000000001",
+      "start_stop_name": "M.G.R.KOYAMBEDU",
+      "end_stop_id": "d1020000-0000-0000-0000-000000000013",
+      "end_stop_name": "KELAMBAKKAM",
+      "current_stop_id": "d1020000-0000-0000-0000-000000000001",
+      "current_stop_name": "M.G.R.KOYAMBEDU",
+      "current_stop_sequence": 1,
+      "visited_stop_ids": [
+        "d1020000-0000-0000-0000-000000000001"
+      ],
+      "start_time": "2026-11-05T20:49:04.444Z",
+      "status": "active"
+    },
+    {
+      "id": "dbb3bd95-6b8b-4dc9-81e2-f327204960a9",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "route_id": "b1020000-0000-0000-0000-000000000005",
+      "conductor_id": "c1020000-0000-0000-0000-000000000005",
+      "start_stop_id": "d1020000-0000-0000-0000-000000000003",
+      "start_stop_name": "VADAPALANI",
+      "end_stop_id": "d1020000-0000-0000-0000-000000000028",
+      "end_stop_name": "BESANT NAGAR",
+      "current_stop_id": "d1020000-0000-0000-0000-000000000028",
+      "current_stop_name": "BESANT NAGAR",
+      "current_stop_sequence": 6,
+      "visited_stop_ids": [
+        "d1020000-0000-0000-0000-000000000003",
+        "d1020000-0000-0000-0000-000000000019",
+        "d1020000-0000-0000-0000-000000000004",
+        "d1020000-0000-0000-0000-000000000028"
+      ],
+      "start_time": "2026-11-05T20:55:06.827Z",
+      "status": "completed",
+      "end_time": "2026-11-05T20:58:50.113Z"
     }
   ],
   "tickets": [
@@ -2242,6 +2311,133 @@
       "crowd_status": 1,
       "created_at": "2026-11-05T20:08:08.970Z",
       "status": "active"
+    },
+    {
+      "id": "8288b9d1-3fea-42e5-b7d9-a71695da9707",
+      "trip_id": "4f373832-61ed-4098-95b1-91a09c89e262",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "bus_number": "5701",
+      "source_stop_id": "d1020000-0000-0000-0000-000000000001",
+      "source_stop_name": "M.G.R.KOYAMBEDU",
+      "destination_stop_id": "d1020000-0000-0000-0000-000000000013",
+      "destination_stop_name": "KELAMBAKKAM",
+      "gender": "Female",
+      "fare": 0,
+      "booked_by": "conductor",
+      "payment_mode": "Free",
+      "occupancy_snapshot": 1,
+      "crowd_status": 0,
+      "created_at": "2026-11-05T20:29:05.555Z",
+      "status": "active"
+    },
+    {
+      "id": "d24e900a-427e-4ee0-9167-4ad018fe4f01",
+      "trip_id": "faea5306-5a65-40d0-9500-7b8e12f889ae",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "bus_number": "5701",
+      "source_stop_id": "d1020000-0000-0000-0000-000000000001",
+      "source_stop_name": "M.G.R.KOYAMBEDU",
+      "destination_stop_id": "d1020000-0000-0000-0000-000000000002",
+      "destination_stop_name": "KOYAMBEDU MARKET",
+      "gender": "Male",
+      "fare": 7,
+      "booked_by": "conductor",
+      "payment_mode": "Cash",
+      "occupancy_snapshot": 1,
+      "crowd_status": 0,
+      "created_at": "2026-11-05T20:49:07.316Z",
+      "status": "active"
+    },
+    {
+      "id": "095053bc-d966-4b71-8343-84ac0aba3eb2",
+      "trip_id": "dbb3bd95-6b8b-4dc9-81e2-f327204960a9",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "bus_number": "0051",
+      "source_stop_id": "d1020000-0000-0000-0000-000000000003",
+      "source_stop_name": "VADAPALANI",
+      "destination_stop_id": "d1020000-0000-0000-0000-000000000004",
+      "destination_stop_name": "ASHOK PILLAR",
+      "gender": "Male",
+      "fare": 7,
+      "booked_by": "conductor",
+      "payment_mode": "Cash",
+      "occupancy_snapshot": 1,
+      "crowd_status": 0,
+      "created_at": "2026-11-05T20:55:16.832Z",
+      "status": "active"
+    },
+    {
+      "id": "c2b5603e-fe68-4d00-8a15-114d97443f19",
+      "trip_id": "dbb3bd95-6b8b-4dc9-81e2-f327204960a9",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "bus_number": "0051",
+      "source_stop_id": "d1020000-0000-0000-0000-000000000003",
+      "source_stop_name": "VADAPALANI",
+      "destination_stop_id": "d1020000-0000-0000-0000-000000000019",
+      "destination_stop_name": "NANDANAM",
+      "gender": "Male",
+      "fare": 12,
+      "booked_by": "conductor",
+      "payment_mode": "Cash",
+      "occupancy_snapshot": 2,
+      "crowd_status": 0,
+      "created_at": "2026-11-05T20:55:22.411Z",
+      "status": "active"
+    },
+    {
+      "id": "60bf45ee-a48b-4a34-b308-91849ed52817",
+      "trip_id": "dbb3bd95-6b8b-4dc9-81e2-f327204960a9",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "bus_number": "0051",
+      "source_stop_id": "d1020000-0000-0000-0000-000000000003",
+      "source_stop_name": "VADAPALANI",
+      "destination_stop_id": "d1020000-0000-0000-0000-000000000028",
+      "destination_stop_name": "BESANT NAGAR",
+      "gender": "Female",
+      "fare": 0,
+      "booked_by": "conductor",
+      "payment_mode": "Free",
+      "occupancy_snapshot": 3,
+      "crowd_status": 0,
+      "created_at": "2026-11-05T20:55:31.707Z",
+      "status": "active"
+    },
+    {
+      "id": "7ed9288d-5226-4100-8367-871592cee379",
+      "trip_id": "dbb3bd95-6b8b-4dc9-81e2-f327204960a9",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "bus_number": "0051",
+      "source_stop_id": "d1020000-0000-0000-0000-000000000004",
+      "source_stop_name": "ASHOK PILLAR",
+      "destination_stop_id": "d1020000-0000-0000-0000-000000000019",
+      "destination_stop_name": "NANDANAM",
+      "gender": "Female",
+      "fare": 0,
+      "booked_by": "conductor",
+      "payment_mode": "Free",
+      "occupancy_snapshot": 12,
+      "crowd_status": 0,
+      "created_at": "2026-11-05T20:57:37.209Z",
+      "status": "active"
+    },
+    {
+      "id": "87d53591-7a17-4584-b061-d5a46ba3b784",
+      "trip_id": "faea5306-5a65-40d0-9500-7b8e12f889ae",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "bus_number": "5701",
+      "passenger_phone": "9876543210",
+      "source_stop_id": "d1020000-0000-0000-0000-000000000001",
+      "source_stop_name": "M.G.R.KOYAMBEDU",
+      "destination_stop_id": "d1020000-0000-0000-0000-000000000005",
+      "destination_stop_name": "GUINDY TVK ESTATE",
+      "gender": "Male",
+      "fare": 14.5,
+      "booked_by": "passenger",
+      "payment_mode": "Cash",
+      "occupancy_snapshot": 1,
+      "crowd_status": 0,
+      "created_at": "2026-11-05T21:03:36.631Z",
+      "status": "active"
     }
   ],
   "bus_locations": [
@@ -2300,6 +2496,206 @@
       "longitude": 80.20595272236405,
       "recorded_at": "2026-11-05T19:48:54.605Z",
       "speed": 33
+    },
+    {
+      "id": "1c90d253-7479-45d4-b6d1-a54fad5a5d12",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.00967155706288,
+      "longitude": 80.21265603280108,
+      "speed": 41,
+      "recorded_at": "2026-11-05T20:34:27.035Z"
+    },
+    {
+      "id": "4eb72e33-b3cf-42c2-bb7e-acc08c914c07",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.010487215830803,
+      "longitude": 80.21173985328943,
+      "speed": 26,
+      "recorded_at": "2026-11-05T20:35:00.405Z"
+    },
+    {
+      "id": "cb5e6500-5da3-44a8-9979-04d34ac24cb4",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.009881357822488,
+      "longitude": 80.21271565840792,
+      "speed": 28,
+      "recorded_at": "2026-11-05T20:35:33.739Z"
+    },
+    {
+      "id": "3e648572-a262-42bc-ad0e-04696abf0631",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.009042172802506,
+      "longitude": 80.21335272895368,
+      "speed": 27,
+      "recorded_at": "2026-11-05T20:36:06.469Z"
+    },
+    {
+      "id": "7e96f122-1ac2-4118-9de4-065ea19f3b27",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.008337248867988,
+      "longitude": 80.2141115003053,
+      "speed": 43,
+      "recorded_at": "2026-11-05T20:36:39.043Z"
+    },
+    {
+      "id": "97ea38b2-4dc6-4880-aafa-55f00d9c5586",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.008482981207203,
+      "longitude": 80.21442955403657,
+      "speed": 30,
+      "recorded_at": "2026-11-05T20:37:11.730Z"
+    },
+    {
+      "id": "b6d1e864-8db0-4db8-9b84-cd70f1cc2a06",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.009149522525886,
+      "longitude": 80.21385237842824,
+      "speed": 27,
+      "recorded_at": "2026-11-05T20:37:43.867Z"
+    },
+    {
+      "id": "4e863511-1323-475d-9812-f9c5d7686e46",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.009213051963373,
+      "longitude": 80.21414711426803,
+      "speed": 43,
+      "recorded_at": "2026-11-05T20:38:16.463Z"
+    },
+    {
+      "id": "73cc04de-1897-4124-94bd-07ae6feda7e8",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.009571039362765,
+      "longitude": 80.2150532172559,
+      "speed": 21,
+      "recorded_at": "2026-11-05T20:38:48.740Z"
+    },
+    {
+      "id": "87e8f2e5-1ea7-40ce-b56a-e46f42d2de52",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.009842306178346,
+      "longitude": 80.21601361017618,
+      "speed": 42,
+      "recorded_at": "2026-11-05T20:39:21.057Z"
+    },
+    {
+      "id": "06c5ccdf-050f-44c7-a7d3-447feb6f7204",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.010597426301578,
+      "longitude": 80.21672290804855,
+      "speed": 29,
+      "recorded_at": "2026-11-05T20:39:53.017Z"
+    },
+    {
+      "id": "3fa30c40-d5aa-4d01-a807-551aa9eb4f11",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.010250992973013,
+      "longitude": 80.21714998596983,
+      "speed": 34,
+      "recorded_at": "2026-11-05T20:40:24.726Z"
+    },
+    {
+      "id": "3fd14a4c-f1b7-4705-afaf-a27010557370",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.009674804077223,
+      "longitude": 80.21735501077916,
+      "speed": 34,
+      "recorded_at": "2026-11-05T20:40:57.192Z"
+    },
+    {
+      "id": "966d0dc0-43fd-4a85-9897-ddd513fc4528",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.009948699022441,
+      "longitude": 80.21758675465247,
+      "speed": 25,
+      "recorded_at": "2026-11-05T20:41:29.187Z"
+    },
+    {
+      "id": "0359031c-3c16-4c51-9789-055d786349fd",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.010615044851564,
+      "longitude": 80.21748938502762,
+      "speed": 21,
+      "recorded_at": "2026-11-05T20:42:01.773Z"
+    },
+    {
+      "id": "49af3542-cee3-42a5-a613-61a40a8a3b23",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.011003609268624,
+      "longitude": 80.21692892157279,
+      "speed": 26,
+      "recorded_at": "2026-11-05T20:42:33.844Z"
+    },
+    {
+      "id": "9347422d-0f0b-48b3-b873-f10d4afd7f8e",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.012016058505067,
+      "longitude": 80.21768525286795,
+      "speed": 38,
+      "recorded_at": "2026-11-05T20:43:06.753Z"
+    },
+    {
+      "id": "abf2d167-c8b6-426c-be12-e610253bd79c",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.01130542352615,
+      "longitude": 80.21704905778516,
+      "speed": 23,
+      "recorded_at": "2026-11-05T20:43:40.427Z"
+    },
+    {
+      "id": "98408752-65ee-439d-b29c-cbbd0039fc96",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.01206808808366,
+      "longitude": 80.21796143203768,
+      "speed": 40,
+      "recorded_at": "2026-11-05T20:44:12.661Z"
+    },
+    {
+      "id": "12a369d6-b9b2-47a3-b8ef-62c935cf0279",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "latitude": 13.06341,
+      "longitude": 80.1983,
+      "speed": 24,
+      "recorded_at": "2026-11-05T20:49:09.993Z"
+    },
+    {
+      "id": "ec2c274f-a839-4c73-9332-7d053ebb20e2",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "latitude": 13.0298,
+      "longitude": 80.2395,
+      "speed": 24,
+      "recorded_at": "2026-11-05T20:55:40.734Z"
+    },
+    {
+      "id": "2b3d4a82-d247-46b1-ae9c-3edd6a9cac0b",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "latitude": 13.029362297894876,
+      "longitude": 80.2392781779566,
+      "speed": 25,
+      "recorded_at": "2026-11-05T20:56:15.249Z"
+    },
+    {
+      "id": "a1a3f3af-f26c-4d6a-9674-ca4535126800",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "latitude": 13.03362,
+      "longitude": 80.21142,
+      "speed": 24,
+      "recorded_at": "2026-11-05T20:56:50.768Z"
+    },
+    {
+      "id": "84ddfb1e-9fc7-471f-833a-9887c9222547",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "latitude": 13.0298,
+      "longitude": 80.2395,
+      "speed": 24,
+      "recorded_at": "2026-11-05T20:58:13.421Z"
+    },
+    {
+      "id": "9a9d6a7c-9a33-4577-9cec-0ed4efffd492",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "latitude": 13.00015,
+      "longitude": 80.26715,
+      "speed": 24,
+      "recorded_at": "2026-11-05T20:58:30.199Z"
     }
   ],
   "occupancy_history": [
@@ -2659,6 +3055,472 @@
       "recorded_at": "2026-11-05T20:08:08.970Z",
       "trigger_event": "ticket_booked",
       "notes": "Ticket issued (Male, Fare ₹7)"
+    },
+    {
+      "id": "64bddc2e-5305-42c1-a5a5-1cd59d8ac929",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "trip_id": "4f373832-61ed-4098-95b1-91a09c89e262",
+      "occupancy": 1,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:29:05.555Z",
+      "trigger_event": "ticket_booked",
+      "notes": "Ticket issued (Female, Fare ₹0)"
+    },
+    {
+      "id": "2f4650a6-9990-4a7c-ba16-99ed97acd352",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "trip_id": "faea5306-5a65-40d0-9500-7b8e12f889ae",
+      "occupancy": 1,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:49:07.316Z",
+      "trigger_event": "ticket_booked",
+      "notes": "Ticket issued (Male, Fare ₹7)"
+    },
+    {
+      "id": "220a79b3-1cc7-4f2e-8125-0e879030500c",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "trip_id": "dbb3bd95-6b8b-4dc9-81e2-f327204960a9",
+      "occupancy": 1,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:55:16.832Z",
+      "trigger_event": "ticket_booked",
+      "notes": "Ticket issued (Male, Fare ₹7)"
+    },
+    {
+      "id": "e3ff59fc-7986-4628-9750-093991a0a652",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "trip_id": "dbb3bd95-6b8b-4dc9-81e2-f327204960a9",
+      "occupancy": 2,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:55:22.411Z",
+      "trigger_event": "ticket_booked",
+      "notes": "Ticket issued (Male, Fare ₹12)"
+    },
+    {
+      "id": "e4ca3243-8b1e-4d2b-bbc3-79904ed3545d",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "trip_id": "dbb3bd95-6b8b-4dc9-81e2-f327204960a9",
+      "occupancy": 3,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:55:31.707Z",
+      "trigger_event": "ticket_booked",
+      "notes": "Ticket issued (Female, Fare ₹0)"
+    },
+    {
+      "id": "a66679c0-249c-4575-b767-a5c677db6375",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 2,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:02.795Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "60771cc4-7277-43dc-bf0b-a2b4ee1f3952",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 3,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:07.378Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "016f3ece-b786-4d4d-8fab-a21b9afd2e13",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 4,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:10.257Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "4a3cb62d-215f-4647-a801-3c6c58f6ad39",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 4,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:10.530Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "ef471370-2883-4de0-a464-45842df6add7",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 4,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:11.070Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "23aa9dd9-5fb9-45df-9d47-7376de296f2b",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 5,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:11.932Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "c7d972a4-f4ee-46dc-863e-11eff49fa911",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 6,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:15.315Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "d2cd6e88-3bb9-4155-aaf0-0ddd9dc25f82",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 7,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:16.263Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "e1febc95-1b1c-4b14-a66f-cf802474ca6a",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 7,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:16.840Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "7b44e59f-2797-4b6f-9df3-41c61cd49e6b",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 7,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:17.102Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "28ef56c2-cda6-4831-b4d1-7e7838a078dd",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 8,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:17.789Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "f64b7d75-5632-461a-8af0-598687a368be",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 7,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:17.807Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "9d8a4cb2-82d1-424b-9375-9e5f8fcdc364",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 8,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:18.029Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "cf7d7b23-2e60-4d91-9693-e071a4d552c5",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 9,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:18.689Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "07017f2f-9a52-4813-8601-e84c33266377",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 9,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:19.416Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "26a64942-d8bd-45b1-bc31-2fc42f5b1a27",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 10,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:19.668Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "c68d8a87-7a6c-4cd1-a568-aef5e8f18a84",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 10,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:20.662Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "f2aed978-55a1-4cf2-804e-b4d2079dbc85",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 10,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:20.668Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "749a0e7e-4942-4d6d-a779-d9af000bf782",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 10,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:20.686Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "34f9a77b-6cd1-419f-ab27-5647ca96a90a",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 11,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:21.303Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "69c79f30-dcd4-409f-bd83-e333bc9e1337",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "trip_id": "dbb3bd95-6b8b-4dc9-81e2-f327204960a9",
+      "occupancy": 12,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:37.209Z",
+      "trigger_event": "ticket_booked",
+      "notes": "Ticket issued (Female, Fare ₹0)"
+    },
+    {
+      "id": "11274dc2-3db2-416a-a7aa-c9d92b3096b6",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 13,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:50.326Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "b3d569ad-ba02-4d38-9e8b-2de4a1fcdc24",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 13,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:50.373Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "05ff0287-17c0-475b-a9ed-243002c57942",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 13,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:50.538Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "fe863fb2-6cb8-4eb9-bbc3-efad267bc4f4",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 13,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:50.564Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "bef1691e-16ed-4967-a00d-fcb659130dd7",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 13,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:50.570Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "786a3dd6-65a2-4553-a380-ce5fe88d4546",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 13,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:50.720Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "d1b37ed5-1315-4fdc-8bb1-0d7a82a03fb0",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 14,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:56.406Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "b2328a87-4d2a-470b-8a33-497c1b04eb6a",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 14,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:56.414Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "28b05a88-c674-4f33-9bfe-4bf7974ee689",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 14,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:56.871Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "de03f8c2-9144-4275-ac46-edc11dbc85d8",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 14,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:56.878Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "bcbd6bff-e1d3-4578-8069-976200acad49",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 14,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:56.891Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "1e3a3173-b2ea-4655-b573-137cf92bda40",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 14,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:57:58.409Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "9be6635d-254b-45f2-9bd8-694ef117c95e",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 15,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:58:00.660Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "06cda23b-e53b-4ad5-9122-98ac3b0fbb1c",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 15,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:58:01.372Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "62b6e7a6-78b5-49f4-8cef-c7f7123b38be",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 15,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:58:01.381Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "4f5d682e-3c1f-4db3-b0c4-c3ad9950c36a",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 15,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:58:01.803Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "35bf0e3b-ca2c-480e-9615-8a1b617f5034",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 15,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:58:01.834Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "39b866ff-6d03-4df4-8026-79e01b033a63",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 15,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:58:02.016Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "3ac4d0f3-5dae-46c8-9695-17b4ac2968b5",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 16,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:58:06.227Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "ff9c399f-3a26-41ed-8c11-b06956c6e719",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 16,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:58:06.834Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "224eeacc-9a02-40d8-8de1-bb60b04c224b",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 16,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:58:06.993Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "a81c9110-9464-4e5e-884c-2b49a19d4f4d",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 16,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:58:07.283Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "97b8bf65-e04d-4b0a-85d3-64a21ad247bf",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 16,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:58:07.499Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "54a5f098-062e-4ee2-b41f-a99213491a28",
+      "bus_id": "a1020000-0000-0000-0000-000000000005",
+      "occupancy": 16,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T20:58:07.521Z",
+      "trigger_event": "passenger_entry",
+      "notes": "1 passenger(s) entered"
+    },
+    {
+      "id": "9696f54c-ae1f-4a7f-9451-7a5fad9d1deb",
+      "bus_id": "a1020000-0000-0000-0000-000000000570",
+      "trip_id": "faea5306-5a65-40d0-9500-7b8e12f889ae",
+      "occupancy": 1,
+      "crowd_status": 0,
+      "recorded_at": "2026-11-05T21:03:36.631Z",
+      "trigger_event": "ticket_booked",
+      "notes": "Ticket issued (Male, Fare ₹14.5)"
     }
   ]
 }

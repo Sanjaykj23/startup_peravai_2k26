@@ -86,8 +86,12 @@ export interface Trip {
   conductor_id: string;
   start_stop_id: string;
   start_stop_name?: string;
+  end_stop_id?: string;
+  end_stop_name?: string;
   current_stop_id?: string;
   current_stop_name?: string;
+  current_stop_sequence?: number;
+  visited_stop_ids?: string[];
   start_time: string;
   end_time?: string | null;
   status: 'active' | 'completed' | 'cancelled';

@@ -112,54 +112,55 @@ export const ChennaiLiveMap: React.FC<ChennaiLiveMapProps> = ({
         const customIcon = L.divIcon({
           className: 'custom-bus-marker',
           html: `
-            <div style="position: relative; display: flex; flex-direction: column; align-items: center; transform: translate(-50%, -100%); cursor: pointer;">
+            <div style="width: 68px; height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; cursor: pointer; user-select: none;">
               <div style="
                 background: ${markerBg};
-                color: #000;
-                font-family: ui-monospace, monospace;
-                font-weight: 900;
+                color: #0f172a;
+                font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+                font-weight: 800;
                 font-size: 11px;
-                padding: 4px 8px;
+                padding: 3px 6px;
                 border-radius: 8px;
                 border: 2px solid #ffffff;
-                box-shadow: 0 4px 14px rgba(0,0,0,0.4);
-                display: flex;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.45);
+                display: inline-flex;
                 align-items: center;
                 gap: 4px;
                 white-space: nowrap;
                 transition: transform 0.2s ease;
-                ${isSelected ? 'transform: scale(1.2); box-shadow: 0 0 20px ' + markerBg + ';' : ''}
+                ${isSelected ? 'transform: scale(1.15); box-shadow: 0 0 16px ' + markerBg + ';' : ''}
               ">
-                <span style="font-size: 12px;">🚌</span>
+                <span style="font-size: 11px;">🚌</span>
                 <span>${bus.bus_number}</span>
               </div>
               <div style="
                 width: 0;
                 height: 0;
-                border-left: 6px solid transparent;
-                border-right: 6px solid transparent;
-                border-top: 6px solid ${markerBg};
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-top: 5px solid ${markerBg};
                 margin-top: -1px;
               "></div>
               <div style="
-                width: 10px;
-                height: 10px;
+                width: 8px;
+                height: 8px;
                 background: ${markerBg};
                 border-radius: 50%;
-                margin-top: 2px;
-                border: 2px solid #ffffff;
-                box-shadow: 0 0 10px ${markerBg};
+                margin-top: 1px;
+                border: 1.5px solid #ffffff;
+                box-shadow: 0 0 6px ${markerBg};
               "></div>
             </div>
           `,
-          iconSize: [40, 40],
-          iconAnchor: [20, 40]
+          iconSize: [68, 44],
+          iconAnchor: [34, 44],
+          popupAnchor: [0, -44]
         });
 
         // Popup Content according to specification:
         // Bus Number, Route Number, Capacity, Current Occupancy, Crowd Status, Last Updated Timestamp
         const popupContent = `
-          <div style="font-family: system-ui, sans-serif; min-width: 200px; padding: 4px;">
+          <div style="font-family: system-ui, sans-serif; min-width: 210px; padding: 4px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 6px;">
               <strong style="font-size: 14px; color: #0f172a;">Bus ${bus.bus_number}</strong>
               <span style="background: #e0f2fe; color: #0284c7; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: 700;">Route ${bus.route_number}</span>
@@ -184,7 +185,7 @@ export const ChennaiLiveMap: React.FC<ChennaiLiveMapProps> = ({
               </span>
             </div>
             <div style="font-size: 10px; color: #94a3b8; border-top: 1px solid #f1f5f9; padding-top: 4px;">
-              Updated: ${new Date(bus.current_location.recorded_at).toLocaleTimeString('en-IN')}
+              Updated: ${bus.current_location?.recorded_at ? new Date(bus.current_location.recorded_at).toLocaleTimeString('en-IN') : 'Just now'}
             </div>
           </div>
         `;
@@ -196,10 +197,12 @@ export const ChennaiLiveMap: React.FC<ChennaiLiveMapProps> = ({
           marker.setPopupContent(popupContent);
         } else {
           const marker = L.marker([latitude, longitude], { icon: customIcon }).addTo(map);
-          marker.bindPopup(popupContent);
-          marker.on('click', () => {
+          marker.bindPopup(popupContent, { offset: [0, -44], autoPan: true });
+          marker.on('click', (e: any) => {
+            if (e?.originalEvent) e.originalEvent.stopPropagation();
             setActiveBus(bus);
             if (onBusSelect) onBusSelect(bus);
+            marker.openPopup();
           });
           currentMarkers.set(bus.id, marker);
         }
@@ -217,12 +220,19 @@ export const ChennaiLiveMap: React.FC<ChennaiLiveMapProps> = ({
       if (selectedBusId) {
         const selected = buses.find(b => b.id === selectedBusId);
         if (selected?.current_location) {
-          map.panTo([selected.current_location.latitude, selected.current_location.longitude], {
-            animate: true,
+          const targetCoords: [number, number] = [
+            selected.current_location.latitude,
+            selected.current_location.longitude
+          ];
+          map.flyTo(targetCoords, Math.max(map.getZoom(), 14), {
             duration: 0.8
           });
           const marker = currentMarkers.get(selectedBusId);
-          if (marker) marker.openPopup();
+          if (marker) {
+            setTimeout(() => {
+              marker.openPopup();
+            }, 300);
+          }
         }
       }
     }

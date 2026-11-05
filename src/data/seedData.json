@@ -1,1840 +1,838 @@
 {
   "routes": [
     {
-      "id": "f3c9eb37-173c-52c2-95c7-4e4cead823e8",
+      "id": "b1020000-0000-0000-0000-000000000570",
       "route_number": "570",
       "route_name": "CMBT Koyambedu to Kelambakkam (via OMR IT Corridor)",
-      "corridor": "Rajiv Gandhi IT Expressway / OMR"
+      "corridor": "Rajiv Gandhi IT Expressway / OMR",
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "90eae164-a4be-59aa-a1a0-d83753921ab4",
+      "id": "b1020000-0000-0000-0000-000000000021",
       "route_number": "21G",
       "route_name": "Broadway / Island Ground to KCBT Kilambakkam (via Tambaram)",
-      "corridor": "GST Road Corridor"
+      "corridor": "GST Road Corridor",
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "2efb30e8-895e-53bd-b43d-acb550cb9351",
+      "id": "b1020000-0000-0000-0000-000000000005",
       "route_number": "5E",
       "route_name": "Vadapalani to Besant Nagar (via T.Nagar & Adyar)",
-      "corridor": "Central Metro - Coastal"
+      "corridor": "Central Metro - Coastal",
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "b54a89f4-ff9f-5288-985a-2992fdff3990",
+      "id": "b1020000-0000-0000-0000-000000000102",
       "route_number": "102",
       "route_name": "Broadway / Island Ground to Kelambakkam (Express via OMR)",
-      "corridor": "OMR Coastal Express"
+      "corridor": "OMR Coastal Express",
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "003bd35d-25e8-5659-9076-b6e07a5edc3d",
+      "id": "b1020000-0000-0000-0000-000000000070",
       "route_number": "A70",
       "route_name": "Avadi Bus Terminus to Tambaram West (via Koyambedu & Guindy)",
-      "corridor": "Outer Ring Trunk"
+      "corridor": "Outer Ring Trunk",
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     }
   ],
   "stops": [
     {
-      "id": "54e51dce-0c94-5f01-aa34-50e04c06456b",
+      "id": "d1020000-0000-0000-0000-000000000001",
       "stop_name": "M.G.R.KOYAMBEDU",
-      "latitude": 13.06941,
-      "longitude": 80.20553
+      "latitude": 13.06918,
+      "longitude": 80.20572,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "f7914273-09ca-5d77-838c-3b1857c380ac",
+      "id": "d1020000-0000-0000-0000-000000000002",
       "stop_name": "KOYAMBEDU MARKET",
-      "latitude": 13.068861,
-      "longitude": 80.200128
+      "latitude": 13.06341,
+      "longitude": 80.1983,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "05473e99-8c4e-5a0d-a710-27469a7dd07a",
+      "id": "d1020000-0000-0000-0000-000000000003",
       "stop_name": "VADAPALANI",
-      "latitude": 13.046544,
-      "longitude": 80.212141
+      "latitude": 13.05042,
+      "longitude": 80.21214,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "0e6135ff-43e5-540b-a126-9dbdc4e42e5b",
+      "id": "d1020000-0000-0000-0000-000000000004",
       "stop_name": "ASHOK PILLAR",
-      "latitude": 13.035086,
-      "longitude": 80.211062
+      "latitude": 13.03362,
+      "longitude": 80.21142,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "2df7bf28-df1e-558b-9338-7f9ab475b342",
+      "id": "d1020000-0000-0000-0000-000000000005",
       "stop_name": "GUINDY TVK ESTATE",
       "latitude": 13.00982,
-      "longitude": 80.21315
+      "longitude": 80.21315,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "7082fd46-ab81-5f85-9420-39b12f57ea04",
+      "id": "d1020000-0000-0000-0000-000000000006",
       "stop_name": "VELACHERY B.T",
-      "latitude": 12.976237,
-      "longitude": 80.22146
+      "latitude": 12.97542,
+      "longitude": 80.22123,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "bbc4ddb3-0332-529a-9c62-c4ea8963924a",
+      "id": "d1020000-0000-0000-0000-000000000007",
       "stop_name": "PERUNGUDI",
-      "latitude": 12.959469,
-      "longitude": 80.244872
+      "latitude": 12.96541,
+      "longitude": 80.24151,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "86526b05-218d-5f84-bef9-14a5583f5b61",
+      "id": "d1020000-0000-0000-0000-000000000008",
       "stop_name": "THORAIPAKKAM",
-      "latitude": 12.94394,
-      "longitude": 80.23754
+      "latitude": 12.93722,
+      "longitude": 80.23781,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "5a3cb8c8-c2bc-5179-9b8b-a1f60986c1bc",
+      "id": "d1020000-0000-0000-0000-000000000009",
       "stop_name": "SHOLINGANALLUR",
-      "latitude": 12.893437,
-      "longitude": 80.227618
+      "latitude": 12.90113,
+      "longitude": 80.22791,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "1cb6d4b7-717b-56ef-93d5-646d19f78408",
+      "id": "d1020000-0000-0000-0000-000000000010",
       "stop_name": "NAVALUR",
       "latitude": 12.84651,
-      "longitude": 80.22684
+      "longitude": 80.22684,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "c4ce80ce-9bc6-578a-a4ee-504dcb457f81",
+      "id": "d1020000-0000-0000-0000-000000000011",
       "stop_name": "SIPCOT SIRUSERI",
       "latitude": 12.82561,
-      "longitude": 80.22184
+      "longitude": 80.22184,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "1e89b1b0-0995-5614-8f6b-c70f9c59068b",
+      "id": "d1020000-0000-0000-0000-000000000012",
       "stop_name": "PUDUPAKKAM RD.JN",
       "latitude": 12.8105,
-      "longitude": 80.2195
+      "longitude": 80.2195,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "cce10a19-c44e-5499-a0d9-72ca9dc702dd",
+      "id": "d1020000-0000-0000-0000-000000000013",
       "stop_name": "KELAMBAKKAM",
       "latitude": 12.78712,
-      "longitude": 80.21851
+      "longitude": 80.21851,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "10bd9caf-c5aa-5f9d-8db8-f09f8cd1a6d6",
+      "id": "d1020000-0000-0000-0000-000000000014",
       "stop_name": "ISLAND GROUND",
-      "latitude": 13.074735,
-      "longitude": 80.286254
+      "latitude": 13.07632,
+      "longitude": 80.28312,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "2ee03692-5644-5eb5-9db2-4dac5db44792",
+      "id": "d1020000-0000-0000-0000-000000000015",
       "stop_name": "M.G.R.CENTRAL",
-      "latitude": 13.08175,
-      "longitude": 80.276663
+      "latitude": 13.08268,
+      "longitude": 80.27552,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "7d80b665-f896-5ce6-afd9-36fe48102ae5",
+      "id": "d1020000-0000-0000-0000-000000000016",
       "stop_name": "LIC CHENNAI",
-      "latitude": 13.065433,
-      "longitude": 80.267731
+      "latitude": 13.0645,
+      "longitude": 80.2678,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "09768273-83a1-5010-a7a0-b22a12d47690",
+      "id": "d1020000-0000-0000-0000-000000000017",
       "stop_name": "ANNA SALAI D.M.S",
       "latitude": 13.04521,
-      "longitude": 80.2501
+      "longitude": 80.2501,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "b3e91c22-3eeb-5dfa-90d3-9aa253c0802f",
+      "id": "d1020000-0000-0000-0000-000000000018",
       "stop_name": "TEYNAMPET",
-      "latitude": 13.03964,
-      "longitude": 80.245574
+      "latitude": 13.04015,
+      "longitude": 80.2443,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "ead199d0-9c6b-5edd-bff7-db0bcdf0cc4c",
+      "id": "d1020000-0000-0000-0000-000000000019",
       "stop_name": "NANDANAM",
-      "latitude": 13.0309,
-      "longitude": 80.23999
+      "latitude": 13.0298,
+      "longitude": 80.2395,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "daf52c3c-b51a-5d16-ac4c-a09c1ae05804",
+      "id": "d1020000-0000-0000-0000-000000000020",
       "stop_name": "SAIDAPET",
-      "latitude": 13.02299,
-      "longitude": 80.22723
+      "latitude": 13.0201,
+      "longitude": 80.2235,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "86c78834-532e-530c-91a5-319a81860e24",
+      "id": "d1020000-0000-0000-0000-000000000021",
       "stop_name": "AIRPORT METRO",
       "latitude": 12.9801,
-      "longitude": 80.1638
+      "longitude": 80.1638,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "f536ef89-9016-55f9-a566-e50d24ffff83",
+      "id": "d1020000-0000-0000-0000-000000000022",
       "stop_name": "PALLAVARAM R.S",
       "latitude": 12.96841,
-      "longitude": 80.14852
+      "longitude": 80.14852,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "638e4433-2195-5b1c-840e-129e99540f94",
+      "id": "d1020000-0000-0000-0000-000000000023",
       "stop_name": "CHROMPET",
-      "latitude": 12.943115,
-      "longitude": 80.133567
+      "latitude": 12.9515,
+      "longitude": 80.1412,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "d00728a1-aba8-5b3f-b51f-8018ad721e35",
+      "id": "d1020000-0000-0000-0000-000000000024",
       "stop_name": "TAMBARAM WEST",
-      "latitude": 12.9257,
-      "longitude": 80.10612
+      "latitude": 12.92482,
+      "longitude": 80.11721,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "2397873b-d85c-597e-a7e3-4568eb831db9",
-      "stop_name": "PERUNGALATHUR",
-      "latitude": 12.90912,
-      "longitude": 80.09206
-    },
-    {
-      "id": "fa0b1c8e-65c8-55e5-a734-20132e42f6f6",
-      "stop_name": "VANDALUR ZOO",
-      "latitude": 12.8795,
-      "longitude": 80.0811
-    },
-    {
-      "id": "fec00f33-4620-5552-a383-74fa6f812e26",
+      "id": "d1020000-0000-0000-0000-000000000025",
       "stop_name": "KCBT - KILAMBAKKAM",
       "latitude": 12.8615,
-      "longitude": 80.0752
+      "longitude": 80.0752,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "1b6d7055-cbf4-5bd9-a476-27effe582672",
-      "stop_name": "KODAMBAKKAM",
-      "latitude": 13.054017,
-      "longitude": 80.227302
-    },
-    {
-      "id": "d51d2e39-1a9e-588d-bde3-c5b88ec6c196",
+      "id": "d1020000-0000-0000-0000-000000000026",
       "stop_name": "T.NAGAR B.T",
       "latitude": 13.0405,
-      "longitude": 80.2335
+      "longitude": 80.2335,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "50e3ee5b-678b-5c6b-9802-0716f0926c19",
-      "stop_name": "PANAGAL PARK",
-      "latitude": 13.045245,
-      "longitude": 80.232784
-    },
-    {
-      "id": "75aefc94-84a0-5433-bc00-738f45079b2e",
-      "stop_name": "KOTTURPURAM",
-      "latitude": 13.012032,
-      "longitude": 80.240847
-    },
-    {
-      "id": "f445f72f-966c-55db-97ff-cb85018a648d",
+      "id": "d1020000-0000-0000-0000-000000000027",
       "stop_name": "ADYAR B.T",
-      "latitude": 13.009701,
-      "longitude": 80.258931
+      "latitude": 13.00642,
+      "longitude": 80.25712,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "8685632a-b0eb-5fee-a651-95dccd362632",
-      "stop_name": "INDIRA NAGAR",
-      "latitude": 12.9125,
-      "longitude": 80.14309
-    },
-    {
-      "id": "96f56129-544d-58cc-b3ba-f7b1d433f245",
+      "id": "d1020000-0000-0000-0000-000000000028",
       "stop_name": "BESANT NAGAR",
-      "latitude": 12.9962,
-      "longitude": 80.26775
+      "latitude": 13.00015,
+      "longitude": 80.26715,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "c7c13c49-62c3-554c-b60d-c05ae73137be",
-      "stop_name": "SANTHOME CHURCH",
-      "latitude": 13.032699,
-      "longitude": 80.277576
-    },
-    {
-      "id": "be971a41-fe5c-5386-93e5-0f68a4d893a3",
-      "stop_name": "PATTINAPAKKAM",
-      "latitude": 13.0215,
-      "longitude": 80.2751
-    },
-    {
-      "id": "fd561a60-0173-56b3-9b77-ddbd6fc95fa2",
-      "stop_name": "THIRUVANMIYUR",
-      "latitude": 12.986867,
-      "longitude": 80.259296
-    },
-    {
-      "id": "33eab733-8586-5b11-8e1a-1c109205d81f",
-      "stop_name": "KANDANCHAVADI",
-      "latitude": 12.965164,
-      "longitude": 80.247449
-    },
-    {
-      "id": "9dc10339-11ef-541a-899c-7b1790cc1982",
+      "id": "d1020000-0000-0000-0000-000000000029",
       "stop_name": "AVADI B.T",
-      "latitude": 13.119778,
-      "longitude": 80.102274
-    },
-    {
-      "id": "53dafb49-503b-59d8-8931-dbfe55f3384d",
-      "stop_name": "THIRUMULLAIVOYAL",
-      "latitude": 13.124295,
-      "longitude": 80.143999
-    },
-    {
-      "id": "de5a4ac8-b89f-5ade-993d-c6605c1164f8",
-      "stop_name": "AMBATTUR I.E",
-      "latitude": 13.1021,
-      "longitude": 80.1624
-    },
-    {
-      "id": "4b503e14-5428-5ab9-8e2e-ce01a456ec58",
-      "stop_name": "THIRUMANGALAM METRO R.S",
-      "latitude": 13.085148,
-      "longitude": 80.199482
-    },
-    {
-      "id": "e1b25f08-7cd5-5f38-bcd4-d119d33d4ae5",
-      "stop_name": "12TH MAIN ROAD ANNA NAGAR",
-      "latitude": 13.08528,
-      "longitude": 80.203592
-    },
-    {
-      "id": "2ae02f3d-dd36-5724-849d-5f4a3b2ade10",
-      "stop_name": "AALIYAMMAN TEMPLE OR TONDIARPET MASUTHI",
-      "latitude": 13.128576,
-      "longitude": 80.28516
-    },
-    {
-      "id": "1c794521-e10a-56f3-8e85-5b6dc214d4a5",
-      "stop_name": "AANDAR KUPPAM CHECKPOST BUSSTAND",
-      "latitude": 13.191994,
-      "longitude": 80.269831
-    },
-    {
-      "id": "acb4150e-79c1-50aa-946d-da614c41ff44",
-      "stop_name": "ADYAR AAVIN",
-      "latitude": 13.007406,
-      "longitude": 80.258378
-    },
-    {
-      "id": "211c6d1f-2084-560d-8074-d4e16edf26aa",
-      "stop_name": "AGARSEN COLLEGE",
-      "latitude": 13.159523,
-      "longitude": 80.233511
-    },
-    {
-      "id": "c4b5530c-3c3e-5315-957a-8b78f264cb8d",
-      "stop_name": "AKKARAI",
-      "latitude": 12.897265,
-      "longitude": 80.247526
-    },
-    {
-      "id": "6666558e-d6ed-50aa-86c5-b4c82d1497d4",
-      "stop_name": "AMBATTUR GNANMOORTHY NAGAR",
-      "latitude": 13.11647,
-      "longitude": 80.163438
-    },
-    {
-      "id": "cc97a0c1-21ba-5c04-9d2f-aa7046ec1880",
-      "stop_name": "AMBATTUR INDIAN BANK COLONY",
-      "latitude": 13.118225,
-      "longitude": 80.159276
-    },
-    {
-      "id": "5ed4f416-7df8-5431-b4ac-4218e4f92b60",
-      "stop_name": "AMBATTUR IT PARK",
-      "latitude": 13.095006,
-      "longitude": 80.1699
-    },
-    {
-      "id": "7b79dd3a-d6da-5d69-aee7-1f5254677d87",
-      "stop_name": "AMBATTUR JAI GANESH TEMPLE",
-      "latitude": 13.120567,
-      "longitude": 80.15831
-    },
-    {
-      "id": "c1732af7-9ef1-56e4-8ef9-9725d1f972d7",
-      "stop_name": "AMBATTUR MAHALINGAM STORE",
-      "latitude": 13.118452,
-      "longitude": 80.157409
-    },
-    {
-      "id": "9b22fb1e-4927-52b2-aff1-b9461ce03cf7",
-      "stop_name": "AMBATTUR OT AMMA HOTEL",
-      "latitude": 13.118713,
-      "longitude": 80.152087
-    },
-    {
-      "id": "58060527-4826-5e3f-8607-29c8a47a3587",
-      "stop_name": "AMBATTUR P. S",
-      "latitude": 13.094986,
-      "longitude": 80.163717
-    },
-    {
-      "id": "2df3ba57-5496-5f5f-8c41-33a99d934c3c",
-      "stop_name": "AMBATTUR P.S",
-      "latitude": 13.095133,
-      "longitude": 80.165648
-    },
-    {
-      "id": "63135af1-7c61-594d-9bf4-21ecbfabcc9d",
-      "stop_name": "AMBATTUR RAILWAY STATION",
-      "latitude": 13.11478,
-      "longitude": 80.154576
-    },
-    {
-      "id": "0bcf04e3-6f9b-5976-a1ed-bad196847679",
-      "stop_name": "ANNA NAGAR DEPOT",
-      "latitude": 13.093944,
-      "longitude": 80.198768
-    },
-    {
-      "id": "ba6ccb24-5ed6-57ef-963d-4c35781c204b",
-      "stop_name": "ANNA NAGAR GRIAIS",
-      "latitude": 13.084736,
-      "longitude": 80.223568
-    },
-    {
-      "id": "b32446c8-5ca0-57e9-bb86-11457b3e5e18",
-      "stop_name": "ANNA NAGAR ROUTANA",
-      "latitude": 13.084912,
-      "longitude": 80.215645
-    },
-    {
-      "id": "4ad02eac-6b25-5d36-b63f-c2509edfd0d3",
-      "stop_name": "ANNA UNIVERSITY \u00b7",
-      "latitude": 13.008342,
-      "longitude": 80.231502
-    },
-    {
-      "id": "73b4070f-c707-5eed-a054-b3adbb7350ee",
-      "stop_name": "ARIYALUR BUS STOP",
-      "latitude": 13.1912,
-      "longitude": 80.251965
-    },
-    {
-      "id": "24721d46-0ac3-5b74-b82e-4c5fadf33dcc",
-      "stop_name": "ARUL NAGAR",
-      "latitude": 13.14537,
-      "longitude": 80.2399
-    },
-    {
-      "id": "3e300edb-f2a5-5aad-863f-53226b73455d",
-      "stop_name": "ARUMBAKKAM",
-      "latitude": 13.076557,
-      "longitude": 80.204221
-    },
-    {
-      "id": "ee43f98e-14bc-5fe7-a03d-2af415b92def",
-      "stop_name": "ARUN HOTEL",
-      "latitude": 13.072139,
-      "longitude": 80.221933
-    },
-    {
-      "id": "5a895d4c-b9db-5134-a20d-ba71666e9123",
-      "stop_name": "ATHIPATTU AMMA WATER COMPANY",
-      "latitude": 13.093732,
-      "longitude": 80.159726
-    },
-    {
-      "id": "96d2a390-b517-5dce-ab8a-032a09184ca1",
-      "stop_name": "ATHIPATTU KRISHNAR TEMPLE",
-      "latitude": 13.095133,
-      "longitude": 80.156722
-    },
-    {
-      "id": "e429649c-6de2-5a19-918c-513262d339c0",
-      "stop_name": "ATHIPET I.C.F. COLONY",
-      "latitude": 13.094501,
-      "longitude": 80.146728
-    },
-    {
-      "id": "a204c40f-438d-5520-bca6-4de82a39a154",
-      "stop_name": "ATHIPET JUNCTION",
-      "latitude": 13.089228,
-      "longitude": 80.161563
-    },
-    {
-      "id": "fcd34495-d148-5608-8fcc-4e20ccf9d70a",
-      "stop_name": "AVICHI SCHOOL",
-      "latitude": 13.047504,
-      "longitude": 80.197846
-    },
-    {
-      "id": "6975ff7e-2157-5131-8a36-707794347a4a",
-      "stop_name": "AVM RAJESHWARI THIRUMANA MANDAPAM",
-      "latitude": 13.044645,
-      "longitude": 80.265154
-    },
-    {
-      "id": "d89b48f3-545d-5a46-9d8f-78955e89e5a3",
-      "stop_name": "AVVAI HOME",
-      "latitude": 13.007423,
-      "longitude": 80.261456
-    },
-    {
-      "id": "f270a231-b7c2-5f5a-9122-c64c52d6d46e",
-      "stop_name": "AVVAI SHANMUGAM SALAI",
-      "latitude": 13.047933,
-      "longitude": 80.264004
-    },
-    {
-      "id": "a85b59e9-bd89-5812-b64c-cf9175a5fc2f",
-      "stop_name": "AYANAMBAKKAM CHURCH",
-      "latitude": 13.097408,
-      "longitude": 80.146906
-    },
-    {
-      "id": "01f4e08c-89b6-594c-9a8f-e6d09da0bc10",
-      "stop_name": "AYANAVARAM B.T",
-      "latitude": 13.098451,
-      "longitude": 80.242254
-    },
-    {
-      "id": "78ade5c8-fa1d-5314-a323-9f8772d0b7dd",
-      "stop_name": "AYANAVARAM JOINT OFFICE",
-      "latitude": 13.099635,
-      "longitude": 80.230508
-    },
-    {
-      "id": "fcc95cbd-fd87-575b-876d-2a80b9fb820e",
-      "stop_name": "AYANAVARAM MATERNITY HOSPITAL",
-      "latitude": 13.09896,
-      "longitude": 80.23022
-    },
-    {
-      "id": "b156b9b2-5a1c-548f-9f8a-31c88a8ff6c6",
-      "stop_name": "AYANAVARAM NOOR HOTEL",
-      "latitude": 13.098631,
-      "longitude": 80.234286
-    },
-    {
-      "id": "7e0351fe-5cb8-57f1-ae88-cb00a1fc1fef",
-      "stop_name": "AYANAVARAM SIGNAL",
-      "latitude": 13.097458,
-      "longitude": 80.242483
-    },
-    {
-      "id": "9593b7ee-8a91-5d0f-b15a-3415352af83b",
-      "stop_name": "AYANAVARAM VEERASAMY MAIN ROAD",
-      "latitude": 13.091772,
-      "longitude": 80.227854
-    },
-    {
-      "id": "7a22e930-714e-50ec-b0c9-5df4960757bd",
-      "stop_name": "AYAPAKKAM IMRC HOSPITAL",
-      "latitude": 13.100985,
-      "longitude": 80.139991
-    },
-    {
-      "id": "1b25ac42-223f-5bfe-8e01-5744c35f888d",
-      "stop_name": "AYYAPAKKAM M.G.R PURAM",
-      "latitude": 13.09764,
-      "longitude": 80.14233
-    },
-    {
-      "id": "44224e32-288b-536c-bca9-aa4632360750",
-      "stop_name": "AYYAPPA NAGAR",
-      "latitude": 13.097886,
-      "longitude": 80.140482
-    },
-    {
-      "id": "8fcfab41-d2d3-554b-a4af-6290b2672d48",
-      "stop_name": "AYYAPPAKKAM CYCLE KADAI",
-      "latitude": 13.09942,
-      "longitude": 80.14855
-    },
-    {
-      "id": "d9b9afe4-b5ff-57b2-a31b-80a02aca51f8",
-      "stop_name": "AZEEZEE NAGAR",
-      "latitude": 13.166275,
-      "longitude": 80.234717
-    },
-    {
-      "id": "79a355ea-36e0-5dc6-9f56-419bb48c13b1",
-      "stop_name": "BABY HOSPITAL",
-      "latitude": 13.074973,
-      "longitude": 80.256542
-    },
-    {
-      "id": "f641ff76-90e3-5ab8-a0a8-14b8428fb954",
-      "stop_name": "BALAJI DENTAL COLLEGE",
-      "latitude": 12.944326,
-      "longitude": 80.208288
-    },
-    {
-      "id": "5bf71cfa-5d79-5547-8017-31c9da451345",
-      "stop_name": "BALAJI HOSPITAL",
-      "latitude": 13.0317,
-      "longitude": 80.18675
-    },
-    {
-      "id": "d32272bc-5910-5481-8141-4bc5fb0025f4",
-      "stop_name": "BALAJI NAGAR MEDAVAKKAM",
-      "latitude": 12.9536,
-      "longitude": 80.21196
-    },
-    {
-      "id": "0ab42bf5-e977-5950-870b-86098a071c93",
-      "stop_name": "BALAJI PALAYAM",
-      "latitude": 13.152912,
-      "longitude": 80.257745
-    },
-    {
-      "id": "bc8a1582-7296-5842-b34e-57c8f13535a8",
-      "stop_name": "BASIN BRIDGE RAILWAY STATION",
-      "latitude": 13.101558,
-      "longitude": 80.270506
-    },
-    {
-      "id": "4b2c8d4e-9eb9-5b8b-83d7-1b9d604c5521",
-      "stop_name": "BASIN ROAD INDIRA GANDHI NAGAR",
-      "latitude": 13.152601,
-      "longitude": 80.288752
-    },
-    {
-      "id": "dbc2e068-be61-5a76-a250-67eeb881f453",
-      "stop_name": "BATHMAVATHY NAGAR MAIN ROAD",
-      "latitude": 13.119316,
-      "longitude": 80.196208
-    },
-    {
-      "id": "1f43249a-0824-5270-9c87-06165a0bdb7f",
-      "stop_name": "BAZULLAH ROAD",
-      "latitude": 13.047163,
-      "longitude": 80.234324
-    },
-    {
-      "id": "74cc268f-b7da-5da2-a7fa-6b6e812f19e8",
-      "stop_name": "BB ROAD",
-      "latitude": 13.108456,
-      "longitude": 80.252509
-    },
-    {
-      "id": "f9ece7b3-ca13-5438-9bdd-a00cddae87f0",
-      "stop_name": "BB ROAD RENUKA AMMAN TEMPLE",
-      "latitude": 13.114664,
-      "longitude": 80.252329
-    },
-    {
-      "id": "1f8d773b-8d08-5974-a8e3-ddcebe075dc2",
-      "stop_name": "BB ROAD SREE VENKATESA PERUMAL TEMPLE",
-      "latitude": 13.110964,
-      "longitude": 80.2526
-    },
-    {
-      "id": "937a75cd-b362-5e4d-af92-e7b2316cc253",
-      "stop_name": "BEACH STATION",
-      "latitude": 13.09451,
-      "longitude": 80.29223
-    },
-    {
-      "id": "682c2212-98c2-5409-a53e-d21e8303538d",
-      "stop_name": "BEACH STATION POST OFFICE",
-      "latitude": 13.092918,
-      "longitude": 80.291988
-    },
-    {
-      "id": "7cc9f015-0f45-57e9-b231-9f1e64f869ac",
-      "stop_name": "BESANT NAGAR OLCOTT MEMORIAL HIGHER SECONDARY SCHOOL",
-      "latitude": 13.00322,
-      "longitude": 80.26878
-    },
-    {
-      "id": "a69491e6-3035-5a69-8184-5e83f86c7ceb",
-      "stop_name": "BESENT NAGAR RBI QUARTERS",
-      "latitude": 12.996019,
-      "longitude": 80.264391
-    },
-    {
-      "id": "45618f94-ac06-5407-a9fa-efece02c0a24",
-      "stop_name": "BETHAL NAGAR",
-      "latitude": 12.924815,
-      "longitude": 80.251098
-    },
-    {
-      "id": "5d63b629-401d-54bd-96d1-b897f748ccc7",
-      "stop_name": "BHAKTAVATSALAM MEMORIAL COLLEGE",
-      "latitude": 13.108022,
-      "longitude": 80.183638
-    },
-    {
-      "id": "2ff32a77-a8f8-5e02-996d-c494c6e34b8c",
-      "stop_name": "BHARATHI ARTS COLLEGE",
-      "latitude": 13.103534,
-      "longitude": 80.28675
-    },
-    {
-      "id": "bf9a606f-bad4-5954-9bc3-7b6a6c9ffe46",
-      "stop_name": "BHARATHI ARTS COLLEGE MINT",
-      "latitude": 13.10407,
-      "longitude": 80.28765
-    },
-    {
-      "id": "7f3df5a4-28ba-5649-a667-005ce3b20e4e",
-      "stop_name": "BHARATHIDASAN COLONY",
-      "latitude": 13.03265,
-      "longitude": 80.20531
-    },
-    {
-      "id": "15b67588-eca0-5b78-933b-0349ed544fac",
-      "stop_name": "BHUARI HOTEL",
-      "latitude": 12.942053,
-      "longitude": 80.253432
-    },
-    {
-      "id": "60ee79e0-90ee-5dac-8b0c-98fd30a937bf",
-      "stop_name": "BHUVANASEWARI THEATRE",
-      "latitude": 13.090706,
-      "longitude": 80.258798
-    },
-    {
-      "id": "bf1b1865-c999-5d7b-9741-912cf2dffdeb",
-      "stop_name": "BINNY MILL CANTEEN",
-      "latitude": 13.102384,
-      "longitude": 80.252631
-    },
-    {
-      "id": "5effb510-2045-5a2d-9d3a-9e8c5b9bfc43",
-      "stop_name": "BLUE FACTORY",
-      "latitude": 13.10302,
-      "longitude": 80.15021
-    },
-    {
-      "id": "e08da600-6960-513c-b1a9-c577e9055dfa",
-      "stop_name": "BLUE STAR",
-      "latitude": 13.090106,
-      "longitude": 80.275426
-    },
-    {
-      "id": "9e361314-6671-5a0e-8589-71093c01fca3",
-      "stop_name": "BLUE STAR ANNA NAGAR",
-      "latitude": 13.084824,
-      "longitude": 80.20946
-    },
-    {
-      "id": "b23d7f1b-ee1f-59ba-99a7-8e1c6d41d18e",
-      "stop_name": "BRINDAVAN COLONY",
-      "latitude": 13.09081,
-      "longitude": 80.22364
-    },
-    {
-      "id": "d2d98ef2-acbf-59c9-adf9-d4de5d7fb219",
-      "stop_name": "BRINDHA THEATRE MOOLAKADAI",
-      "latitude": 13.119162,
-      "longitude": 80.242573
-    },
-    {
-      "id": "dbcbb468-e5b3-5ebe-8718-2a74f8bb77a3",
-      "stop_name": "BRINDHAVAN STREET",
-      "latitude": 13.042277,
-      "longitude": 80.224665
-    },
-    {
-      "id": "28dc6ffb-ce49-5e4c-afdc-cfedc6aefa4d",
-      "stop_name": "BROADWAY",
-      "latitude": 13.087128,
-      "longitude": 80.285125
-    },
-    {
-      "id": "191b1451-0b35-5393-89cd-33f98bc70d51",
-      "stop_name": "BROADWAY FLOWER BAZZAR",
-      "latitude": 13.088298,
-      "longitude": 80.281341
-    },
-    {
-      "id": "f2d2b56d-379d-5fc0-a927-b81672b58e5f",
-      "stop_name": "BROADWAY LOYER SQUARE",
-      "latitude": 13.09317,
-      "longitude": 80.28616
-    },
-    {
-      "id": "75eb5ea3-c4f5-520b-b70e-23d23168c4d2",
-      "stop_name": "BSNL TELEPHONE EXCHANGE",
-      "latitude": 13.000734,
-      "longitude": 80.256486
-    },
-    {
-      "id": "8b5180d5-039a-52e8-ac55-a7071f5e2a51",
-      "stop_name": "BSNL TELEPHONE EXCHANGE, MANDAVELI",
-      "latitude": 13.022145,
-      "longitude": 80.263538
-    },
-    {
-      "id": "1cf8ceeb-ec79-5d63-9f36-882c1b8bbc82",
-      "stop_name": "BSNL TELEPHONE QUARTERS OR JEEVA RAILWAY STATION",
-      "latitude": 13.109156,
-      "longitude": 80.256656
-    },
-    {
-      "id": "944714e0-9ff6-5731-8355-ce8ff1a3578b",
-      "stop_name": "BUILDERS INDUSTRY",
-      "latitude": 13.14673,
-      "longitude": 80.30174
-    },
-    {
-      "id": "ac03d4ed-e6df-5d36-b079-47b7f8265feb",
-      "stop_name": "BURMA NAGAR",
-      "latitude": 13.175374,
-      "longitude": 80.286782
-    },
-    {
-      "id": "9b9786f7-e2d5-5e1e-8bbc-de2c45de7e5f",
-      "stop_name": "BUTT ROAD",
-      "latitude": 13.008624,
-      "longitude": 80.197921
-    },
-    {
-      "id": "146ce927-aded-5255-a6fb-93911aee9901",
-      "stop_name": "BUTT ROAD TMP",
-      "latitude": 13.013874,
-      "longitude": 80.203949
-    },
-    {
-      "id": "b59aa8ce-8f86-5930-9aae-659fd401b920",
-      "stop_name": "CARBORUNDUM UNIVERSAL",
-      "latitude": 13.1725,
-      "longitude": 80.31174
-    },
-    {
-      "id": "c0d4c5d0-df55-5649-b5b7-3f6dcf214ba1",
-      "stop_name": "CARBORUNDUM UNIVERSAL THIRUVOTRIYUR",
-      "latitude": 13.17225,
-      "longitude": 80.31193
-    },
-    {
-      "id": "0ef8eedc-6de7-5e1a-9fed-92efa9fdeb0c",
-      "stop_name": "CASA MAJOR ROAD",
-      "latitude": 13.07116,
-      "longitude": 80.253485
-    },
-    {
-      "id": "fa58e6a4-47be-59cd-ab15-564c05d41f0c",
-      "stop_name": "CEMENT ROAD ALANDUR",
-      "latitude": 12.996505,
-      "longitude": 80.189692
-    },
-    {
-      "id": "873ea3df-5dca-5016-bf24-5908e8e40a43",
-      "stop_name": "CEMETERY ROAD",
-      "latitude": 13.110222,
-      "longitude": 80.281154
-    },
-    {
-      "id": "032d162a-2869-5e34-a3f1-8e62baafc6c1",
-      "stop_name": "CENTRAL DENTAL COLLEGE",
-      "latitude": 13.082845,
-      "longitude": 80.2822
-    },
-    {
-      "id": "5b2cc1e8-71bc-5e7a-baa3-c056fce6f042",
-      "stop_name": "CENTRAL WALL TAX ROAD",
-      "latitude": 13.085226,
-      "longitude": 80.275555
-    },
-    {
-      "id": "77c50d76-a788-519e-96df-e4840d55283c",
-      "stop_name": "CENTRAL WATER COMMISSION",
-      "latitude": 12.990478,
-      "longitude": 80.2098
-    },
-    {
-      "id": "d30cbc92-7d62-58cb-94ba-ded5509e891a",
-      "stop_name": "CHAMIERS ROAD",
-      "latitude": 13.029782,
-      "longitude": 80.243438
-    },
-    {
-      "id": "485aee53-d7d4-596f-9af2-436262778bb0",
-      "stop_name": "CHAMIERS ROAD OR VENKATESWARA HOSPITAL",
-      "latitude": 13.02958,
-      "longitude": 80.24376
-    },
-    {
-      "id": "88820a38-9e5a-5bb0-b9c4-a09f2f4ae1c7",
-      "stop_name": "CHELLAMMAL COLLEGE",
-      "latitude": 13.01186,
-      "longitude": 80.22194
-    },
-    {
-      "id": "3780cfe7-db36-5a4f-a28e-e5de14c2735f",
-      "stop_name": "CHENNAI CORPORATION ZONAL OFFICE",
-      "latitude": 13.161741,
-      "longitude": 80.266245
-    },
-    {
-      "id": "dfb857f3-9c86-511d-8035-9cd808af73b1",
-      "stop_name": "CHENNAI FORT STATION",
-      "latitude": 13.085024,
-      "longitude": 80.283861
-    },
-    {
-      "id": "f5c2257b-29d6-57a0-ae13-ef71cb7fabfb",
-      "stop_name": "CHENNAI ONE IT SEZ",
-      "latitude": 12.949991,
-      "longitude": 80.23394
-    },
-    {
-      "id": "c571eee9-2a33-54c9-8929-0db018eb568c",
-      "stop_name": "CHENNAI PETROLEUM CORPORATION LIMITED",
-      "latitude": 13.161227,
-      "longitude": 80.268987
-    },
-    {
-      "id": "83be1814-0010-5eaa-9ba2-24d309dab59c",
-      "stop_name": "CHEPPAKAM",
-      "latitude": 13.061108,
-      "longitude": 80.282829
-    },
-    {
-      "id": "61412e6f-c996-57d8-829b-78ebe8b5ca24",
-      "stop_name": "CHETPET",
-      "latitude": 13.070005,
-      "longitude": 80.242027
-    },
-    {
-      "id": "ad0691a4-9c7b-5eba-8ab2-82894588508b",
-      "stop_name": "CHETPET REGIONAL TRANSPORT OFFICE",
-      "latitude": 13.071517,
-      "longitude": 80.249333
-    },
-    {
-      "id": "be86b5b5-7c12-5a92-b672-e289fd6ba886",
-      "stop_name": "CHETTIPEDU",
-      "latitude": 13.184222,
-      "longitude": 80.227833
-    },
-    {
-      "id": "97844f07-3200-5af2-ba2e-f598d8c888d6",
-      "stop_name": "CHIDAMBARAM STORE NANGANALLUR",
-      "latitude": 12.983009,
-      "longitude": 80.188859
-    },
-    {
-      "id": "5806cfbb-3e95-5668-89e0-a5b96bca390c",
-      "stop_name": "CHIDAMBARAM STORES",
-      "latitude": 12.982585,
-      "longitude": 80.18844
-    },
-    {
-      "id": "06494022-45a5-588e-a3b1-bc07380cf487",
-      "stop_name": "CHINDADRIPET PODIKKADAI",
-      "latitude": 13.076707,
-      "longitude": 80.266453
-    },
-    {
-      "id": "2ac1287d-1b6d-52eb-8667-c691eb7f8efc",
-      "stop_name": "CHINDATHIRI PETTAI POLICE STATION",
-      "latitude": 13.07492,
-      "longitude": 80.271409
-    },
-    {
-      "id": "c151428e-51c3-5402-aca3-dcaa05947add",
-      "stop_name": "CHINMAYA NAGAR",
-      "latitude": 13.063063,
-      "longitude": 80.197341
-    },
-    {
-      "id": "1fa1ce0e-5cb6-5606-9ddb-0e24842e2482",
-      "stop_name": "CHINNA KODUNGAIYUR",
-      "latitude": 13.137439,
-      "longitude": 80.248026
-    },
-    {
-      "id": "ef461c87-e13d-5be7-bb81-e3733e03c666",
-      "stop_name": "CHINNA KUPPAM",
-      "latitude": 13.20633,
-      "longitude": 80.32146
-    },
-    {
-      "id": "e562966d-aa3c-5cf1-a07e-ca8cda23bbd0",
-      "stop_name": "CHINNA MATHUR",
-      "latitude": 13.174314,
-      "longitude": 80.249548
-    },
-    {
-      "id": "3e3c4920-4a9e-5e45-93ca-4ad3510bf132",
-      "stop_name": "CHINNA MATHUR ROAD AMMAN TEMPLE",
-      "latitude": 13.173831,
-      "longitude": 80.252331
-    },
-    {
-      "id": "7e1174ed-511b-5e4e-b7a2-551b79f56de4",
-      "stop_name": "CHINNA SEKADU",
-      "latitude": 13.160467,
-      "longitude": 80.258384
-    },
-    {
-      "id": "d7cc782d-6786-5c8d-8935-704378490045",
-      "stop_name": "CHINNA STANDLY",
-      "latitude": 13.12631,
-      "longitude": 80.28725
-    },
-    {
-      "id": "15b3ab51-b4b6-5d19-905f-49a5ef8dbf8f",
-      "stop_name": "CHINNAMATTUR ROAD PERUMAL TEMPLE",
-      "latitude": 13.17118,
-      "longitude": 80.25601
-    },
-    {
-      "id": "12cf426a-213a-55f9-81ea-be9c299c46b6",
-      "stop_name": "CHINNANDI MADAM MOOLAKADAI",
-      "latitude": 13.136506,
-      "longitude": 80.255293
-    },
-    {
-      "id": "e45c6d46-93e4-514a-8994-b7e2dd7ef481",
-      "stop_name": "CHINNASEKKADU MANALI AISHWARYA NAGAR",
-      "latitude": 13.151257,
-      "longitude": 80.258324
-    },
-    {
-      "id": "ae47fe21-1554-5d1b-b52e-2fd99b8a3047",
-      "stop_name": "CHINNASEKKADU MANALI ST.THOMAS FACTORY",
-      "latitude": 13.16131,
-      "longitude": 80.25849
-    },
-    {
-      "id": "a8ddc208-dcd7-5c6b-a552-3c83d5f36c2b",
-      "stop_name": "CHINNASEKKADU MANALI ST.THOMAS SCHOOL",
-      "latitude": 13.161279,
-      "longitude": 80.258641
-    },
-    {
-      "id": "e7d49143-19fb-5043-8fab-77b0901a25a8",
-      "stop_name": "CHINTADRIPET",
-      "latitude": 13.078825,
-      "longitude": 80.270641
-    },
-    {
-      "id": "7e23b344-3266-5b9a-a28d-c37b9dfe54a3",
-      "stop_name": "CHINTHAMANI",
-      "latitude": 13.084711,
-      "longitude": 80.224568
-    },
-    {
-      "id": "7fca2b79-03a4-5694-b12b-fd12e959630b",
-      "stop_name": "CHINTHATHRIPET PARK",
-      "latitude": 13.07441,
-      "longitude": 80.273505
-    },
-    {
-      "id": "beabbafb-7ad0-5875-a047-f10ec769bfb6",
-      "stop_name": "CHITRA THEATRE",
-      "latitude": 13.068931,
-      "longitude": 80.26779
-    },
-    {
-      "id": "c9bd0166-d6a2-53e8-b8f7-d4cc767de2eb",
-      "stop_name": "CHOIYAMBEDU",
-      "latitude": 13.118078,
-      "longitude": 80.146275
-    },
-    {
-      "id": "63c8ce75-3935-5564-9d6a-b922e9d5d83d",
-      "stop_name": "CHOLA HOTEL",
-      "latitude": 13.046105,
-      "longitude": 80.25675
-    },
-    {
-      "id": "02102d09-17ca-5d37-bda0-da4e957d77f7",
-      "stop_name": "CHOLA HOTEL OR MUSIC ACADEMY",
-      "latitude": 13.045893,
-      "longitude": 80.256864
-    },
-    {
-      "id": "193c5e1f-cdb2-5e1f-bb52-7548ba86a683",
-      "stop_name": "CHOLA MANDAL",
-      "latitude": 12.924101,
-      "longitude": 80.251332
-    },
-    {
-      "id": "795e9410-3600-5ae1-bbd0-90c3ce81cce5",
-      "stop_name": "CHOOLAI POST OFFICE",
-      "latitude": 13.09052,
-      "longitude": 80.268028
-    },
-    {
-      "id": "b42a59d2-8ad3-502a-8103-db9ca5a2c98b",
-      "stop_name": "CHOOLAI ROUNTANA",
-      "latitude": 13.090759,
-      "longitude": 80.269665
-    },
-    {
-      "id": "11df055e-6af3-5859-9dca-be6b471828d1",
-      "stop_name": "CHURCH PARK / PETER'S ROAD THOUSAND LIGHTS",
-      "latitude": 13.054654,
-      "longitude": 80.255175
-    },
-    {
-      "id": "d0a9e4ed-3576-59bc-8ec7-722f1f1fe461",
-      "stop_name": "CHURCH PARK SCHOOL ANNASALAI",
-      "latitude": 13.054149,
-      "longitude": 80.253735
-    },
-    {
-      "id": "d6e4a369-b772-5fbd-a709-80be737fbcd2",
-      "stop_name": "CHURCH ROAD MOGAPPAIR",
-      "latitude": 13.07846,
-      "longitude": 80.18104
-    },
-    {
-      "id": "8451711a-82f1-500e-8a23-9e8b25b6b3aa",
-      "stop_name": "CHURCH STOP KORATTUR",
-      "latitude": 13.108329,
-      "longitude": 80.180403
-    },
-    {
-      "id": "7c20bb54-389e-5f3d-808a-397cb36b53ca",
-      "stop_name": "CIPET",
-      "latitude": 13.014305,
-      "longitude": 80.204704
-    },
-    {
-      "id": "06c5f8e3-0678-5f01-86c5-a05a294650f2",
-      "stop_name": "CIT NAGAR",
-      "latitude": 13.030127,
-      "longitude": 80.230843
-    },
-    {
-      "id": "f68d6b7d-1edb-53fd-ba85-0e95ba9e2585",
-      "stop_name": "CITY CENTRE OR KALYANI HOSPITAL",
-      "latitude": 13.043832,
-      "longitude": 80.271702
-    },
-    {
-      "id": "921213d8-a1eb-5d28-9ca8-ddfa3f0bf9a1",
-      "stop_name": "CLIVE BATTERY",
-      "latitude": 13.10009,
-      "longitude": 80.29406
-    },
-    {
-      "id": "25ae1754-601d-508d-95c1-64620bf25046",
-      "stop_name": "CLRI BUS STOP",
-      "latitude": 13.007784,
-      "longitude": 80.240308
-    },
-    {
-      "id": "a0f7fb2a-b235-56fc-bbbf-12616df227fa",
-      "stop_name": "CO-OPTEX",
-      "latitude": 13.06766,
-      "longitude": 80.25504
-    },
-    {
-      "id": "4a431261-970d-53b5-bab5-b6f3e1d4c0ed",
-      "stop_name": "COLLECTOR NAGAR",
-      "latitude": 13.08772,
-      "longitude": 80.188913
-    },
-    {
-      "id": "c4aeaf83-3912-5033-9c3c-561bc5b10d2d",
-      "stop_name": "COLLECTOR NAGAR ANNAI FLATS",
-      "latitude": 13.08423,
-      "longitude": 80.19236
-    },
-    {
-      "id": "9e99c650-155f-5980-82dc-a02c85f3870e",
-      "stop_name": "COLLECTOR NAGAR T S KRISHNA NAGAR",
-      "latitude": 13.088136,
-      "longitude": 80.184137
-    },
-    {
-      "id": "9642c1ee-844a-59e7-9891-05e1f7334842",
-      "stop_name": "CONCORDE CHURCH",
-      "latitude": 13.146435,
-      "longitude": 80.284743
-    },
-    {
-      "id": "fadad9ed-dc10-5c98-a0fe-77441ba806f8",
-      "stop_name": "CONTONMENT CEMETERY",
-      "latitude": 13.014724,
-      "longitude": 80.193595
-    },
-    {
-      "id": "468a27c7-ae76-5cce-9b0a-e690ffac7aeb",
-      "stop_name": "CORONATION NAGAR ENNORE HIGH ROAD",
-      "latitude": 13.124419,
-      "longitude": 80.277612
-    },
-    {
-      "id": "bca4a46a-7aff-5f25-a87e-d1a422e70f62",
-      "stop_name": "CORPORATION SCHOOL",
-      "latitude": 13.082076,
-      "longitude": 80.176006
-    },
-    {
-      "id": "b6787985-f03d-5d57-be4c-7a3b62d23778",
-      "stop_name": "CP RAMASAMY ROAD",
-      "latitude": 13.034997,
-      "longitude": 80.257152
-    },
-    {
-      "id": "e0c64b59-9f8d-5916-81bd-c59fa08a92bd",
-      "stop_name": "CPCL BACK GATE",
-      "latitude": 13.153875,
-      "longitude": 80.278264
-    },
-    {
-      "id": "9082a60b-d1bf-5dc2-a16c-db84d3bafed9",
-      "stop_name": "D B JAIN COLLEGE",
-      "latitude": 12.946606,
-      "longitude": 80.239888
-    },
-    {
-      "id": "8cdac881-ee04-5415-b012-6e48e4fccb90",
-      "stop_name": "D.B. JAIN COLLEGE",
-      "latitude": 12.946606,
-      "longitude": 80.239596
-    },
-    {
-      "id": "996a7021-f9ab-5662-a058-b2a057a7c4df",
-      "stop_name": "D.G.P OFFICE",
-      "latitude": 13.043429,
-      "longitude": 80.277872
+      "latitude": 13.11977,
+      "longitude": 80.10227,
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     }
   ],
   "route_stops": [
     {
-      "id": "ba017524-6620-56d5-a148-cf4672c06cff",
-      "route_id": "f3c9eb37-173c-52c2-95c7-4e4cead823e8",
-      "stop_id": "54e51dce-0c94-5f01-aa34-50e04c06456b",
+      "id": "2cb7f803-91e4-4e16-af55-7e3af8ceb76c",
+      "route_id": "b1020000-0000-0000-0000-000000000005",
+      "stop_id": "d1020000-0000-0000-0000-000000000003",
+      "stop_sequence": 1,
+      "stop_name": "VADAPALANI",
+      "latitude": 13.05042,
+      "longitude": 80.21214
+    },
+    {
+      "id": "1438f330-4ef9-4556-a157-63a5fabc8fa9",
+      "route_id": "b1020000-0000-0000-0000-000000000570",
+      "stop_id": "d1020000-0000-0000-0000-000000000001",
+      "stop_sequence": 1,
       "stop_name": "M.G.R.KOYAMBEDU",
+      "latitude": 13.06918,
+      "longitude": 80.20572
+    },
+    {
+      "id": "d99a7be7-8ece-48de-aed9-3f45f6cf930b",
+      "route_id": "b1020000-0000-0000-0000-000000000102",
+      "stop_id": "d1020000-0000-0000-0000-000000000014",
       "stop_sequence": 1,
-      "latitude": 13.06941,
-      "longitude": 80.20553
-    },
-    {
-      "id": "f98c81b5-d5e0-5815-8dd3-eb1c9c501f3b",
-      "route_id": "f3c9eb37-173c-52c2-95c7-4e4cead823e8",
-      "stop_id": "f7914273-09ca-5d77-838c-3b1857c380ac",
-      "stop_name": "KOYAMBEDU MARKET",
-      "stop_sequence": 2,
-      "latitude": 13.068861,
-      "longitude": 80.200128
-    },
-    {
-      "id": "fbec92da-e0ea-5822-838e-590f2aaa78bb",
-      "route_id": "f3c9eb37-173c-52c2-95c7-4e4cead823e8",
-      "stop_id": "05473e99-8c4e-5a0d-a710-27469a7dd07a",
-      "stop_name": "VADAPALANI",
-      "stop_sequence": 3,
-      "latitude": 13.046544,
-      "longitude": 80.212141
-    },
-    {
-      "id": "21c93829-681f-5c6a-aa81-f8a1e7f0d715",
-      "route_id": "f3c9eb37-173c-52c2-95c7-4e4cead823e8",
-      "stop_id": "0e6135ff-43e5-540b-a126-9dbdc4e42e5b",
-      "stop_name": "ASHOK PILLAR",
-      "stop_sequence": 4,
-      "latitude": 13.035086,
-      "longitude": 80.211062
-    },
-    {
-      "id": "2bbe6c25-3381-5f71-8d5e-72b24ef012aa",
-      "route_id": "f3c9eb37-173c-52c2-95c7-4e4cead823e8",
-      "stop_id": "2df7bf28-df1e-558b-9338-7f9ab475b342",
-      "stop_name": "GUINDY TVK ESTATE",
-      "stop_sequence": 5,
-      "latitude": 13.00982,
-      "longitude": 80.21315
-    },
-    {
-      "id": "7af9ef96-1581-5405-8ef9-e3655e6f059f",
-      "route_id": "f3c9eb37-173c-52c2-95c7-4e4cead823e8",
-      "stop_id": "7082fd46-ab81-5f85-9420-39b12f57ea04",
-      "stop_name": "VELACHERY B.T",
-      "stop_sequence": 6,
-      "latitude": 12.976237,
-      "longitude": 80.22146
-    },
-    {
-      "id": "90e112ce-3cab-5a42-a5ce-792afcf6e385",
-      "route_id": "f3c9eb37-173c-52c2-95c7-4e4cead823e8",
-      "stop_id": "bbc4ddb3-0332-529a-9c62-c4ea8963924a",
-      "stop_name": "PERUNGUDI",
-      "stop_sequence": 7,
-      "latitude": 12.959469,
-      "longitude": 80.244872
-    },
-    {
-      "id": "d90c8722-4561-5796-84be-269f4ac196d5",
-      "route_id": "f3c9eb37-173c-52c2-95c7-4e4cead823e8",
-      "stop_id": "86526b05-218d-5f84-bef9-14a5583f5b61",
-      "stop_name": "THORAIPAKKAM",
-      "stop_sequence": 8,
-      "latitude": 12.94394,
-      "longitude": 80.23754
-    },
-    {
-      "id": "4e2e8c62-dc46-56d8-9b1b-3a4ab84ca462",
-      "route_id": "f3c9eb37-173c-52c2-95c7-4e4cead823e8",
-      "stop_id": "5a3cb8c8-c2bc-5179-9b8b-a1f60986c1bc",
-      "stop_name": "SHOLINGANALLUR",
-      "stop_sequence": 9,
-      "latitude": 12.893437,
-      "longitude": 80.227618
-    },
-    {
-      "id": "a53309ca-0619-5d4f-8148-6a578fa0647b",
-      "route_id": "f3c9eb37-173c-52c2-95c7-4e4cead823e8",
-      "stop_id": "1cb6d4b7-717b-56ef-93d5-646d19f78408",
-      "stop_name": "NAVALUR",
-      "stop_sequence": 10,
-      "latitude": 12.84651,
-      "longitude": 80.22684
-    },
-    {
-      "id": "d639ce7f-ba5c-56c1-8a19-a20c36d649b3",
-      "route_id": "f3c9eb37-173c-52c2-95c7-4e4cead823e8",
-      "stop_id": "c4ce80ce-9bc6-578a-a4ee-504dcb457f81",
-      "stop_name": "SIPCOT SIRUSERI",
-      "stop_sequence": 11,
-      "latitude": 12.82561,
-      "longitude": 80.22184
-    },
-    {
-      "id": "f6fa7cb9-f7a7-54ee-a794-a04e44f985d4",
-      "route_id": "f3c9eb37-173c-52c2-95c7-4e4cead823e8",
-      "stop_id": "1e89b1b0-0995-5614-8f6b-c70f9c59068b",
-      "stop_name": "PUDUPAKKAM RD.JN",
-      "stop_sequence": 12,
-      "latitude": 12.8105,
-      "longitude": 80.2195
-    },
-    {
-      "id": "460d7375-0e22-5753-9154-6c1dd331192d",
-      "route_id": "f3c9eb37-173c-52c2-95c7-4e4cead823e8",
-      "stop_id": "cce10a19-c44e-5499-a0d9-72ca9dc702dd",
-      "stop_name": "KELAMBAKKAM",
-      "stop_sequence": 13,
-      "latitude": 12.78712,
-      "longitude": 80.21851
-    },
-    {
-      "id": "fe798bdf-431b-54cf-8062-cead12758b64",
-      "route_id": "90eae164-a4be-59aa-a1a0-d83753921ab4",
-      "stop_id": "10bd9caf-c5aa-5f9d-8db8-f09f8cd1a6d6",
       "stop_name": "ISLAND GROUND",
-      "stop_sequence": 1,
-      "latitude": 13.074735,
-      "longitude": 80.286254
+      "latitude": 13.07632,
+      "longitude": 80.28312
     },
     {
-      "id": "236cdef2-2463-5ec3-b59c-b8db21b29166",
-      "route_id": "90eae164-a4be-59aa-a1a0-d83753921ab4",
-      "stop_id": "2ee03692-5644-5eb5-9db2-4dac5db44792",
+      "id": "0350feca-56b6-4a52-a4c8-b94f0cccffe3",
+      "route_id": "b1020000-0000-0000-0000-000000000021",
+      "stop_id": "d1020000-0000-0000-0000-000000000014",
+      "stop_sequence": 1,
+      "stop_name": "ISLAND GROUND",
+      "latitude": 13.07632,
+      "longitude": 80.28312
+    },
+    {
+      "id": "ca0ff8f1-90a9-448b-a8c0-da81515bece8",
+      "route_id": "b1020000-0000-0000-0000-000000000070",
+      "stop_id": "d1020000-0000-0000-0000-000000000029",
+      "stop_sequence": 1,
+      "stop_name": "AVADI B.T",
+      "latitude": 13.11977,
+      "longitude": 80.10227
+    },
+    {
+      "id": "2ba8a581-a5c4-444f-a893-efdc3ae91052",
+      "route_id": "b1020000-0000-0000-0000-000000000021",
+      "stop_id": "d1020000-0000-0000-0000-000000000015",
+      "stop_sequence": 2,
       "stop_name": "M.G.R.CENTRAL",
-      "stop_sequence": 2,
-      "latitude": 13.08175,
-      "longitude": 80.276663
+      "latitude": 13.08268,
+      "longitude": 80.27552
     },
     {
-      "id": "4d3340c3-c62f-5ae9-9a3c-12248692c7ee",
-      "route_id": "90eae164-a4be-59aa-a1a0-d83753921ab4",
-      "stop_id": "7d80b665-f896-5ce6-afd9-36fe48102ae5",
+      "id": "46a8319a-d3d8-4cd3-8527-84cf97518466",
+      "route_id": "b1020000-0000-0000-0000-000000000570",
+      "stop_id": "d1020000-0000-0000-0000-000000000002",
+      "stop_sequence": 2,
+      "stop_name": "KOYAMBEDU MARKET",
+      "latitude": 13.06341,
+      "longitude": 80.1983
+    },
+    {
+      "id": "5cadee63-4e2a-406f-b5dc-59eb38b61e7f",
+      "route_id": "b1020000-0000-0000-0000-000000000005",
+      "stop_id": "d1020000-0000-0000-0000-000000000004",
+      "stop_sequence": 2,
+      "stop_name": "ASHOK PILLAR",
+      "latitude": 13.03362,
+      "longitude": 80.21142
+    },
+    {
+      "id": "5228a99e-e6c3-4fb5-815c-cd8cd4402244",
+      "route_id": "b1020000-0000-0000-0000-000000000102",
+      "stop_id": "d1020000-0000-0000-0000-000000000015",
+      "stop_sequence": 2,
+      "stop_name": "M.G.R.CENTRAL",
+      "latitude": 13.08268,
+      "longitude": 80.27552
+    },
+    {
+      "id": "8d163eb4-4113-4a97-9742-8342f35c03f9",
+      "route_id": "b1020000-0000-0000-0000-000000000070",
+      "stop_id": "d1020000-0000-0000-0000-000000000001",
+      "stop_sequence": 2,
+      "stop_name": "M.G.R.KOYAMBEDU",
+      "latitude": 13.06918,
+      "longitude": 80.20572
+    },
+    {
+      "id": "5d896b9f-619e-415c-ab27-900a3ee0fd5a",
+      "route_id": "b1020000-0000-0000-0000-000000000070",
+      "stop_id": "d1020000-0000-0000-0000-000000000002",
+      "stop_sequence": 3,
+      "stop_name": "KOYAMBEDU MARKET",
+      "latitude": 13.06341,
+      "longitude": 80.1983
+    },
+    {
+      "id": "a4196544-4cd8-4702-b0d3-938c82b92295",
+      "route_id": "b1020000-0000-0000-0000-000000000021",
+      "stop_id": "d1020000-0000-0000-0000-000000000016",
+      "stop_sequence": 3,
       "stop_name": "LIC CHENNAI",
+      "latitude": 13.0645,
+      "longitude": 80.2678
+    },
+    {
+      "id": "85e99cdd-53c1-4725-b3a3-c2995f445e9e",
+      "route_id": "b1020000-0000-0000-0000-000000000102",
+      "stop_id": "d1020000-0000-0000-0000-000000000016",
       "stop_sequence": 3,
-      "latitude": 13.065433,
-      "longitude": 80.267731
+      "stop_name": "LIC CHENNAI",
+      "latitude": 13.0645,
+      "longitude": 80.2678
     },
     {
-      "id": "ab0a3b07-0356-586b-85ad-5a0a77ba8361",
-      "route_id": "90eae164-a4be-59aa-a1a0-d83753921ab4",
-      "stop_id": "09768273-83a1-5010-a7a0-b22a12d47690",
-      "stop_name": "ANNA SALAI D.M.S",
-      "stop_sequence": 4,
-      "latitude": 13.04521,
-      "longitude": 80.2501
-    },
-    {
-      "id": "bdd24e96-91ce-5fbe-99a5-127432a4beab",
-      "route_id": "90eae164-a4be-59aa-a1a0-d83753921ab4",
-      "stop_id": "b3e91c22-3eeb-5dfa-90d3-9aa253c0802f",
-      "stop_name": "TEYNAMPET",
-      "stop_sequence": 5,
-      "latitude": 13.03964,
-      "longitude": 80.245574
-    },
-    {
-      "id": "abc08e0b-3633-5b7e-b724-b8719586d4ac",
-      "route_id": "90eae164-a4be-59aa-a1a0-d83753921ab4",
-      "stop_id": "ead199d0-9c6b-5edd-bff7-db0bcdf0cc4c",
-      "stop_name": "NANDANAM",
-      "stop_sequence": 6,
-      "latitude": 13.0309,
-      "longitude": 80.23999
-    },
-    {
-      "id": "bc4ccdd3-f89b-5055-9ab1-8c1a9d7d3fdf",
-      "route_id": "90eae164-a4be-59aa-a1a0-d83753921ab4",
-      "stop_id": "daf52c3c-b51a-5d16-ac4c-a09c1ae05804",
-      "stop_name": "SAIDAPET",
-      "stop_sequence": 7,
-      "latitude": 13.02299,
-      "longitude": 80.22723
-    },
-    {
-      "id": "56957dd2-8cbe-51b5-a1ba-d00ad33a4abd",
-      "route_id": "90eae164-a4be-59aa-a1a0-d83753921ab4",
-      "stop_id": "2df7bf28-df1e-558b-9338-7f9ab475b342",
-      "stop_name": "GUINDY TVK ESTATE",
-      "stop_sequence": 8,
-      "latitude": 13.00982,
-      "longitude": 80.21315
-    },
-    {
-      "id": "7bdc9bd9-6835-5133-9886-8307e9636857",
-      "route_id": "90eae164-a4be-59aa-a1a0-d83753921ab4",
-      "stop_id": "86c78834-532e-530c-91a5-319a81860e24",
-      "stop_name": "AIRPORT METRO",
-      "stop_sequence": 9,
-      "latitude": 12.9801,
-      "longitude": 80.1638
-    },
-    {
-      "id": "8a84ec97-e8c7-523d-b597-3dae1c8d6e15",
-      "route_id": "90eae164-a4be-59aa-a1a0-d83753921ab4",
-      "stop_id": "f536ef89-9016-55f9-a566-e50d24ffff83",
-      "stop_name": "PALLAVARAM R.S",
-      "stop_sequence": 10,
-      "latitude": 12.96841,
-      "longitude": 80.14852
-    },
-    {
-      "id": "4209750a-84fa-54ef-99ba-d69336553624",
-      "route_id": "90eae164-a4be-59aa-a1a0-d83753921ab4",
-      "stop_id": "638e4433-2195-5b1c-840e-129e99540f94",
-      "stop_name": "CHROMPET",
-      "stop_sequence": 11,
-      "latitude": 12.943115,
-      "longitude": 80.133567
-    },
-    {
-      "id": "8c1a51ed-62ee-533a-8420-92027b0afc9a",
-      "route_id": "90eae164-a4be-59aa-a1a0-d83753921ab4",
-      "stop_id": "d00728a1-aba8-5b3f-b51f-8018ad721e35",
-      "stop_name": "TAMBARAM WEST",
-      "stop_sequence": 12,
-      "latitude": 12.9257,
-      "longitude": 80.10612
-    },
-    {
-      "id": "5f8b9955-e19f-51a2-9fdc-70e20351f703",
-      "route_id": "90eae164-a4be-59aa-a1a0-d83753921ab4",
-      "stop_id": "2397873b-d85c-597e-a7e3-4568eb831db9",
-      "stop_name": "PERUNGALATHUR",
-      "stop_sequence": 13,
-      "latitude": 12.90912,
-      "longitude": 80.09206
-    },
-    {
-      "id": "3e380248-1565-5cd0-8521-a2d82c55496c",
-      "route_id": "90eae164-a4be-59aa-a1a0-d83753921ab4",
-      "stop_id": "fa0b1c8e-65c8-55e5-a734-20132e42f6f6",
-      "stop_name": "VANDALUR ZOO",
-      "stop_sequence": 14,
-      "latitude": 12.8795,
-      "longitude": 80.0811
-    },
-    {
-      "id": "39d734a1-e947-5138-9456-d4cf9ac879ac",
-      "route_id": "90eae164-a4be-59aa-a1a0-d83753921ab4",
-      "stop_id": "fec00f33-4620-5552-a383-74fa6f812e26",
-      "stop_name": "KCBT - KILAMBAKKAM",
-      "stop_sequence": 15,
-      "latitude": 12.8615,
-      "longitude": 80.0752
-    },
-    {
-      "id": "4e83d71e-5c8f-5a77-9b7d-bee887744dff",
-      "route_id": "2efb30e8-895e-53bd-b43d-acb550cb9351",
-      "stop_id": "05473e99-8c4e-5a0d-a710-27469a7dd07a",
-      "stop_name": "VADAPALANI",
-      "stop_sequence": 1,
-      "latitude": 13.046544,
-      "longitude": 80.212141
-    },
-    {
-      "id": "93434f37-65b6-53ad-a3c6-d20300ed68cb",
-      "route_id": "2efb30e8-895e-53bd-b43d-acb550cb9351",
-      "stop_id": "1b6d7055-cbf4-5bd9-a476-27effe582672",
-      "stop_name": "KODAMBAKKAM",
-      "stop_sequence": 2,
-      "latitude": 13.054017,
-      "longitude": 80.227302
-    },
-    {
-      "id": "8798311d-19bc-5dbe-80c9-7a6909a7a701",
-      "route_id": "2efb30e8-895e-53bd-b43d-acb550cb9351",
-      "stop_id": "d51d2e39-1a9e-588d-bde3-c5b88ec6c196",
+      "id": "029e5c0c-3f54-4e69-9b81-368b7b40ae69",
+      "route_id": "b1020000-0000-0000-0000-000000000005",
+      "stop_id": "d1020000-0000-0000-0000-000000000026",
+      "stop_sequence": 3,
       "stop_name": "T.NAGAR B.T",
-      "stop_sequence": 3,
       "latitude": 13.0405,
       "longitude": 80.2335
     },
     {
-      "id": "8dd4597e-dde3-5ddf-b3a9-8066ddab6ef4",
-      "route_id": "2efb30e8-895e-53bd-b43d-acb550cb9351",
-      "stop_id": "50e3ee5b-678b-5c6b-9802-0716f0926c19",
-      "stop_name": "PANAGAL PARK",
-      "stop_sequence": 4,
-      "latitude": 13.045245,
-      "longitude": 80.232784
-    },
-    {
-      "id": "b9a658a7-4b38-5f22-b4ce-d81706e165c1",
-      "route_id": "2efb30e8-895e-53bd-b43d-acb550cb9351",
-      "stop_id": "ead199d0-9c6b-5edd-bff7-db0bcdf0cc4c",
-      "stop_name": "NANDANAM",
-      "stop_sequence": 5,
-      "latitude": 13.0309,
-      "longitude": 80.23999
-    },
-    {
-      "id": "10c17e69-6c22-54eb-9363-6f6cf92b79d7",
-      "route_id": "2efb30e8-895e-53bd-b43d-acb550cb9351",
-      "stop_id": "75aefc94-84a0-5433-bc00-738f45079b2e",
-      "stop_name": "KOTTURPURAM",
-      "stop_sequence": 6,
-      "latitude": 13.012032,
-      "longitude": 80.240847
-    },
-    {
-      "id": "f61e69b5-7601-5a7d-99d4-d24eb640ac81",
-      "route_id": "2efb30e8-895e-53bd-b43d-acb550cb9351",
-      "stop_id": "f445f72f-966c-55db-97ff-cb85018a648d",
-      "stop_name": "ADYAR B.T",
-      "stop_sequence": 7,
-      "latitude": 13.009701,
-      "longitude": 80.258931
-    },
-    {
-      "id": "45ebc3eb-e094-5978-a308-0081fc810e03",
-      "route_id": "2efb30e8-895e-53bd-b43d-acb550cb9351",
-      "stop_id": "8685632a-b0eb-5fee-a651-95dccd362632",
-      "stop_name": "INDIRA NAGAR",
-      "stop_sequence": 8,
-      "latitude": 12.9125,
-      "longitude": 80.14309
-    },
-    {
-      "id": "e80fb0cc-c404-5869-88e4-9a21f80d372c",
-      "route_id": "2efb30e8-895e-53bd-b43d-acb550cb9351",
-      "stop_id": "96f56129-544d-58cc-b3ba-f7b1d433f245",
-      "stop_name": "BESANT NAGAR",
-      "stop_sequence": 9,
-      "latitude": 12.9962,
-      "longitude": 80.26775
-    },
-    {
-      "id": "8d10a861-92c0-5631-9a56-acdf9bd85503",
-      "route_id": "b54a89f4-ff9f-5288-985a-2992fdff3990",
-      "stop_id": "10bd9caf-c5aa-5f9d-8db8-f09f8cd1a6d6",
-      "stop_name": "ISLAND GROUND",
-      "stop_sequence": 1,
-      "latitude": 13.074735,
-      "longitude": 80.286254
-    },
-    {
-      "id": "9a3c6068-50e8-5f22-bb0b-06cd19ee4ed2",
-      "route_id": "b54a89f4-ff9f-5288-985a-2992fdff3990",
-      "stop_id": "c7c13c49-62c3-554c-b60d-c05ae73137be",
-      "stop_name": "SANTHOME CHURCH",
-      "stop_sequence": 2,
-      "latitude": 13.032699,
-      "longitude": 80.277576
-    },
-    {
-      "id": "1cbd134c-cb23-5162-9c68-e766ff36b4d4",
-      "route_id": "b54a89f4-ff9f-5288-985a-2992fdff3990",
-      "stop_id": "be971a41-fe5c-5386-93e5-0f68a4d893a3",
-      "stop_name": "PATTINAPAKKAM",
+      "id": "a0e3fb0b-972c-492e-9b8d-22dac8b974de",
+      "route_id": "b1020000-0000-0000-0000-000000000570",
+      "stop_id": "d1020000-0000-0000-0000-000000000003",
       "stop_sequence": 3,
-      "latitude": 13.0215,
-      "longitude": 80.2751
-    },
-    {
-      "id": "3dcc2fbd-02b3-5357-82c3-90c7207adb33",
-      "route_id": "b54a89f4-ff9f-5288-985a-2992fdff3990",
-      "stop_id": "f445f72f-966c-55db-97ff-cb85018a648d",
-      "stop_name": "ADYAR B.T",
-      "stop_sequence": 4,
-      "latitude": 13.009701,
-      "longitude": 80.258931
-    },
-    {
-      "id": "37aa830b-898e-5d79-8b14-96fb3be40ae4",
-      "route_id": "b54a89f4-ff9f-5288-985a-2992fdff3990",
-      "stop_id": "fd561a60-0173-56b3-9b77-ddbd6fc95fa2",
-      "stop_name": "THIRUVANMIYUR",
-      "stop_sequence": 5,
-      "latitude": 12.986867,
-      "longitude": 80.259296
-    },
-    {
-      "id": "fc1883b8-a66f-57cb-8959-a8502f1b027f",
-      "route_id": "b54a89f4-ff9f-5288-985a-2992fdff3990",
-      "stop_id": "33eab733-8586-5b11-8e1a-1c109205d81f",
-      "stop_name": "KANDANCHAVADI",
-      "stop_sequence": 6,
-      "latitude": 12.965164,
-      "longitude": 80.247449
-    },
-    {
-      "id": "f0cb0c2f-3669-5347-b6eb-7b1be2055018",
-      "route_id": "b54a89f4-ff9f-5288-985a-2992fdff3990",
-      "stop_id": "86526b05-218d-5f84-bef9-14a5583f5b61",
-      "stop_name": "THORAIPAKKAM",
-      "stop_sequence": 7,
-      "latitude": 12.94394,
-      "longitude": 80.23754
-    },
-    {
-      "id": "b4231384-22e6-55e8-906f-b537eebef6c9",
-      "route_id": "b54a89f4-ff9f-5288-985a-2992fdff3990",
-      "stop_id": "5a3cb8c8-c2bc-5179-9b8b-a1f60986c1bc",
-      "stop_name": "SHOLINGANALLUR",
-      "stop_sequence": 8,
-      "latitude": 12.893437,
-      "longitude": 80.227618
-    },
-    {
-      "id": "cfa4e63e-238d-5758-bc78-1209a678b916",
-      "route_id": "b54a89f4-ff9f-5288-985a-2992fdff3990",
-      "stop_id": "1cb6d4b7-717b-56ef-93d5-646d19f78408",
-      "stop_name": "NAVALUR",
-      "stop_sequence": 9,
-      "latitude": 12.84651,
-      "longitude": 80.22684
-    },
-    {
-      "id": "5b386eeb-a78d-500f-a4da-d6d853db6d9a",
-      "route_id": "b54a89f4-ff9f-5288-985a-2992fdff3990",
-      "stop_id": "c4ce80ce-9bc6-578a-a4ee-504dcb457f81",
-      "stop_name": "SIPCOT SIRUSERI",
-      "stop_sequence": 10,
-      "latitude": 12.82561,
-      "longitude": 80.22184
-    },
-    {
-      "id": "7f8b89f8-f46d-5640-9ee1-e7540b11a764",
-      "route_id": "b54a89f4-ff9f-5288-985a-2992fdff3990",
-      "stop_id": "cce10a19-c44e-5499-a0d9-72ca9dc702dd",
-      "stop_name": "KELAMBAKKAM",
-      "stop_sequence": 11,
-      "latitude": 12.78712,
-      "longitude": 80.21851
-    },
-    {
-      "id": "2c3f918c-dbf4-57c1-9db1-c23a81a27059",
-      "route_id": "003bd35d-25e8-5659-9076-b6e07a5edc3d",
-      "stop_id": "9dc10339-11ef-541a-899c-7b1790cc1982",
-      "stop_name": "AVADI B.T",
-      "stop_sequence": 1,
-      "latitude": 13.119778,
-      "longitude": 80.102274
-    },
-    {
-      "id": "1adeadf4-4a52-537e-a952-6a5d7c29423d",
-      "route_id": "003bd35d-25e8-5659-9076-b6e07a5edc3d",
-      "stop_id": "53dafb49-503b-59d8-8931-dbfe55f3384d",
-      "stop_name": "THIRUMULLAIVOYAL",
-      "stop_sequence": 2,
-      "latitude": 13.124295,
-      "longitude": 80.143999
-    },
-    {
-      "id": "19c559f9-ccff-5b1b-9327-115923b3d42b",
-      "route_id": "003bd35d-25e8-5659-9076-b6e07a5edc3d",
-      "stop_id": "de5a4ac8-b89f-5ade-993d-c6605c1164f8",
-      "stop_name": "AMBATTUR I.E",
-      "stop_sequence": 3,
-      "latitude": 13.1021,
-      "longitude": 80.1624
-    },
-    {
-      "id": "c1aaa8b3-979c-55d9-a6ba-5e7fecfabdeb",
-      "route_id": "003bd35d-25e8-5659-9076-b6e07a5edc3d",
-      "stop_id": "4b503e14-5428-5ab9-8e2e-ce01a456ec58",
-      "stop_name": "THIRUMANGALAM METRO R.S",
-      "stop_sequence": 4,
-      "latitude": 13.085148,
-      "longitude": 80.199482
-    },
-    {
-      "id": "7ecd8d22-5a79-568e-a8e0-a0bc41afd9d0",
-      "route_id": "003bd35d-25e8-5659-9076-b6e07a5edc3d",
-      "stop_id": "54e51dce-0c94-5f01-aa34-50e04c06456b",
-      "stop_name": "M.G.R.KOYAMBEDU",
-      "stop_sequence": 5,
-      "latitude": 13.06941,
-      "longitude": 80.20553
-    },
-    {
-      "id": "e150d55e-d312-5938-b68d-14b9cad84f4b",
-      "route_id": "003bd35d-25e8-5659-9076-b6e07a5edc3d",
-      "stop_id": "05473e99-8c4e-5a0d-a710-27469a7dd07a",
       "stop_name": "VADAPALANI",
-      "stop_sequence": 6,
-      "latitude": 13.046544,
-      "longitude": 80.212141
+      "latitude": 13.05042,
+      "longitude": 80.21214
     },
     {
-      "id": "30a1bd7f-7276-5e5d-a05f-a5e04eb922c2",
-      "route_id": "003bd35d-25e8-5659-9076-b6e07a5edc3d",
-      "stop_id": "0e6135ff-43e5-540b-a126-9dbdc4e42e5b",
+      "id": "797de523-35e7-4dc0-8698-0e8eb9107c3b",
+      "route_id": "b1020000-0000-0000-0000-000000000005",
+      "stop_id": "d1020000-0000-0000-0000-000000000019",
+      "stop_sequence": 4,
+      "stop_name": "NANDANAM",
+      "latitude": 13.0298,
+      "longitude": 80.2395
+    },
+    {
+      "id": "d969a6c2-86be-48dc-941b-ef754c217523",
+      "route_id": "b1020000-0000-0000-0000-000000000570",
+      "stop_id": "d1020000-0000-0000-0000-000000000004",
+      "stop_sequence": 4,
       "stop_name": "ASHOK PILLAR",
-      "stop_sequence": 7,
-      "latitude": 13.035086,
-      "longitude": 80.211062
+      "latitude": 13.03362,
+      "longitude": 80.21142
     },
     {
-      "id": "7edff6dc-94ac-5e58-8c16-19c356f3402c",
-      "route_id": "003bd35d-25e8-5659-9076-b6e07a5edc3d",
-      "stop_id": "2df7bf28-df1e-558b-9338-7f9ab475b342",
+      "id": "888e6963-d84c-416a-8c27-d8dfc5bf4059",
+      "route_id": "b1020000-0000-0000-0000-000000000070",
+      "stop_id": "d1020000-0000-0000-0000-000000000003",
+      "stop_sequence": 4,
+      "stop_name": "VADAPALANI",
+      "latitude": 13.05042,
+      "longitude": 80.21214
+    },
+    {
+      "id": "6e1d1bc4-36de-493e-98fb-5725033b13d0",
+      "route_id": "b1020000-0000-0000-0000-000000000021",
+      "stop_id": "d1020000-0000-0000-0000-000000000017",
+      "stop_sequence": 4,
+      "stop_name": "ANNA SALAI D.M.S",
+      "latitude": 13.04521,
+      "longitude": 80.2501
+    },
+    {
+      "id": "b68c51a9-b129-40bf-b5cc-af39519986e2",
+      "route_id": "b1020000-0000-0000-0000-000000000102",
+      "stop_id": "d1020000-0000-0000-0000-000000000027",
+      "stop_sequence": 4,
+      "stop_name": "ADYAR B.T",
+      "latitude": 13.00642,
+      "longitude": 80.25712
+    },
+    {
+      "id": "2c4ae92f-1b2e-4aea-97b6-ee1e062c010c",
+      "route_id": "b1020000-0000-0000-0000-000000000102",
+      "stop_id": "d1020000-0000-0000-0000-000000000007",
+      "stop_sequence": 5,
+      "stop_name": "PERUNGUDI",
+      "latitude": 12.96541,
+      "longitude": 80.24151
+    },
+    {
+      "id": "1eb5fe90-fe25-4c60-b5f8-9ff856312f39",
+      "route_id": "b1020000-0000-0000-0000-000000000005",
+      "stop_id": "d1020000-0000-0000-0000-000000000027",
+      "stop_sequence": 5,
+      "stop_name": "ADYAR B.T",
+      "latitude": 13.00642,
+      "longitude": 80.25712
+    },
+    {
+      "id": "2d1f1d4e-1740-4727-972b-70df5222e33f",
+      "route_id": "b1020000-0000-0000-0000-000000000570",
+      "stop_id": "d1020000-0000-0000-0000-000000000005",
+      "stop_sequence": 5,
       "stop_name": "GUINDY TVK ESTATE",
-      "stop_sequence": 8,
       "latitude": 13.00982,
       "longitude": 80.21315
     },
     {
-      "id": "67d0e326-a885-5a16-ae86-64a966856b81",
-      "route_id": "003bd35d-25e8-5659-9076-b6e07a5edc3d",
-      "stop_id": "f536ef89-9016-55f9-a566-e50d24ffff83",
+      "id": "f27bd04e-1a1c-493f-8e2f-17b7d20b605b",
+      "route_id": "b1020000-0000-0000-0000-000000000021",
+      "stop_id": "d1020000-0000-0000-0000-000000000018",
+      "stop_sequence": 5,
+      "stop_name": "TEYNAMPET",
+      "latitude": 13.04015,
+      "longitude": 80.2443
+    },
+    {
+      "id": "c2830892-f96e-4690-bcdb-9441d4344737",
+      "route_id": "b1020000-0000-0000-0000-000000000070",
+      "stop_id": "d1020000-0000-0000-0000-000000000004",
+      "stop_sequence": 5,
+      "stop_name": "ASHOK PILLAR",
+      "latitude": 13.03362,
+      "longitude": 80.21142
+    },
+    {
+      "id": "65e97cbe-8fa4-4aa9-8836-92a576a1f653",
+      "route_id": "b1020000-0000-0000-0000-000000000021",
+      "stop_id": "d1020000-0000-0000-0000-000000000019",
+      "stop_sequence": 6,
+      "stop_name": "NANDANAM",
+      "latitude": 13.0298,
+      "longitude": 80.2395
+    },
+    {
+      "id": "aa5cd126-4eac-483e-99e8-e04e6504134f",
+      "route_id": "b1020000-0000-0000-0000-000000000070",
+      "stop_id": "d1020000-0000-0000-0000-000000000005",
+      "stop_sequence": 6,
+      "stop_name": "GUINDY TVK ESTATE",
+      "latitude": 13.00982,
+      "longitude": 80.21315
+    },
+    {
+      "id": "d6330441-1ff6-496d-98ab-7497ddd0b88f",
+      "route_id": "b1020000-0000-0000-0000-000000000570",
+      "stop_id": "d1020000-0000-0000-0000-000000000006",
+      "stop_sequence": 6,
+      "stop_name": "VELACHERY B.T",
+      "latitude": 12.97542,
+      "longitude": 80.22123
+    },
+    {
+      "id": "3495d1e2-0027-4157-831b-4e75c7c742f8",
+      "route_id": "b1020000-0000-0000-0000-000000000005",
+      "stop_id": "d1020000-0000-0000-0000-000000000028",
+      "stop_sequence": 6,
+      "stop_name": "BESANT NAGAR",
+      "latitude": 13.00015,
+      "longitude": 80.26715
+    },
+    {
+      "id": "419f5290-1f3c-4850-887a-215979fcdf1c",
+      "route_id": "b1020000-0000-0000-0000-000000000102",
+      "stop_id": "d1020000-0000-0000-0000-000000000008",
+      "stop_sequence": 6,
+      "stop_name": "THORAIPAKKAM",
+      "latitude": 12.93722,
+      "longitude": 80.23781
+    },
+    {
+      "id": "a69dcb77-8dd1-4324-b391-fdf52aa6c67c",
+      "route_id": "b1020000-0000-0000-0000-000000000570",
+      "stop_id": "d1020000-0000-0000-0000-000000000007",
+      "stop_sequence": 7,
+      "stop_name": "PERUNGUDI",
+      "latitude": 12.96541,
+      "longitude": 80.24151
+    },
+    {
+      "id": "006c19f4-1674-4ee2-bb53-b0fb3c1669ac",
+      "route_id": "b1020000-0000-0000-0000-000000000021",
+      "stop_id": "d1020000-0000-0000-0000-000000000020",
+      "stop_sequence": 7,
+      "stop_name": "SAIDAPET",
+      "latitude": 13.0201,
+      "longitude": 80.2235
+    },
+    {
+      "id": "7d801268-222e-4a05-99cd-ba54f1d9714a",
+      "route_id": "b1020000-0000-0000-0000-000000000102",
+      "stop_id": "d1020000-0000-0000-0000-000000000009",
+      "stop_sequence": 7,
+      "stop_name": "SHOLINGANALLUR",
+      "latitude": 12.90113,
+      "longitude": 80.22791
+    },
+    {
+      "id": "9790b5d3-247b-4cc0-9856-818c754295fb",
+      "route_id": "b1020000-0000-0000-0000-000000000070",
+      "stop_id": "d1020000-0000-0000-0000-000000000021",
+      "stop_sequence": 7,
+      "stop_name": "AIRPORT METRO",
+      "latitude": 12.9801,
+      "longitude": 80.1638
+    },
+    {
+      "id": "34aca725-cdb4-4e6b-a8e7-f3f528d65a7a",
+      "route_id": "b1020000-0000-0000-0000-000000000570",
+      "stop_id": "d1020000-0000-0000-0000-000000000008",
+      "stop_sequence": 8,
+      "stop_name": "THORAIPAKKAM",
+      "latitude": 12.93722,
+      "longitude": 80.23781
+    },
+    {
+      "id": "639f7b11-6505-4e4c-806c-fc10441bc888",
+      "route_id": "b1020000-0000-0000-0000-000000000021",
+      "stop_id": "d1020000-0000-0000-0000-000000000005",
+      "stop_sequence": 8,
+      "stop_name": "GUINDY TVK ESTATE",
+      "latitude": 13.00982,
+      "longitude": 80.21315
+    },
+    {
+      "id": "846fa8c6-0796-4a04-a065-5cde423a6a95",
+      "route_id": "b1020000-0000-0000-0000-000000000102",
+      "stop_id": "d1020000-0000-0000-0000-000000000010",
+      "stop_sequence": 8,
+      "stop_name": "NAVALUR",
+      "latitude": 12.84651,
+      "longitude": 80.22684
+    },
+    {
+      "id": "78ac5231-70ef-41e0-bf54-dc4cc24f32de",
+      "route_id": "b1020000-0000-0000-0000-000000000070",
+      "stop_id": "d1020000-0000-0000-0000-000000000022",
+      "stop_sequence": 8,
       "stop_name": "PALLAVARAM R.S",
-      "stop_sequence": 9,
       "latitude": 12.96841,
       "longitude": 80.14852
     },
     {
-      "id": "03990f9f-8639-5b7e-a825-2a890fca82ef",
-      "route_id": "003bd35d-25e8-5659-9076-b6e07a5edc3d",
-      "stop_id": "638e4433-2195-5b1c-840e-129e99540f94",
+      "id": "bc11f783-b111-49a8-baad-34f3f4b154e6",
+      "route_id": "b1020000-0000-0000-0000-000000000070",
+      "stop_id": "d1020000-0000-0000-0000-000000000023",
+      "stop_sequence": 9,
       "stop_name": "CHROMPET",
-      "stop_sequence": 10,
-      "latitude": 12.943115,
-      "longitude": 80.133567
+      "latitude": 12.9515,
+      "longitude": 80.1412
     },
     {
-      "id": "df7626da-670f-51de-a4f4-03494dee8c48",
-      "route_id": "003bd35d-25e8-5659-9076-b6e07a5edc3d",
-      "stop_id": "d00728a1-aba8-5b3f-b51f-8018ad721e35",
+      "id": "c0eb1b87-5e81-4a37-b31c-4893844dab7e",
+      "route_id": "b1020000-0000-0000-0000-000000000021",
+      "stop_id": "d1020000-0000-0000-0000-000000000021",
+      "stop_sequence": 9,
+      "stop_name": "AIRPORT METRO",
+      "latitude": 12.9801,
+      "longitude": 80.1638
+    },
+    {
+      "id": "7e6d2ba2-bae7-4191-9b77-3a0019040d5a",
+      "route_id": "b1020000-0000-0000-0000-000000000570",
+      "stop_id": "d1020000-0000-0000-0000-000000000009",
+      "stop_sequence": 9,
+      "stop_name": "SHOLINGANALLUR",
+      "latitude": 12.90113,
+      "longitude": 80.22791
+    },
+    {
+      "id": "45d7513d-e107-4c9a-8a26-7fdba2058d5d",
+      "route_id": "b1020000-0000-0000-0000-000000000102",
+      "stop_id": "d1020000-0000-0000-0000-000000000011",
+      "stop_sequence": 9,
+      "stop_name": "SIPCOT SIRUSERI",
+      "latitude": 12.82561,
+      "longitude": 80.22184
+    },
+    {
+      "id": "aa83b7d1-c464-40c8-9c6b-b47aef995f8b",
+      "route_id": "b1020000-0000-0000-0000-000000000102",
+      "stop_id": "d1020000-0000-0000-0000-000000000013",
+      "stop_sequence": 10,
+      "stop_name": "KELAMBAKKAM",
+      "latitude": 12.78712,
+      "longitude": 80.21851
+    },
+    {
+      "id": "9e1191d8-409c-498c-9caa-5fcc924c1019",
+      "route_id": "b1020000-0000-0000-0000-000000000070",
+      "stop_id": "d1020000-0000-0000-0000-000000000024",
+      "stop_sequence": 10,
       "stop_name": "TAMBARAM WEST",
+      "latitude": 12.92482,
+      "longitude": 80.11721
+    },
+    {
+      "id": "c9b971f7-5d04-4e3d-a01a-48d5b88d4362",
+      "route_id": "b1020000-0000-0000-0000-000000000021",
+      "stop_id": "d1020000-0000-0000-0000-000000000022",
+      "stop_sequence": 10,
+      "stop_name": "PALLAVARAM R.S",
+      "latitude": 12.96841,
+      "longitude": 80.14852
+    },
+    {
+      "id": "108fbb57-5d88-47ee-964f-c7f7a76aca40",
+      "route_id": "b1020000-0000-0000-0000-000000000570",
+      "stop_id": "d1020000-0000-0000-0000-000000000010",
+      "stop_sequence": 10,
+      "stop_name": "NAVALUR",
+      "latitude": 12.84651,
+      "longitude": 80.22684
+    },
+    {
+      "id": "359cb6e7-2084-48cd-829b-09d86269293f",
+      "route_id": "b1020000-0000-0000-0000-000000000570",
+      "stop_id": "d1020000-0000-0000-0000-000000000011",
       "stop_sequence": 11,
-      "latitude": 12.9257,
-      "longitude": 80.10612
+      "stop_name": "SIPCOT SIRUSERI",
+      "latitude": 12.82561,
+      "longitude": 80.22184
+    },
+    {
+      "id": "d62ffdeb-3d02-4746-914e-881651631b2e",
+      "route_id": "b1020000-0000-0000-0000-000000000021",
+      "stop_id": "d1020000-0000-0000-0000-000000000023",
+      "stop_sequence": 11,
+      "stop_name": "CHROMPET",
+      "latitude": 12.9515,
+      "longitude": 80.1412
+    },
+    {
+      "id": "70991082-e473-40cc-8f64-d17dc0d56fc5",
+      "route_id": "b1020000-0000-0000-0000-000000000021",
+      "stop_id": "d1020000-0000-0000-0000-000000000024",
+      "stop_sequence": 12,
+      "stop_name": "TAMBARAM WEST",
+      "latitude": 12.92482,
+      "longitude": 80.11721
+    },
+    {
+      "id": "9b0b63f8-4e6f-4047-a51b-164fb72b3f85",
+      "route_id": "b1020000-0000-0000-0000-000000000570",
+      "stop_id": "d1020000-0000-0000-0000-000000000012",
+      "stop_sequence": 12,
+      "stop_name": "PUDUPAKKAM RD.JN",
+      "latitude": 12.8105,
+      "longitude": 80.2195
+    },
+    {
+      "id": "5462745c-179f-4b5c-bc06-98940fc06bdf",
+      "route_id": "b1020000-0000-0000-0000-000000000021",
+      "stop_id": "d1020000-0000-0000-0000-000000000025",
+      "stop_sequence": 13,
+      "stop_name": "KCBT - KILAMBAKKAM",
+      "latitude": 12.8615,
+      "longitude": 80.0752
+    },
+    {
+      "id": "17ac4e90-dc8b-4ef5-aca6-12429c84941e",
+      "route_id": "b1020000-0000-0000-0000-000000000570",
+      "stop_id": "d1020000-0000-0000-0000-000000000013",
+      "stop_sequence": 13,
+      "stop_name": "KELAMBAKKAM",
+      "latitude": 12.78712,
+      "longitude": 80.21851
     }
   ],
   "conductors": [
     {
-      "id": "72fae51b-5573-5c78-a8fa-fa9dffefd97a",
+      "id": "c1020000-0000-0000-0000-000000000570",
       "name": "Karthik Rajan",
       "employee_code": "MTC-CND-570",
       "phone": "+91 98401 23456",
       "email": "conductor.570@mtc.chennai.gov.in",
       "username": "cnd_570",
-      "password": "password123",
-      "assigned_bus_number": "5701",
-      "assigned_route_number": "570"
+      "password_hash": "password123",
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "1c117ef3-7a06-51f9-bfec-58eaab0133be",
+      "id": "c1020000-0000-0000-0000-000000000021",
       "name": "Murugan Shanmugam",
       "employee_code": "MTC-CND-021G",
       "phone": "+91 98402 34567",
       "email": "conductor.21g@mtc.chennai.gov.in",
       "username": "cnd_21g",
-      "password": "password123",
-      "assigned_bus_number": "2101",
-      "assigned_route_number": "21G"
+      "password_hash": "password123",
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "4dfeaa7f-f771-5c4e-8c53-6591fec26356",
+      "id": "c1020000-0000-0000-0000-000000000005",
       "name": "Anand Velu",
       "employee_code": "MTC-CND-005E",
       "phone": "+91 98403 45678",
       "email": "conductor.5e@mtc.chennai.gov.in",
       "username": "cnd_5e",
-      "password": "password123",
-      "assigned_bus_number": "0051",
-      "assigned_route_number": "5E"
+      "password_hash": "password123",
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "ef2b99fa-bb25-501d-87aa-6dc262b7ac23",
+      "id": "c1020000-0000-0000-0000-000000000102",
       "name": "Saravanan Doss",
       "employee_code": "MTC-CND-102",
       "phone": "+91 98404 56789",
       "email": "conductor.102@mtc.chennai.gov.in",
       "username": "cnd_102",
-      "password": "password123",
-      "assigned_bus_number": "1021",
-      "assigned_route_number": "102"
+      "password_hash": "password123",
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     },
     {
-      "id": "4d20aace-cdc0-596f-a87b-55ae0378b03a",
+      "id": "c1020000-0000-0000-0000-000000000070",
       "name": "Dinesh Kumar",
       "employee_code": "MTC-CND-A70",
       "phone": "+91 98405 67890",
       "email": "conductor.a70@mtc.chennai.gov.in",
       "username": "cnd_a70",
-      "password": "password123",
-      "assigned_bus_number": "7001",
-      "assigned_route_number": "A70"
+      "password_hash": "password123",
+      "created_at": "2026-11-05T19:40:33.962809+00:00"
     }
   ],
   "buses": [
     {
-      "id": "cd5ea9a7-07f6-5b1a-b4ea-8c3947045fd3",
-      "bus_number": "5701",
-      "fleet_code": "BUS002",
-      "route_id": "f3c9eb37-173c-52c2-95c7-4e4cead823e8",
-      "route_number": "570",
-      "route_name": "CMBT Koyambedu to Kelambakkam (via OMR IT Corridor)",
-      "capacity": 60,
-      "conductor_id": "72fae51b-5573-5c78-a8fa-fa9dffefd97a",
-      "conductor_name": "Karthik Rajan",
-      "status": "active"
-    },
-    {
-      "id": "b3e8dfa9-740a-5b39-93a2-3da137b25cfc",
+      "id": "a1020000-0000-0000-0000-000000000021",
       "bus_number": "2101",
       "fleet_code": "BUS001",
-      "route_id": "90eae164-a4be-59aa-a1a0-d83753921ab4",
+      "route_id": "b1020000-0000-0000-0000-000000000021",
       "route_number": "21G",
       "route_name": "Broadway / Island Ground to KCBT Kilambakkam (via Tambaram)",
       "capacity": 50,
-      "conductor_id": "1c117ef3-7a06-51f9-bfec-58eaab0133be",
+      "conductor_id": "c1020000-0000-0000-0000-000000000021",
       "conductor_name": "Murugan Shanmugam",
-      "status": "active"
+      "status": "active",
+      "current_occupancy": 46,
+      "crowd_status": 2
     },
     {
-      "id": "035387c1-ffa2-5c3e-8c96-2e654ddf67b8",
+      "id": "a1020000-0000-0000-0000-000000000005",
       "bus_number": "0051",
       "fleet_code": "BUS003",
-      "route_id": "2efb30e8-895e-53bd-b43d-acb550cb9351",
+      "route_id": "b1020000-0000-0000-0000-000000000005",
       "route_number": "5E",
       "route_name": "Vadapalani to Besant Nagar (via T.Nagar & Adyar)",
       "capacity": 70,
-      "conductor_id": "4dfeaa7f-f771-5c4e-8c53-6591fec26356",
+      "conductor_id": "c1020000-0000-0000-0000-000000000005",
       "conductor_name": "Anand Velu",
-      "status": "active"
+      "status": "active",
+      "current_occupancy": 12,
+      "crowd_status": 0
     },
     {
-      "id": "697a6259-7b45-54fb-8b5a-09ccaa593bdc",
+      "id": "a1020000-0000-0000-0000-000000000102",
       "bus_number": "1021",
       "fleet_code": "BUS004",
-      "route_id": "b54a89f4-ff9f-5288-985a-2992fdff3990",
+      "route_id": "b1020000-0000-0000-0000-000000000102",
       "route_number": "102",
       "route_name": "Broadway / Island Ground to Kelambakkam (Express via OMR)",
       "capacity": 55,
-      "conductor_id": "ef2b99fa-bb25-501d-87aa-6dc262b7ac23",
+      "conductor_id": "c1020000-0000-0000-0000-000000000102",
       "conductor_name": "Saravanan Doss",
-      "status": "active"
+      "status": "idle",
+      "current_occupancy": 0,
+      "crowd_status": 0
     },
     {
-      "id": "f1e25d99-d358-58bf-ba2c-24453d2dc05a",
+      "id": "a1020000-0000-0000-0000-000000000070",
       "bus_number": "7001",
       "fleet_code": "BUS005",
-      "route_id": "003bd35d-25e8-5659-9076-b6e07a5edc3d",
+      "route_id": "b1020000-0000-0000-0000-000000000070",
       "route_number": "A70",
       "route_name": "Avadi Bus Terminus to Tambaram West (via Koyambedu & Guindy)",
       "capacity": 60,
-      "conductor_id": "4d20aace-cdc0-596f-a87b-55ae0378b03a",
+      "conductor_id": "c1020000-0000-0000-0000-000000000070",
       "conductor_name": "Dinesh Kumar",
-      "status": "active"
+      "status": "idle",
+      "current_occupancy": 0,
+      "crowd_status": 0
+    },
+    {
+      "id": "a1020000-0000-0000-0000-000000000570",
+      "bus_number": "5701",
+      "fleet_code": "BUS002",
+      "route_id": "b1020000-0000-0000-0000-000000000570",
+      "route_number": "570",
+      "route_name": "CMBT Koyambedu to Kelambakkam (via OMR IT Corridor)",
+      "capacity": 60,
+      "conductor_id": "c1020000-0000-0000-0000-000000000570",
+      "conductor_name": "Karthik Rajan",
+      "status": "active",
+      "current_occupancy": 40,
+      "crowd_status": 1
     }
   ]
 }

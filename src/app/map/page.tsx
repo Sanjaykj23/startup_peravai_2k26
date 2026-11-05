@@ -51,8 +51,8 @@ export default function MapPage() {
 
   useEffect(() => {
     fetchBuses();
-    // Auto refresh every 15 seconds
-    const interval = setInterval(fetchBuses, 15000);
+    // Auto refresh every 3 seconds for live parallel sync across tabs
+    const interval = setInterval(fetchBuses, 3000);
     return () => clearInterval(interval);
   }, []);
 
@@ -85,7 +85,7 @@ export default function MapPage() {
                 <span>Chennai Live Fleet</span>
               </h1>
               <p className="text-[11px] text-slate-400" suppressHydrationWarning>
-                Updated {mounted ? lastUpdated.toLocaleTimeString('en-IN') : 'Live'}
+                Updated {mounted ? lastUpdated.toLocaleTimeString('en-IN') : 'Live'} &bull; <span className="text-emerald-400 font-semibold">Live Sync (3s)</span>
               </p>
             </div>
             <button
@@ -191,8 +191,8 @@ export default function MapPage() {
 
                   <div className="mt-2 flex items-center justify-between text-[10px] text-slate-500 pt-1.5 border-t border-slate-800">
                     <span className="flex items-center gap-1 truncate">
-                      <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
-                      <span className="truncate">
+                      <MapPin className="w-3 h-3 text-emerald-400 shrink-0" />
+                      <span className="truncate text-slate-300 font-medium">
                         {bus.current_trip?.current_stop_name || 'Terminal'}
                       </span>
                     </span>
