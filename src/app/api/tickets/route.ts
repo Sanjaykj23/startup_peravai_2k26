@@ -4,7 +4,7 @@ import { BusRepository } from '@/services/db/repository';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { bus_id, source_stop_id, destination_stop_id, gender, booked_by, payment_mode, passenger_phone } = body;
+    const { bus_id, source_stop_id, destination_stop_id, gender, booked_by, payment_mode, passenger_phone, student_id, institution_name } = body;
 
     if (!bus_id) {
       return NextResponse.json({ error: 'Bus ID is required' }, { status: 400 });
@@ -12,9 +12,11 @@ export async function POST(req: NextRequest) {
     if (!source_stop_id || !destination_stop_id) {
       return NextResponse.json({ error: 'Source and Destination stops are required' }, { status: 400 });
     }
-    if (!gender || !['Male', 'Female'].includes(gender)) {
-      return NextResponse.json({ error: 'Gender must be Male or Female' }, { status: 400 });
+    if (!gender || !['Male', 'Female', 'Student'].includes(gender)) {
+      return NextResponse.json({ error: 'Gender must be Male, Female, or Student' }, { status: 400 });
     }
+
+    const isFree = gender === 'Female' || gender === 'Student';
 
     const ticket = await BusRepository.issueTicket({
       bus_id,
@@ -22,8 +24,10 @@ export async function POST(req: NextRequest) {
       destination_stop_id,
       gender,
       booked_by: booked_by || 'conductor',
-      payment_mode: payment_mode || (gender === 'Female' ? 'Free' : 'Cash'),
-      passenger_phone
+      payment_mode: payment_mode || (isFree ? 'Free' : 'Cash'),
+      passenger_phone,
+      student_id,
+      institution_name
     });
 
     const updatedBus = await BusRepository.getBusById(bus_id);

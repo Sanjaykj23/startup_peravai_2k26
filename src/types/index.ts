@@ -124,13 +124,15 @@ export interface Ticket {
   bus_number: string;
   passenger_id?: string;
   passenger_phone?: string;
+  student_id?: string;
+  institution_name?: string;
   source_stop_id: string;
   source_stop_name: string;
   destination_stop_id: string;
   destination_stop_name: string;
-  gender: 'Male' | 'Female';
+  gender: 'Male' | 'Female' | 'Student';
   fare: number;
-  booked_by: 'conductor' | 'passenger';
+  booked_by: 'conductor' | 'passenger' | 'student';
   payment_mode: 'Cash' | 'Razorpay' | 'Free';
   payment_id?: string;
   occupancy_snapshot: number;

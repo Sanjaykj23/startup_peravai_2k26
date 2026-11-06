@@ -44,7 +44,7 @@ export default function PassengerPage() {
   const [busCodeInput, setBusCodeInput] = useState('5701');
   const [sourceStopId, setSourceStopId] = useState('');
   const [destinationStopId, setDestinationStopId] = useState('');
-  const [passengerGender, setPassengerGender] = useState<'Male' | 'Female'>('Female');
+  const [passengerGender, setPassengerGender] = useState<'Male' | 'Female' | 'Student'>('Female');
   const [paymentMode, setPaymentMode] = useState<'Razorpay' | 'Cash'>('Razorpay');
   const [routeStops, setRouteStops] = useState<any[]>([]);
 
@@ -195,7 +195,8 @@ export default function PassengerPage() {
     setLoading(true);
     try {
       // Step 1: If Razorpay and male, simulate Razorpay order
-      if (paymentMode === 'Razorpay' && passengerGender === 'Male') {
+      const isFree = passengerGender === 'Female' || passengerGender === 'Student';
+      if (paymentMode === 'Razorpay' && !isFree) {
         const orderRes = await fetch('/api/payments/razorpay', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -214,7 +215,7 @@ export default function PassengerPage() {
           destination_stop_id: destinationStopId,
           gender: passengerGender,
           booked_by: 'passenger',
-          payment_mode: passengerGender === 'Female' ? 'Free' : paymentMode,
+          payment_mode: isFree ? 'Free' : paymentMode,
           passenger_phone: phone
         })
       });
@@ -252,14 +253,14 @@ export default function PassengerPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Top Banner / Passenger Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white border border-slate-200 p-6 rounded-3xl shadow-xs">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400">
+          <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 shadow-2xs">
             <Users className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-xl font-black text-white">Passenger Portal</h1>
-            <p className="text-xs text-slate-400">
+            <h1 className="text-xl font-black text-slate-900">Passenger Portal</h1>
+            <p className="text-xs text-slate-500">
               Live Crowd Tracking &bull; Nearby Buses &bull; Instant Mobile Ticketing
             </p>
           </div>
@@ -268,18 +269,18 @@ export default function PassengerPage() {
         {/* Auth status */}
         <div className="flex items-center gap-3">
           {isLoggedIn ? (
-            <div className="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 text-xs">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-slate-300 font-mono">+91 {phone}</span>
+            <div className="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 text-xs">
+              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+              <span className="text-slate-700 font-mono font-medium">+91 {phone}</span>
               <button
                 onClick={() => setIsLoggedIn(false)}
-                className="text-[10px] text-slate-500 hover:text-rose-400 ml-2"
+                className="text-[10px] text-slate-500 hover:text-rose-600 font-semibold ml-2"
               >
                 Sign out
               </button>
             </div>
           ) : (
-            <span className="text-xs text-amber-400 font-medium">OTP Login Required</span>
+            <span className="text-xs text-blue-700 font-semibold">OTP Login Required</span>
           )}
         </div>
       </div>
@@ -288,8 +289,8 @@ export default function PassengerPage() {
         <div
           className={`p-3 rounded-xl text-xs flex items-center justify-between gap-2 ${
             message.type === 'error'
-              ? 'bg-rose-500/15 border border-rose-500/30 text-rose-300'
-              : 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300'
+              ? 'bg-rose-50 border border-rose-200 text-rose-700'
+              : 'bg-emerald-50 border border-emerald-200 text-emerald-700'
           }`}
         >
           <div className="flex items-center gap-2">
@@ -304,10 +305,10 @@ export default function PassengerPage() {
 
       {/* OTP LOGIN MODAL / BOX (If not logged in) */}
       {!isLoggedIn && (
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 max-w-md mx-auto shadow-2xl">
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 max-w-md mx-auto shadow-xl">
           <div className="text-center mb-5">
-            <h2 className="text-lg font-bold text-white">Login with Mobile OTP</h2>
-            <p className="text-xs text-slate-400 mt-1">
+            <h2 className="text-lg font-bold text-slate-900">Login with Mobile OTP</h2>
+            <p className="text-xs text-slate-500 mt-1">
               Enter your mobile number to view nearby buses and book tickets
             </p>
           </div>
@@ -315,7 +316,7 @@ export default function PassengerPage() {
           {!isOtpSent ? (
             <form onSubmit={handleSendOtp} className="space-y-4">
               <div>
-                <label className="text-xs font-semibold text-slate-300 block mb-1">
+                <label className="text-xs font-semibold text-slate-700 block mb-1">
                   Mobile Number
                 </label>
                 <div className="relative">
@@ -328,7 +329,7 @@ export default function PassengerPage() {
                     onChange={e => setPhone(e.target.value)}
                     placeholder="9876543210"
                     maxLength={10}
-                    className="w-full pl-12 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-blue-500 font-mono"
+                    className="w-full pl-12 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-blue-500 font-mono shadow-2xs"
                     required
                   />
                 </div>
@@ -336,7 +337,7 @@ export default function PassengerPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-colors shadow-lg shadow-blue-500/20 disabled:opacity-50"
+                className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-colors shadow-sm disabled:opacity-50"
               >
                 {loading ? 'Sending OTP...' : 'Send OTP'}
               </button>
@@ -345,9 +346,9 @@ export default function PassengerPage() {
             <form onSubmit={handleVerifyOtp} className="space-y-4">
               <div>
                 <div className="flex justify-between items-center mb-1">
-                  <label className="text-xs font-semibold text-slate-300">Enter 4-Digit OTP</label>
+                  <label className="text-xs font-semibold text-slate-700">Enter 4-Digit OTP</label>
                   {demoOtp && (
-                    <span className="text-[10px] text-amber-400 font-mono">Demo OTP: {demoOtp}</span>
+                    <span className="text-[10px] text-blue-700 font-mono font-bold">Demo OTP: {demoOtp}</span>
                   )}
                 </div>
                 <input
@@ -356,21 +357,21 @@ export default function PassengerPage() {
                   onChange={e => setOtp(e.target.value)}
                   placeholder="1234"
                   maxLength={4}
-                  className="w-full py-2.5 px-4 bg-slate-950 border border-slate-800 rounded-xl text-center text-lg font-mono font-bold tracking-widest text-white focus:outline-none focus:border-blue-500"
+                  className="w-full py-2.5 px-4 bg-slate-50 border border-slate-200 rounded-xl text-center text-lg font-mono font-bold tracking-widest text-slate-900 focus:bg-white focus:outline-none focus:border-blue-500 shadow-2xs"
                   required
                 />
               </div>
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow-lg shadow-emerald-500/20 disabled:opacity-50"
+                className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition-colors shadow-sm disabled:opacity-50"
               >
                 {loading ? 'Verifying...' : 'Verify & Continue'}
               </button>
               <button
                 type="button"
                 onClick={() => setIsOtpSent(false)}
-                className="w-full text-center text-xs text-slate-400 hover:text-white mt-2"
+                className="w-full text-center text-xs text-slate-500 hover:text-slate-800 mt-2 font-medium"
               >
                 Change mobile number
               </button>
@@ -383,22 +384,22 @@ export default function PassengerPage() {
       {isLoggedIn && (
         <div className="space-y-8">
           {/* SECTION 1: NEARBY BUS DISCOVERY */}
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-5">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-xs space-y-5">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
               <div>
-                <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  <Navigation className="w-5 h-5 text-amber-400" />
+                <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                  <Navigation className="w-5 h-5 text-blue-700" />
                   <span>Nearby Bus Discovery</span>
                 </h2>
-                <p className="text-xs text-slate-400 mt-0.5">
+                <p className="text-xs text-slate-500 mt-0.5">
                   Live buses within configurable GPS radius &bull; Color-coded by real-time crowd
                 </p>
               </div>
 
               {/* Radius slider & GPS location simulator */}
               <div className="flex flex-wrap items-center gap-4">
-                <div className="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 text-xs">
-                  <span className="text-slate-400">Radius:</span>
+                <div className="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 text-xs">
+                  <span className="text-slate-500 font-medium">Radius:</span>
                   <input
                     type="range"
                     min="1"
@@ -406,24 +407,24 @@ export default function PassengerPage() {
                     step="1"
                     value={radiusKm}
                     onChange={e => setRadiusKm(Number(e.target.value))}
-                    className="accent-amber-500 w-24"
+                    className="accent-blue-600 w-24"
                   />
-                  <span className="font-mono font-bold text-amber-400 w-8">{radiusKm} KM</span>
+                  <span className="font-mono font-bold text-blue-700 w-8">{radiusKm} KM</span>
                 </div>
 
                 {/* Location selector */}
-                <div className="flex items-center gap-1.5 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 text-xs">
-                  <MapPin className="w-3.5 h-3.5 text-blue-400" />
+                <div className="flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 text-xs">
+                  <MapPin className="w-3.5 h-3.5 text-blue-600" />
                   <select
                     value={`${userLocation.latitude},${userLocation.longitude}`}
                     onChange={e => {
                       const [lat, lon] = e.target.value.split(',').map(Number);
                       setUserLocation({ latitude: lat, longitude: lon });
                     }}
-                    className="bg-transparent text-slate-200 text-xs focus:outline-none"
+                    className="bg-transparent text-slate-700 text-xs focus:outline-none font-medium"
                   >
                     {chennaiLandmarks.map(lm => (
-                      <option key={lm.name} value={`${lm.lat},${lm.lon}`} className="bg-slate-900">
+                      <option key={lm.name} value={`${lm.lat},${lm.lon}`} className="bg-white text-slate-800">
                         Near {lm.name}
                       </option>
                     ))}
@@ -434,11 +435,11 @@ export default function PassengerPage() {
 
             {/* Nearby bus cards */}
             {loadingNearby ? (
-              <div className="text-center py-12 text-slate-500 text-xs">Scanning Chennai GPS radius...</div>
+              <div className="text-center py-12 text-slate-400 text-xs">Scanning Chennai GPS radius...</div>
             ) : nearbyBuses.length === 0 ? (
-              <div className="text-center py-12 bg-slate-950/60 rounded-2xl border border-slate-800/80 p-6">
-                <Compass className="w-8 h-8 text-slate-600 mx-auto mb-2" />
-                <p className="text-slate-300 font-semibold text-xs">
+              <div className="text-center py-12 bg-slate-50/70 rounded-2xl border border-slate-200 p-6">
+                <Compass className="w-8 h-8 text-slate-400 mx-auto mb-2" />
+                <p className="text-slate-700 font-semibold text-xs">
                   No active buses within {radiusKm} KM of your current location.
                 </p>
                 <p className="text-[11px] text-slate-500 mt-1">
@@ -455,7 +456,6 @@ export default function PassengerPage() {
                     onBookClick={b => {
                       setSelectedBus(b);
                       setBusCodeInput(b.bus_number);
-                      // Scroll smoothly to booking section
                       document.getElementById('booking-section')?.scrollIntoView({ behavior: 'smooth' });
                     }}
                   />
@@ -467,19 +467,19 @@ export default function PassengerPage() {
           {/* SECTION 2: TICKET BOOKING BY PASSENGER */}
           <div id="booking-section" className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Booking Form (2 cols) */}
-            <div className="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-5">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div className="lg:col-span-2 bg-white border border-slate-200 rounded-3xl p-6 shadow-xs space-y-5">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div className="flex items-center gap-2">
-                  <TicketIcon className="w-5 h-5 text-amber-400" />
-                  <h2 className="text-base font-bold text-white">Book Bus Ticket</h2>
+                  <TicketIcon className="w-5 h-5 text-blue-700" />
+                  <h2 className="text-base font-bold text-slate-900">Book Bus Ticket</h2>
                 </div>
-                <span className="text-xs text-slate-400">Self-Booking via Mobile OTP</span>
+                <span className="text-xs text-slate-500 font-medium">Self-Booking via Mobile OTP</span>
               </div>
 
               <form onSubmit={handleBookTicket} className="space-y-4">
                 {/* Bus Code input or selection */}
                 <div>
-                  <label className="text-xs font-semibold text-slate-300 block mb-1">
+                  <label className="text-xs font-semibold text-slate-700 block mb-1">
                     Bus Number (4 digit bus code e.g. 5701, 2101, 0051)
                   </label>
                   <div className="flex gap-2">
@@ -488,22 +488,22 @@ export default function PassengerPage() {
                       value={busCodeInput}
                       onChange={e => setBusCodeInput(e.target.value)}
                       placeholder="e.g. 5701"
-                      className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white font-mono focus:outline-none focus:border-amber-500"
+                      className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 font-mono focus:bg-white focus:outline-none focus:border-blue-500 shadow-2xs"
                     />
                     <button
                       type="button"
                       onClick={handleSelectBusByCode}
-                      className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition-colors"
+                      className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 text-xs font-bold transition-colors"
                     >
                       Find Bus
                     </button>
                   </div>
                   {selectedBus && (
-                    <div className="mt-2 p-2.5 bg-slate-950 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
-                      <span className="font-bold text-amber-400">
+                    <div className="mt-2 p-2.5 bg-blue-50/70 rounded-xl border border-blue-200 flex items-center justify-between text-xs">
+                      <span className="font-bold text-blue-800">
                         Bus {selectedBus.bus_number} (Route {selectedBus.route_number})
                       </span>
-                      <span className="text-slate-400 truncate max-w-xs">{selectedBus.route_name}</span>
+                      <span className="text-slate-600 truncate max-w-xs">{selectedBus.route_name}</span>
                     </div>
                   )}
                 </div>
@@ -511,13 +511,13 @@ export default function PassengerPage() {
                 {/* Source & Destination Stop */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-xs font-semibold text-slate-300 block mb-1">
+                    <label className="text-xs font-semibold text-slate-700 block mb-1">
                       Source Stop
                     </label>
                     <select
                       value={sourceStopId}
                       onChange={e => setSourceStopId(e.target.value)}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs text-slate-900 focus:bg-white focus:border-blue-500 shadow-2xs"
                       required
                     >
                       <option value="">-- Choose Source Stop --</option>
@@ -530,13 +530,13 @@ export default function PassengerPage() {
                   </div>
 
                   <div>
-                    <label className="text-xs font-semibold text-slate-300 block mb-1">
+                    <label className="text-xs font-semibold text-slate-700 block mb-1">
                       Destination Stop
                     </label>
                     <select
                       value={destinationStopId}
                       onChange={e => setDestinationStopId(e.target.value)}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs text-slate-900 focus:bg-white focus:border-blue-500 shadow-2xs"
                       required
                     >
                       <option value="">-- Choose Destination Stop --</option>
@@ -549,17 +549,40 @@ export default function PassengerPage() {
                   </div>
                 </div>
 
-                {/* Gender - Free female pass simulation */}
+                {/* Passenger Category - Free female & student passes */}
                 <div>
-                  <label className="text-xs font-semibold text-slate-300 block mb-2">
-                    Passenger Gender (Vidiyal Payanam Free Travel)
+                  <label className="text-xs font-semibold text-slate-700 block mb-2">
+                    Passenger Category (Tamil Nadu Free Commute Schemes)
                   </label>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <label
+                      className={`flex items-center justify-between p-3 rounded-2xl border cursor-pointer transition-all ${
+                        passengerGender === 'Student'
+                          ? 'bg-blue-50 border-blue-400 text-blue-900 ring-2 ring-blue-500/20'
+                          : 'bg-slate-50 border-slate-200 text-slate-600'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name="passengerGender"
+                          value="Student"
+                          checked={passengerGender === 'Student'}
+                          onChange={() => setPassengerGender('Student')}
+                          className="accent-blue-600"
+                        />
+                        <span className="font-bold text-xs">Student Pass</span>
+                      </div>
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded bg-blue-100 text-blue-800 border border-blue-200">
+                        ₹0 Fare
+                      </span>
+                    </label>
+
                     <label
                       className={`flex items-center justify-between p-3 rounded-2xl border cursor-pointer transition-all ${
                         passengerGender === 'Female'
-                          ? 'bg-pink-500/10 border-pink-500 text-pink-300'
-                          : 'bg-slate-950 border-slate-800 text-slate-400'
+                          ? 'bg-pink-50 border-pink-400 text-pink-900 ring-2 ring-pink-500/20'
+                          : 'bg-slate-50 border-slate-200 text-slate-600'
                       }`}
                     >
                       <div className="flex items-center gap-2">
@@ -569,11 +592,11 @@ export default function PassengerPage() {
                           value="Female"
                           checked={passengerGender === 'Female'}
                           onChange={() => setPassengerGender('Female')}
-                          className="accent-pink-500"
+                          className="accent-pink-600"
                         />
-                        <span className="font-bold text-xs">Female (Free Pass)</span>
+                        <span className="font-bold text-xs">Female (Pass)</span>
                       </div>
-                      <span className="text-[11px] font-black px-2 py-0.5 rounded bg-pink-500/20 text-pink-300">
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded bg-pink-100 text-pink-800 border border-pink-200">
                         ₹0 Fare
                       </span>
                     </label>
@@ -581,8 +604,8 @@ export default function PassengerPage() {
                     <label
                       className={`flex items-center justify-between p-3 rounded-2xl border cursor-pointer transition-all ${
                         passengerGender === 'Male'
-                          ? 'bg-blue-500/10 border-blue-500 text-blue-300'
-                          : 'bg-slate-950 border-slate-800 text-slate-400'
+                          ? 'bg-slate-100 border-slate-400 text-slate-900 ring-2 ring-slate-400/20'
+                          : 'bg-slate-50 border-slate-200 text-slate-600'
                       }`}
                     >
                       <div className="flex items-center gap-2">
@@ -592,11 +615,11 @@ export default function PassengerPage() {
                           value="Male"
                           checked={passengerGender === 'Male'}
                           onChange={() => setPassengerGender('Male')}
-                          className="accent-blue-500"
+                          className="accent-slate-700"
                         />
                         <span className="font-bold text-xs">Male</span>
                       </div>
-                      <span className="text-[11px] font-black px-2 py-0.5 rounded bg-blue-500/20 text-blue-300">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800 border border-blue-200">
                         Paid Fare
                       </span>
                     </label>
@@ -606,15 +629,15 @@ export default function PassengerPage() {
                 {/* Payment Mode (Razorpay or Cash) */}
                 {passengerGender === 'Male' && (
                   <div>
-                    <label className="text-xs font-semibold text-slate-300 block mb-2">
+                    <label className="text-xs font-semibold text-slate-700 block mb-2">
                       Payment Mode
                     </label>
                     <div className="grid grid-cols-2 gap-3">
                       <label
                         className={`flex items-center gap-2 p-3 rounded-2xl border cursor-pointer transition-all ${
                           paymentMode === 'Razorpay'
-                            ? 'bg-blue-500/10 border-blue-500 text-blue-300'
-                            : 'bg-slate-950 border-slate-800 text-slate-400'
+                            ? 'bg-blue-50 border-blue-300 text-blue-800'
+                            : 'bg-slate-50 border-slate-200 text-slate-600'
                         }`}
                       >
                         <input
@@ -623,17 +646,17 @@ export default function PassengerPage() {
                           value="Razorpay"
                           checked={paymentMode === 'Razorpay'}
                           onChange={() => setPaymentMode('Razorpay')}
-                          className="accent-blue-500"
+                          className="accent-blue-600"
                         />
-                        <CreditCard className="w-4 h-4" />
+                        <CreditCard className="w-4 h-4 text-blue-700" />
                         <span className="font-bold text-xs">Razorpay (UPI / Card)</span>
                       </label>
 
                       <label
                         className={`flex items-center gap-2 p-3 rounded-2xl border cursor-pointer transition-all ${
                           paymentMode === 'Cash'
-                            ? 'bg-amber-500/10 border-amber-500 text-amber-300'
-                            : 'bg-slate-950 border-slate-800 text-slate-400'
+                            ? 'bg-amber-50 border-amber-300 text-amber-800'
+                            : 'bg-slate-50 border-slate-200 text-slate-600'
                         }`}
                       >
                         <input
@@ -642,9 +665,9 @@ export default function PassengerPage() {
                           value="Cash"
                           checked={paymentMode === 'Cash'}
                           onChange={() => setPaymentMode('Cash')}
-                          className="accent-amber-500"
+                          className="accent-amber-600"
                         />
-                        <Banknote className="w-4 h-4" />
+                        <Banknote className="w-4 h-4 text-amber-700" />
                         <span className="font-bold text-xs">Cash on Board</span>
                       </label>
                     </div>
@@ -654,7 +677,7 @@ export default function PassengerPage() {
                 <button
                   type="submit"
                   disabled={loading || !selectedBus}
-                  className="w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs tracking-wider uppercase transition-colors shadow-lg shadow-amber-500/20 disabled:opacity-40"
+                  className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs tracking-wider uppercase transition-colors shadow-sm disabled:opacity-40"
                 >
                   {loading
                     ? 'Processing Booking...'
@@ -667,17 +690,17 @@ export default function PassengerPage() {
 
             {/* Booked Ticket Receipt */}
             <div className="space-y-4">
-              <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl">
-                <h3 className="text-sm font-bold text-white mb-3 flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-amber-400" />
+              <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-xs">
+                <h3 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-blue-600" />
                   <span>Digital Ticket Receipt</span>
                 </h3>
 
                 {activeTicket ? (
                   <TicketCard ticket={activeTicket} />
                 ) : (
-                  <div className="border-2 border-dashed border-slate-800 rounded-2xl p-8 text-center text-slate-500 text-xs">
-                    <TicketIcon className="w-8 h-8 text-slate-600 mx-auto mb-2" />
+                  <div className="border-2 border-dashed border-slate-200 rounded-2xl p-8 text-center text-slate-400 text-xs">
+                    <TicketIcon className="w-8 h-8 text-slate-300 mx-auto mb-2" />
                     Booked tickets will appear here with dynamic barcode.
                   </div>
                 )}

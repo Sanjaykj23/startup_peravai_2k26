@@ -611,10 +611,12 @@ export class BusRepository {
     bus_id: string;
     source_stop_id: string;
     destination_stop_id: string;
-    gender: 'Male' | 'Female';
-    booked_by: 'conductor' | 'passenger';
+    gender: 'Male' | 'Female' | 'Student';
+    booked_by: 'conductor' | 'passenger' | 'student';
     payment_mode: 'Cash' | 'Razorpay' | 'Free';
     passenger_phone?: string;
+    student_id?: string;
+    institution_name?: string;
   }): Promise<Ticket> {
     const bus = await this.getBusById(params.bus_id);
     if (!bus) throw new Error('Bus not found');
@@ -623,11 +625,13 @@ export class BusRepository {
     const sourceStop = stops.find(s => s.id === params.source_stop_id);
     const destStop = stops.find(s => s.id === params.destination_stop_id);
 
-    // Calculate Fare (Tamil Nadu Vidiyal Payanam Free Travel for Women)
-    let fare = 0;
-    if (params.gender === 'Female') {
-      fare = 0.00;
-    } else {
+    // Calculate Fare:
+    // 1. Female: Tamil Nadu Vidiyal Payanam Free Travel (₹0.00)
+    // 2. Student: Tamil Nadu Student Concession Pass (₹0.00)
+    // 3. Male: Standard Fare calculation
+    const isFreeCategory = params.gender === 'Female' || params.gender === 'Student';
+    let fare = 0.00;
+    if (!isFreeCategory) {
       const routeStops = await this.getRouteStops(bus.route_id);
       const srcIdx = routeStops.findIndex(rs => rs.stop_id === params.source_stop_id);
       const dstIdx = routeStops.findIndex(rs => rs.stop_id === params.destination_stop_id);
@@ -644,31 +648,35 @@ export class BusRepository {
     const supabase = getSupabaseClient();
     if (supabase) {
       try {
+        // Map Student to Female in Supabase if schema constraint restricts to Male/Female
+        const dbGender = params.gender === 'Student' ? 'Female' : params.gender;
+
         // 1. Insert ticket directly into Supabase 'tickets' table
         const { error: tktErr } = await supabase.from('tickets').insert({
           id: ticketId,
           trip_id: tripId,
           source_stop_id: params.source_stop_id,
           destination_stop_id: params.destination_stop_id,
-          gender: params.gender,
+          gender: dbGender,
           fare,
-          booked_by: params.booked_by,
-          payment_mode: params.gender === 'Female' ? 'Free' : params.payment_mode,
+          booked_by: params.booked_by === 'student' ? 'passenger' : params.booked_by,
+          payment_mode: isFreeCategory ? 'Free' : params.payment_mode,
           occupancy_snapshot: newOccupancy,
           crowd_status: crowd.status,
-          passenger_phone: params.passenger_phone
+          passenger_phone: params.passenger_phone || (params.student_id ? `STU:${params.student_id}` : undefined)
         });
 
         if (tktErr) console.error('Supabase ticket insert error:', tktErr);
 
         // 2. CRITICAL: Insert row into Supabase 'occupancy_history' table
+        const categoryLabel = params.gender === 'Student' ? 'Student Free Pass' : params.gender === 'Female' ? 'Female Free (Vidiyal Payanam)' : 'Male Paid';
         const { error: occErr } = await supabase.from('occupancy_history').insert({
           bus_id: bus.id,
           trip_id: tripId,
           occupancy: newOccupancy,
           crowd_status: crowd.status,
           trigger_event: 'ticket_booked',
-          notes: `Ticket issued (${params.gender}, Fare ₹${fare}, ${params.booked_by})`
+          notes: `Ticket issued (${categoryLabel}, Fare ₹${fare}, ${params.booked_by})`
         });
 
         if (occErr) console.error('Supabase occupancy_history insert error:', occErr);
@@ -693,6 +701,8 @@ export class BusRepository {
       bus_id: bus.id,
       bus_number: bus.bus_number,
       passenger_phone: params.passenger_phone,
+      student_id: params.student_id,
+      institution_name: params.institution_name,
       source_stop_id: params.source_stop_id,
       source_stop_name: sourceStop?.stop_name || 'Source Stop',
       destination_stop_id: params.destination_stop_id,
@@ -700,7 +710,7 @@ export class BusRepository {
       gender: params.gender,
       fare,
       booked_by: params.booked_by,
-      payment_mode: params.gender === 'Female' ? 'Free' : params.payment_mode,
+      payment_mode: isFreeCategory ? 'Free' : params.payment_mode,
       occupancy_snapshot: newOccupancy,
       crowd_status: crowd.status,
       created_at: new Date().toISOString(),
@@ -724,7 +734,7 @@ export class BusRepository {
       crowd_status: crowd.status,
       recorded_at: ticket.created_at,
       trigger_event: 'ticket_booked',
-      notes: `Ticket issued (${params.gender}, Fare ₹${fare})`
+      notes: `Ticket issued (${params.gender === 'Student' ? 'Student Free Pass' : params.gender}, Fare ₹${fare})`
     });
     saveDatabase(db);
 

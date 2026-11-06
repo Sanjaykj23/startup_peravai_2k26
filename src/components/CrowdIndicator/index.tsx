@@ -35,11 +35,11 @@ export const CrowdIndicator: React.FC<CrowdIndicatorProps> = ({
   const getStatusBg = (status: CrowdStatusCode) => {
     switch (status) {
       case 0:
-        return 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400';
+        return 'bg-emerald-50 border-emerald-200 text-emerald-700';
       case 1:
-        return 'bg-amber-500/15 border-amber-500/30 text-amber-400';
+        return 'bg-amber-50 border-amber-200 text-amber-800';
       case 2:
-        return 'bg-rose-500/15 border-rose-500/30 text-rose-400';
+        return 'bg-rose-50 border-rose-200 text-rose-700';
     }
   };
 
@@ -64,15 +64,15 @@ export const CrowdIndicator: React.FC<CrowdIndicatorProps> = ({
         >
           {getStatusIcon(crowd.status)}
           <span>{crowd.label}</span>
-          <span className="opacity-70 font-mono text-[10px]">({crowd.percentage}%)</span>
+          <span className="opacity-80 font-mono text-[10px]">({crowd.percentage}%)</span>
         </span>
-        <span className="text-xs text-slate-400 font-mono">
+        <span className="text-xs text-slate-500 font-mono font-medium">
           {occupancy} / {capacity} seats
         </span>
       </div>
 
       {showBar && (
-        <div className="w-full bg-slate-700/60 rounded-full h-1.5 overflow-hidden">
+        <div className="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
           <div
             className={`h-full transition-all duration-500 ease-out ${getBarColor(crowd.status)}`}
             style={{ width: `${Math.min(100, crowd.percentage)}%` }}

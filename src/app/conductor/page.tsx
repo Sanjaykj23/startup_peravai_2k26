@@ -50,7 +50,7 @@ export default function ConductorPage() {
   // Ticket issuing form
   const [sourceStopId, setSourceStopId] = useState('');
   const [destinationStopId, setDestinationStopId] = useState('');
-  const [gender, setGender] = useState<'Male' | 'Female'>('Female'); // Default to Vidiyal Payanam Free Pass for demo!
+  const [gender, setGender] = useState<'Male' | 'Female' | 'Student'>('Student'); // Default to Student Free Pass / Concession for testing!
   const [issuedTickets, setIssuedTickets] = useState<Ticket[]>([]);
   const [latestTicket, setLatestTicket] = useState<Ticket | null>(null);
 
@@ -318,6 +318,7 @@ export default function ConductorPage() {
 
     setLoading(true);
     try {
+      const isFree = gender === 'Female' || gender === 'Student';
       const res = await fetch('/api/tickets', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -327,7 +328,7 @@ export default function ConductorPage() {
           destination_stop_id: destinationStopId,
           gender,
           booked_by: 'conductor',
-          payment_mode: gender === 'Female' ? 'Free' : 'Cash'
+          payment_mode: isFree ? 'Free' : 'Cash'
         })
       });
       const data = await res.json();
@@ -340,8 +341,9 @@ export default function ConductorPage() {
       setLatestTicket(data.ticket);
       setIssuedTickets(prev => [data.ticket, ...prev]);
       setCurrentBus(data.bus);
+      const ticketCategory = gender === 'Student' ? 'FREE Student Concession Pass' : gender === 'Female' ? 'FREE Vidiyal Payanam' : `₹${data.ticket.fare} General`;
       setMessage({
-        text: `Ticket #${data.ticket.id.slice(0, 8)} generated (${gender === 'Female' ? 'FREE Vidiyal Payanam' : `₹${data.ticket.fare}`}). Occupancy increased to ${data.bus.current_occupancy}!`,
+        text: `Ticket #${data.ticket.id.slice(0, 8)} generated (${ticketCategory}). Occupancy updated to ${data.bus.current_occupancy}!`,
         type: 'success'
       });
     } catch (err: any) {
@@ -414,21 +416,21 @@ export default function ConductorPage() {
   if (!isLoggedIn) {
     return (
       <div className="max-w-md mx-auto px-4 py-16">
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl">
+        <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-xl">
           <div className="text-center mb-6">
-            <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mx-auto mb-3">
+            <div className="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 mx-auto mb-3 shadow-2xs">
               <BusIcon className="w-8 h-8" />
             </div>
-            <h1 className="text-xl font-black text-white">Conductor Login</h1>
-            <p className="text-xs text-slate-400 mt-1">Chennai MTC Electronic Ticketing Terminal</p>
+            <h1 className="text-xl font-black text-slate-900">Conductor Login</h1>
+            <p className="text-xs text-slate-500 mt-1">Chennai MTC Electronic Ticketing Machine (ETM)</p>
           </div>
 
           {message && (
             <div
               className={`p-3 rounded-xl text-xs mb-4 flex items-center gap-2 ${
                 message.type === 'error'
-                  ? 'bg-rose-500/15 border border-rose-500/30 text-rose-300'
-                  : 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300'
+                  ? 'bg-rose-50 border border-rose-200 text-rose-700'
+                  : 'bg-emerald-50 border border-emerald-200 text-emerald-700'
               }`}
             >
               {message.type === 'error' ? <AlertCircle className="w-4 h-4 shrink-0" /> : <CheckCircle2 className="w-4 h-4 shrink-0" />}
@@ -438,7 +440,7 @@ export default function ConductorPage() {
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1">
+              <label className="text-xs font-semibold text-slate-700 block mb-1">
                 Conductor Username
               </label>
               <input
@@ -446,18 +448,18 @@ export default function ConductorPage() {
                 value={username}
                 onChange={e => setUsername(e.target.value)}
                 placeholder="e.g. cnd_570, cnd_21g, cnd_5e"
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-amber-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-blue-500 shadow-2xs"
                 required
               />
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1">Password</label>
+              <label className="text-xs font-semibold text-slate-700 block mb-1">Password</label>
               <input
                 type="password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-amber-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-blue-500 shadow-2xs"
                 required
               />
             </div>
@@ -465,15 +467,15 @@ export default function ConductorPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-colors shadow-lg shadow-amber-500/20 disabled:opacity-50"
+              className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-colors shadow-sm disabled:opacity-50"
             >
               {loading ? 'Authenticating...' : 'Sign In to Bus Terminal'}
             </button>
           </form>
 
           {/* Quick Demo Acccount Switcher */}
-          <div className="mt-6 pt-5 border-t border-slate-800">
-            <div className="text-[11px] font-bold text-slate-400 mb-2 uppercase tracking-wider">
+          <div className="mt-6 pt-5 border-t border-slate-100">
+            <div className="text-[11px] font-bold text-slate-500 mb-2 uppercase tracking-wider">
               Quick One-Click Demo Conductors:
             </div>
             <div className="grid grid-cols-2 gap-2 text-[11px]">
@@ -483,10 +485,10 @@ export default function ConductorPage() {
                   setUsername('cnd_570');
                   setPassword('password123');
                 }}
-                className="p-2 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 text-left text-slate-300"
+                className="p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-left text-slate-700 transition-colors"
               >
-                <div className="font-bold text-amber-400">Bus 5701</div>
-                <div>cnd_570</div>
+                <div className="font-bold text-blue-700">Bus 5701</div>
+                <div className="text-slate-500 font-mono text-[10px]">cnd_570</div>
               </button>
               <button
                 type="button"
@@ -494,10 +496,10 @@ export default function ConductorPage() {
                   setUsername('cnd_21g');
                   setPassword('password123');
                 }}
-                className="p-2 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 text-left text-slate-300"
+                className="p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-left text-slate-700 transition-colors"
               >
-                <div className="font-bold text-amber-400">Bus 2101 (21G)</div>
-                <div>cnd_21g</div>
+                <div className="font-bold text-blue-700">Bus 2101 (21G)</div>
+                <div className="text-slate-500 font-mono text-[10px]">cnd_21g</div>
               </button>
               <button
                 type="button"
@@ -505,10 +507,10 @@ export default function ConductorPage() {
                   setUsername('cnd_5e');
                   setPassword('password123');
                 }}
-                className="p-2 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 text-left text-slate-300"
+                className="p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-left text-slate-700 transition-colors"
               >
-                <div className="font-bold text-amber-400">Bus 0051 (5E)</div>
-                <div>cnd_5e</div>
+                <div className="font-bold text-blue-700">Bus 0051 (5E)</div>
+                <div className="text-slate-500 font-mono text-[10px]">cnd_5e</div>
               </button>
               <button
                 type="button"
@@ -516,10 +518,10 @@ export default function ConductorPage() {
                   setUsername('cnd_102');
                   setPassword('password123');
                 }}
-                className="p-2 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 text-left text-slate-300"
+                className="p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-left text-slate-700 transition-colors"
               >
-                <div className="font-bold text-amber-400">Bus 1021 (102)</div>
-                <div>cnd_102</div>
+                <div className="font-bold text-blue-700">Bus 1021 (102)</div>
+                <div className="text-slate-500 font-mono text-[10px]">cnd_102</div>
               </button>
             </div>
           </div>
@@ -550,21 +552,21 @@ export default function ConductorPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       {/* Top Conductor Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-lg">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white border border-slate-200 p-5 rounded-2xl shadow-xs">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold">
+          <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 font-bold shadow-2xs">
             <BusIcon className="w-6 h-6" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-lg font-black text-white">{conductor?.name}</h1>
-              <span className="font-mono text-xs px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
+              <h1 className="text-lg font-black text-slate-900">{conductor?.name}</h1>
+              <span className="font-mono text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 font-semibold">
                 {conductor?.employee_code}
               </span>
             </div>
-            <p className="text-xs text-slate-400">
-              Assigned Bus: <span className="text-amber-400 font-bold">{currentBus?.bus_number || 'Select Bus'}</span> &bull; Status:{' '}
-              <span className={`font-bold ${isTripActive ? 'text-emerald-400' : 'text-slate-400'}`}>
+            <p className="text-xs text-slate-500">
+              Assigned Bus: <span className="text-blue-700 font-bold">{currentBus?.bus_number || 'Select Bus'}</span> &bull; Status:{' '}
+              <span className={`font-bold ${isTripActive ? 'text-emerald-700' : 'text-slate-500'}`}>
                 {isTripActive ? '● Trip in Progress' : 'Idle'}
               </span>
             </p>
@@ -573,12 +575,12 @@ export default function ConductorPage() {
 
         <div className="flex items-center gap-3">
           {/* GPS Status Indicator */}
-          <div className="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 text-xs text-slate-400">
-            <Radio className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+          <div className="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 text-xs text-slate-600">
+            <Radio className="w-3.5 h-3.5 text-emerald-600 animate-pulse" />
             <span>GPS Beacon (30s)</span>
             <button
               onClick={broadcastGPS}
-              className="text-[10px] px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold transition-colors"
+              className="text-[10px] px-2 py-0.5 rounded bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold border border-blue-200 transition-colors"
             >
               Ping Now
             </button>
@@ -586,7 +588,7 @@ export default function ConductorPage() {
 
           <button
             onClick={() => setIsLoggedIn(false)}
-            className="text-xs px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors"
+            className="text-xs px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-colors font-medium"
           >
             Logout
           </button>
@@ -597,8 +599,8 @@ export default function ConductorPage() {
         <div
           className={`p-3 rounded-xl text-xs flex items-center justify-between gap-2 ${
             message.type === 'error'
-              ? 'bg-rose-500/15 border border-rose-500/30 text-rose-300'
-              : 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300'
+              ? 'bg-rose-50 border border-rose-200 text-rose-700'
+              : 'bg-emerald-50 border border-emerald-200 text-emerald-700'
           }`}
         >
           <div className="flex items-center gap-2">
@@ -612,26 +614,26 @@ export default function ConductorPage() {
       )}
 
       {/* SYSTEM FLOW: STEP 1, STEP 2, STEP 3 */}
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-5">
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+      <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-xs space-y-5">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
           <div className="flex items-center gap-2">
-            <span className="w-7 h-7 rounded-lg bg-amber-500 text-slate-950 font-black text-xs flex items-center justify-center">
+            <span className="w-7 h-7 rounded-lg bg-blue-700 text-white font-black text-xs flex items-center justify-center">
               1-2-3
             </span>
-            <h2 className="text-base font-bold text-white">Trip Initiation Protocol</h2>
+            <h2 className="text-base font-bold text-slate-900">Trip Initiation Protocol</h2>
           </div>
-          <span className="text-xs text-slate-400">Mandatory Conductor Flow</span>
+          <span className="text-xs text-slate-500 font-medium">Mandatory Conductor Flow</span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {/* STEP 1: Select Route & Bus Number */}
-          <div className={`p-4 rounded-2xl border ${isTripActive ? 'bg-slate-950/40 border-slate-800 opacity-70' : 'bg-slate-950 border-amber-500/40'}`}>
-            <div className="text-[11px] font-bold uppercase tracking-wider text-amber-400 mb-2">
+          <div className={`p-4 rounded-2xl border ${isTripActive ? 'bg-slate-50/60 border-slate-200 opacity-70' : 'bg-slate-50 border-blue-200'}`}>
+            <div className="text-[11px] font-bold uppercase tracking-wider text-blue-700 mb-2">
               Step 1: Route &amp; Bus
             </div>
             <div className="space-y-3">
               <div>
-                <label className="text-[10px] text-slate-400 block mb-1">Select Route</label>
+                <label className="text-[10px] text-slate-500 font-semibold block mb-1">Select Route</label>
                 <select
                   disabled={isTripActive}
                   value={selectedRouteId}
@@ -644,7 +646,7 @@ export default function ConductorPage() {
                       refreshCurrentBus(matchingBus.id);
                     }
                   }}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-xs text-white"
+                  className="w-full bg-white border border-slate-200 rounded-xl p-2 text-xs text-slate-800 shadow-2xs"
                 >
                   <option value="">-- Choose Route --</option>
                   {routes.map(r => (
@@ -656,7 +658,7 @@ export default function ConductorPage() {
               </div>
 
               <div>
-                <label className="text-[10px] text-slate-400 block mb-1">Select Bus Number</label>
+                <label className="text-[10px] text-slate-500 font-semibold block mb-1">Select Bus Number</label>
                 <select
                   disabled={isTripActive}
                   value={selectedBusId}
@@ -669,7 +671,7 @@ export default function ConductorPage() {
                     }
                     refreshCurrentBus(newBusId);
                   }}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-xs text-white font-mono"
+                  className="w-full bg-white border border-slate-200 rounded-xl p-2 text-xs text-slate-800 font-mono shadow-2xs"
                 >
                   <option value="">-- Choose Bus --</option>
                   {buses
@@ -685,13 +687,13 @@ export default function ConductorPage() {
           </div>
 
           {/* STEP 2: Select Starting Board & Ending Board */}
-          <div className={`p-4 rounded-2xl border ${isTripActive ? 'bg-slate-950/40 border-slate-800 opacity-70' : 'bg-slate-950 border-amber-500/40'}`}>
-            <div className="text-[11px] font-bold uppercase tracking-wider text-amber-400 mb-2">
+          <div className={`p-4 rounded-2xl border ${isTripActive ? 'bg-slate-50/60 border-slate-200 opacity-70' : 'bg-slate-50 border-blue-200'}`}>
+            <div className="text-[11px] font-bold uppercase tracking-wider text-blue-700 mb-2">
               Step 2: Journey Boards (Start &amp; End)
             </div>
             <div className="space-y-3">
               <div>
-                <label className="text-[10px] text-slate-400 block mb-1">
+                <label className="text-[10px] text-slate-500 font-semibold block mb-1">
                   Starting Board (Origin Stop)
                 </label>
                 <select
@@ -703,7 +705,7 @@ export default function ConductorPage() {
                     setCurrentStopId(startId);
                     setSourceStopId(startId);
                   }}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-xs text-white"
+                  className="w-full bg-white border border-slate-200 rounded-xl p-2 text-xs text-slate-800 shadow-2xs"
                 >
                   {routeStops.length === 0 ? (
                     <option value="">(Select Route first in Step 1)</option>
@@ -718,14 +720,14 @@ export default function ConductorPage() {
               </div>
 
               <div>
-                <label className="text-[10px] text-slate-400 block mb-1">
+                <label className="text-[10px] text-slate-500 font-semibold block mb-1">
                   Ending Board (Destination Terminus)
                 </label>
                 <select
                   disabled={isTripActive || routeStops.length === 0}
                   value={tripEndingStopId}
                   onChange={e => setTripEndingStopId(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-xs text-white"
+                  className="w-full bg-white border border-slate-200 rounded-xl p-2 text-xs text-slate-800 shadow-2xs"
                 >
                   {routeStops.length === 0 ? (
                     <option value="">(Select Route first in Step 1)</option>
@@ -747,12 +749,12 @@ export default function ConductorPage() {
           </div>
 
           {/* STEP 3: Click START TRIP */}
-          <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 flex flex-col justify-between">
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
             <div>
-              <div className="text-[11px] font-bold uppercase tracking-wider text-amber-400 mb-2">
+              <div className="text-[11px] font-bold uppercase tracking-wider text-slate-700 mb-2">
                 Step 3: Execute Trip
               </div>
-              <p className="text-xs text-slate-300">
+              <p className="text-xs text-slate-600">
                 {isTripActive
                   ? 'Trip is currently in progress. Conductor can advance stops and issue tickets.'
                   : 'Only after trip starts can conductor advance stops and issue tickets.'}
@@ -765,7 +767,7 @@ export default function ConductorPage() {
                   type="button"
                   onClick={handleStartTrip}
                   disabled={loading || !selectedBusId || (!currentStartingStopId && routeStops.length === 0)}
-                  className="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs tracking-wider uppercase transition-colors flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 disabled:opacity-50"
+                  className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs tracking-wider uppercase transition-colors flex items-center justify-center gap-2 shadow-sm disabled:opacity-50"
                 >
                   <Play className="w-4 h-4 fill-current" />
                   START TRIP
@@ -775,7 +777,7 @@ export default function ConductorPage() {
                   type="button"
                   onClick={handleEndTrip}
                   disabled={loading}
-                  className="w-full py-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs tracking-wider uppercase transition-colors flex items-center justify-center gap-2 shadow-lg shadow-rose-600/20"
+                  className="w-full py-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs tracking-wider uppercase transition-colors flex items-center justify-center gap-2 shadow-sm"
                 >
                   <Square className="w-4 h-4 fill-current" />
                   END TRIP
@@ -788,50 +790,50 @@ export default function ConductorPage() {
 
       {/* DYNAMIC LIVE BUS LOCATION & FORWARD STOP CONTROLLER (ACTIVE TRIP ONLY) */}
       {isTripActive && (
-        <div className="bg-gradient-to-r from-slate-900 via-slate-900 to-indigo-950/40 border-2 border-emerald-500/40 rounded-3xl p-6 shadow-2xl space-y-5">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800/80 pb-4">
+        <div className="bg-white border-2 border-emerald-500/50 rounded-3xl p-6 shadow-sm space-y-5">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-100 pb-4">
             <div>
               <div className="flex items-center gap-2">
                 <span className="relative flex h-3 w-3">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
                 </span>
-                <h2 className="text-base font-black text-white">Live Bus Location &amp; Stop Progression Controller</h2>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                <h2 className="text-base font-black text-slate-900">Live Bus Location &amp; Stop Progression Controller</h2>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
                   Live Map Sync
                 </span>
               </div>
-              <p className="text-xs text-slate-400 mt-1">
+              <p className="text-xs text-slate-500 mt-1">
                 Advance bus to any forward stop. Automatically deboards destination passengers, updates live GPS coordinates, and reflects immediately on the live map and crowd count.
               </p>
             </div>
 
-            <div className="flex items-center gap-2 text-xs font-mono text-slate-300 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800">
-              <span className="text-slate-500">Trip:</span>
-              <span className="text-amber-400 font-bold">{routeStops.find(s => s.stop_id === currentStartingStopId)?.stop_name || 'Origin'}</span>
-              <span className="text-slate-600">&rarr;</span>
-              <span className="text-blue-400 font-bold">{endingStopObj?.stop_name || 'Terminus'}</span>
+            <div className="flex items-center gap-2 text-xs font-mono text-slate-700 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
+              <span className="text-slate-400">Trip:</span>
+              <span className="text-blue-700 font-bold">{routeStops.find(s => s.stop_id === currentStartingStopId)?.stop_name || 'Origin'}</span>
+              <span className="text-slate-400">&rarr;</span>
+              <span className="text-indigo-700 font-bold">{endingStopObj?.stop_name || 'Terminus'}</span>
             </div>
           </div>
 
           {/* Current Stop Display & Next Stop Actions */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {/* Current Active Stop */}
-            <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between">
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 flex items-center justify-between">
                 <span>Current Bus Location</span>
-                <span className="text-emerald-400 font-mono font-bold">● Active Now</span>
+                <span className="text-emerald-700 font-mono font-bold">● Active Now</span>
               </div>
               <div className="flex items-start gap-3 pt-1">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-black text-sm shrink-0 border border-amber-500/30">
+                <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-800 flex items-center justify-center font-black text-sm shrink-0 border border-blue-200 shadow-2xs">
                   #{currentStopObj?.stop_sequence || 1}
                 </div>
                 <div className="min-w-0">
-                  <h3 className="text-base font-black text-white truncate">
+                  <h3 className="text-base font-black text-slate-900 truncate">
                     {currentStopObj?.stop_name || 'Starting Board'}
                   </h3>
-                  <p className="text-[11px] text-slate-400 flex items-center gap-1 mt-0.5">
-                    <MapPin className="w-3 h-3 text-amber-400 shrink-0" />
+                  <p className="text-[11px] text-slate-500 flex items-center gap-1 mt-0.5 font-medium">
+                    <MapPin className="w-3 h-3 text-blue-600 shrink-0" />
                     <span>GPS: {currentStopObj?.latitude ? Number(currentStopObj.latitude).toFixed(4) : '--'}, {currentStopObj?.longitude ? Number(currentStopObj.longitude).toFixed(4) : '--'}</span>
                   </p>
                 </div>
@@ -839,28 +841,28 @@ export default function ConductorPage() {
             </div>
 
             {/* Quick 1-Click: Arrive at Next Stop */}
-            <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 flex flex-col justify-between">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center justify-between">
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 flex items-center justify-between">
                 <span>Immediate Next Stop</span>
-                <span className="text-blue-400 font-mono">#{immediateNextStop?.stop_sequence || '--'}</span>
+                <span className="text-blue-700 font-mono font-bold">#{immediateNextStop?.stop_sequence || '--'}</span>
               </div>
               {immediateNextStop ? (
                 <>
-                  <p className="text-sm font-bold text-slate-200 truncate mb-3">
+                  <p className="text-sm font-bold text-slate-800 truncate mb-3">
                     {immediateNextStop.stop_name}
                   </p>
                   <button
                     type="button"
                     onClick={() => handleAdvanceStop(immediateNextStop.stop_id)}
                     disabled={loading}
-                    className="w-full py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs transition-colors flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 disabled:opacity-50"
+                    className="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs transition-colors flex items-center justify-center gap-2 shadow-2xs disabled:opacity-50"
                   >
                     <Navigation className="w-4 h-4 fill-current" />
                     <span>Arrive at Next Stop (#{immediateNextStop.stop_sequence})</span>
                   </button>
                 </>
               ) : (
-                <div className="text-xs text-amber-400 font-bold py-2 flex items-center gap-1.5">
+                <div className="text-xs text-blue-700 font-bold py-2 flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4" />
                   <span>Reached Destination Terminus!</span>
                 </div>
@@ -868,17 +870,17 @@ export default function ConductorPage() {
             </div>
 
             {/* Jump to Any Forward Stop (Unvisited Only!) */}
-            <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 flex flex-col justify-between">
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
               <div>
-                <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center justify-between">
+                <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 flex items-center justify-between">
                   <span>Jump to Forward Stop</span>
-                  <span className="text-[10px] text-slate-500">(Unvisited only)</span>
+                  <span className="text-[10px] text-slate-400 font-medium">(Unvisited only)</span>
                 </div>
                 <select
                   disabled={loading || forwardStops.length === 0}
                   value={selectedNextStopId}
                   onChange={e => setSelectedNextStopId(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-xs text-white"
+                  className="w-full bg-white border border-slate-200 rounded-xl p-2 text-xs text-slate-800 shadow-2xs"
                 >
                   {forwardStops.length === 0 ? (
                     <option value="">(No more forward stops)</option>
@@ -895,7 +897,7 @@ export default function ConductorPage() {
                 type="button"
                 onClick={() => handleAdvanceStop(selectedNextStopId)}
                 disabled={loading || !selectedNextStopId || forwardStops.length === 0}
-                className="w-full mt-2 py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold text-xs border border-slate-700 transition-colors disabled:opacity-40"
+                className="w-full mt-2 py-2 px-3 rounded-xl bg-white hover:bg-slate-100 text-blue-700 font-bold text-xs border border-slate-300 transition-colors shadow-2xs disabled:opacity-40"
               >
                 Update Bus to Selected Stop
               </button>
@@ -904,9 +906,9 @@ export default function ConductorPage() {
 
           {/* Interactive Route Stop Progression Bar */}
           <div className="pt-2">
-            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center justify-between">
+            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center justify-between">
               <span>Route Stop Sequence (Click any forward stop to jump)</span>
-              <span className="text-xs font-mono text-slate-400">
+              <span className="text-xs font-mono text-slate-600 font-medium">
                 {visitedStops.length} of {routeStops.length} Visited
               </span>
             </div>
@@ -924,12 +926,12 @@ export default function ConductorPage() {
                     onClick={() => handleAdvanceStop(rs.stop_id)}
                     className={`shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 border ${
                       isCurrent
-                        ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-md shadow-amber-500/30'
+                        ? 'bg-amber-400 text-slate-950 border-amber-500 shadow-sm'
                         : isVisited
-                        ? 'bg-slate-950/80 text-slate-600 border-slate-800 line-through cursor-not-allowed opacity-60'
+                        ? 'bg-slate-100 text-slate-400 border-slate-200 line-through cursor-not-allowed opacity-70'
                         : isNext
-                        ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/40 hover:bg-emerald-500/25'
-                        : 'bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-700'
+                        ? 'bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100'
+                        : 'bg-white text-slate-700 border-slate-200 hover:border-blue-400 shadow-2xs'
                     }`}
                     title={
                       isCurrent
@@ -956,20 +958,20 @@ export default function ConductorPage() {
         {/* Left 2 Cols: Ticket Issuer & Occupancy Counter */}
         <div className="lg:col-span-2 space-y-6">
           {/* Live Occupancy Counter Card */}
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-xs">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
               <div>
-                <h3 className="text-base font-bold text-white flex items-center gap-2">
-                  <Users className="w-5 h-5 text-amber-400" />
+                <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                  <Users className="w-5 h-5 text-blue-700" />
                   <span>Live Passenger Count Logic</span>
                 </h3>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-500">
                   Every ticket increases occupancy &bull; Reaching passenger destination stop automatically deboards them
                 </p>
               </div>
 
               {currentBus && (
-                <div className="w-full sm:w-64 bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                <div className="w-full sm:w-64 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
                   <CrowdIndicator
                     occupancy={currentBus.current_occupancy}
                     capacity={currentBus.capacity}
@@ -985,9 +987,9 @@ export default function ConductorPage() {
                 type="button"
                 onClick={() => handleUpdateOccupancy('enter', 1)}
                 disabled={!isTripActive || Boolean(currentBus && currentBus.current_occupancy >= currentBus.capacity)}
-                className="py-3 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-emerald-400 font-bold text-xs transition-colors flex items-center justify-center gap-2 disabled:opacity-40"
+                className="py-3 px-4 rounded-2xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-800 font-bold text-xs transition-colors flex items-center justify-center gap-2 disabled:opacity-40"
               >
-                <UserPlus className="w-4 h-4" />
+                <UserPlus className="w-4 h-4 text-emerald-700" />
                 <span>Record Passenger Entry (+1)</span>
               </button>
 
@@ -995,22 +997,22 @@ export default function ConductorPage() {
                 type="button"
                 onClick={() => handleUpdateOccupancy('exit', 1)}
                 disabled={!isTripActive || Boolean(currentBus && currentBus.current_occupancy <= 0)}
-                className="py-3 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-rose-400 font-bold text-xs transition-colors flex items-center justify-center gap-2 disabled:opacity-40"
+                className="py-3 px-4 rounded-2xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-800 font-bold text-xs transition-colors flex items-center justify-center gap-2 disabled:opacity-40"
               >
-                <UserMinus className="w-4 h-4" />
+                <UserMinus className="w-4 h-4 text-rose-700" />
                 <span>Record Passenger Exit (-1)</span>
               </button>
             </div>
           </div>
 
           {/* Ticket Generation Flow */}
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-xs space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div className="flex items-center gap-2">
-                <TicketIcon className="w-5 h-5 text-amber-400" />
-                <h3 className="text-base font-bold text-white">Issue Ticket</h3>
+                <TicketIcon className="w-5 h-5 text-blue-700" />
+                <h3 className="text-base font-bold text-slate-900">Issue Ticket</h3>
               </div>
-              <span className="text-xs font-mono text-amber-400">
+              <span className="text-xs font-mono font-semibold text-blue-700">
                 {isTripActive ? '● ETM Terminal Ready' : 'Locked - Start Trip First'}
               </span>
             </div>
@@ -1019,7 +1021,7 @@ export default function ConductorPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Source Stop */}
                 <div>
-                  <label className="text-xs font-semibold text-slate-300 block mb-1">
+                  <label className="text-xs font-semibold text-slate-700 block mb-1">
                     Source Stop (Boarding Point)
                   </label>
                   <select
@@ -1034,7 +1036,7 @@ export default function ConductorPage() {
                         setDestinationStopId(routeStops[routeStops.length - 1].stop_id);
                       }
                     }}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs text-slate-900 focus:bg-white focus:border-blue-500 shadow-2xs"
                     required
                   >
                     <option value="">-- Select Source Stop --</option>
@@ -1050,14 +1052,14 @@ export default function ConductorPage() {
 
                 {/* Destination Stop */}
                 <div>
-                  <label className="text-xs font-semibold text-slate-300 block mb-1">
+                  <label className="text-xs font-semibold text-slate-700 block mb-1">
                     Destination Stop (Deboarding Point)
                   </label>
                   <select
                     disabled={!isTripActive}
                     value={destinationStopId}
                     onChange={e => setDestinationStopId(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs text-slate-900 focus:bg-white focus:border-blue-500 shadow-2xs"
                     required
                   >
                     <option value="">-- Select Destination Stop --</option>
@@ -1075,17 +1077,45 @@ export default function ConductorPage() {
                 </div>
               </div>
 
-              {/* Gender Selection & Vidiyal Payanam Free Travel Scheme */}
+              {/* Passenger Category Selection (Women Free, Student Free, Male General) */}
               <div>
-                <label className="text-xs font-semibold text-slate-300 block mb-2">
-                  Gender (Tamil Nadu Vidiyal Payanam Scheme)
+                <label className="text-xs font-semibold text-slate-700 block mb-2">
+                  Passenger Category (Tamil Nadu Free Commute Schemes)
                 </label>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {/* Student Free Pass */}
+                  <label
+                    className={`flex items-center justify-between p-3 rounded-2xl border cursor-pointer transition-all ${
+                      gender === 'Student'
+                        ? 'bg-blue-50 border-blue-400 text-blue-900 ring-2 ring-blue-500/20'
+                        : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="gender"
+                        value="Student"
+                        checked={gender === 'Student'}
+                        onChange={() => setGender('Student')}
+                        className="accent-blue-600"
+                      />
+                      <div>
+                        <span className="font-bold text-xs block">🎓 Student Pass</span>
+                        <span className="text-[10px] text-slate-500">School / College</span>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-black px-2 py-0.5 rounded bg-blue-100 text-blue-800 border border-blue-200">
+                      ₹0.00 FREE
+                    </span>
+                  </label>
+
+                  {/* Female Vidiyal Payanam */}
                   <label
                     className={`flex items-center justify-between p-3 rounded-2xl border cursor-pointer transition-all ${
                       gender === 'Female'
-                        ? 'bg-pink-500/10 border-pink-500 text-pink-300'
-                        : 'bg-slate-950 border-slate-800 text-slate-400'
+                        ? 'bg-pink-50 border-pink-400 text-pink-900 ring-2 ring-pink-500/20'
+                        : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
                     }`}
                   >
                     <div className="flex items-center gap-2">
@@ -1095,20 +1125,24 @@ export default function ConductorPage() {
                         value="Female"
                         checked={gender === 'Female'}
                         onChange={() => setGender('Female')}
-                        className="accent-pink-500"
+                        className="accent-pink-600"
                       />
-                      <span className="font-bold text-xs">Female (Women Pass)</span>
+                      <div>
+                        <span className="font-bold text-xs block">👩 Women Pass</span>
+                        <span className="text-[10px] text-slate-500">Vidiyal Payanam</span>
+                      </div>
                     </div>
-                    <span className="text-[11px] font-black px-2 py-0.5 rounded bg-pink-500/20 text-pink-300">
+                    <span className="text-[11px] font-black px-2 py-0.5 rounded bg-pink-100 text-pink-800 border border-pink-200">
                       ₹0.00 FREE
                     </span>
                   </label>
 
+                  {/* Male General Paid */}
                   <label
                     className={`flex items-center justify-between p-3 rounded-2xl border cursor-pointer transition-all ${
                       gender === 'Male'
-                        ? 'bg-blue-500/10 border-blue-500 text-blue-300'
-                        : 'bg-slate-950 border-slate-800 text-slate-400'
+                        ? 'bg-slate-100 border-slate-400 text-slate-900 ring-2 ring-slate-400/20'
+                        : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
                     }`}
                   >
                     <div className="flex items-center gap-2">
@@ -1118,12 +1152,15 @@ export default function ConductorPage() {
                         value="Male"
                         checked={gender === 'Male'}
                         onChange={() => setGender('Male')}
-                        className="accent-blue-500"
+                        className="accent-slate-700"
                       />
-                      <span className="font-bold text-xs">Male</span>
+                      <div>
+                        <span className="font-bold text-xs block">👨 Male / General</span>
+                        <span className="text-[10px] text-slate-500">Standard Ticket</span>
+                      </div>
                     </div>
-                    <span className="text-[11px] font-black px-2 py-0.5 rounded bg-blue-500/20 text-blue-300">
-                      Standard Fare
+                    <span className="text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200">
+                      Standard
                     </span>
                   </label>
                 </div>
@@ -1132,7 +1169,7 @@ export default function ConductorPage() {
               <button
                 type="submit"
                 disabled={loading || !isTripActive}
-                className="w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs tracking-wider uppercase transition-colors shadow-lg shadow-amber-500/20 disabled:opacity-40"
+                className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs tracking-wider uppercase transition-colors shadow-sm disabled:opacity-40"
               >
                 {loading ? 'Printing...' : 'GENERATE & ISSUE TICKET'}
               </button>
@@ -1142,17 +1179,17 @@ export default function ConductorPage() {
 
         {/* Right Col: Latest Printed Ticket & ETM Simulation */}
         <div className="space-y-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl">
-            <h3 className="text-sm font-bold text-white mb-3 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-amber-400" />
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-xs">
+            <h3 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-blue-600" />
               <span>Latest ETM Digital Receipt</span>
             </h3>
 
             {latestTicket ? (
               <TicketCard ticket={latestTicket} />
             ) : (
-              <div className="border-2 border-dashed border-slate-800 rounded-2xl p-8 text-center text-slate-500 text-xs">
-                <TicketIcon className="w-8 h-8 text-slate-600 mx-auto mb-2" />
+              <div className="border-2 border-dashed border-slate-200 rounded-2xl p-8 text-center text-slate-400 text-xs">
+                <TicketIcon className="w-8 h-8 text-slate-300 mx-auto mb-2" />
                 Tickets generated will print and appear here instantly.
               </div>
             )}
