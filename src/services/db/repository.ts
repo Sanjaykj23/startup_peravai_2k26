@@ -36,7 +36,7 @@ interface DatabaseSchema {
 
 let cachedDb: DatabaseSchema | null = null;
 
-function loadDatabase(): DatabaseSchema {
+export function loadDatabase(): DatabaseSchema {
   if (cachedDb) return cachedDb;
 
   if (fs.existsSync(DB_FILE)) {

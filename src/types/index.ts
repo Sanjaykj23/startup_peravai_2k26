@@ -159,3 +159,5 @@ export interface Bus {
   current_location?: BusLocation | null;
   distance_km?: number; // Calculated for nearby discovery
 }
+
+export * from './demandSupply';

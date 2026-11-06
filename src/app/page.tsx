@@ -15,7 +15,8 @@ import {
   Cpu,
   Clock,
   Sparkles,
-  GraduationCap
+  GraduationCap,
+  Scale
 } from 'lucide-react';
 import { Bus as BusType } from '@/types';
 
@@ -67,11 +68,11 @@ export default function HomePage() {
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              href="/passenger"
-              className="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm border border-white/20 transition-all flex items-center gap-2 backdrop-blur-xs"
+              href="/demand-supply"
+              className="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-all duration-200 flex items-center gap-2 shadow-lg shadow-blue-500/20"
             >
-              <Users className="w-4 h-4 text-blue-300" />
-              Passenger Portal
+              <Scale className="w-4 h-4 text-amber-300" />
+              Demand &amp; Supply Intelligence
             </Link>
             <Link
               href="/conductor"
@@ -168,6 +169,37 @@ export default function HomePage() {
               className="w-full py-2.5 rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs text-center transition-colors flex items-center justify-center gap-1.5 shadow-xs"
             >
               Open Student Portal
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          {/* Demand & Supply Intelligence Card (Phase 2) */}
+          <div className="bg-white border-2 border-blue-400 hover:border-blue-600 hover:shadow-lg rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 rounded-xl bg-blue-100 border border-blue-200 flex items-center justify-center text-blue-800 font-bold">
+                  <Scale className="w-6 h-6" />
+                </div>
+                <span className="text-xs font-black px-2.5 py-1 rounded-full bg-blue-50 text-blue-800 border border-blue-300">
+                  Phase 2 Feature
+                </span>
+              </div>
+              <h3 className="text-lg font-bold text-slate-900 mb-2">Demand &amp; Supply Intelligence</h3>
+              <p className="text-slate-600 text-xs leading-relaxed mb-4">
+                Analyze passenger volume against available bus capacity across all Chennai corridors. Detect high-demand overcrowding, identify underutilised fleet supply, and review rule-based dispatch recommendations.
+              </p>
+              <div className="space-y-1 text-xs text-slate-700 font-mono mb-4 bg-blue-50/60 p-3 rounded-xl border border-blue-100">
+                <div className="text-[11px] text-blue-800 font-bold mb-1">Key Metrics:</div>
+                <div>&bull; Demand-to-Capacity Ratio (% breakdown)</div>
+                <div>&bull; Time-slot Passenger Load Analysis</div>
+                <div>&bull; Actionable Fleet Reallocation Advice</div>
+              </div>
+            </div>
+            <Link
+              href="/demand-supply"
+              className="w-full py-2.5 rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs text-center transition-colors flex items-center justify-center gap-1.5 shadow-xs"
+            >
+              Open Intelligence Dashboard
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>

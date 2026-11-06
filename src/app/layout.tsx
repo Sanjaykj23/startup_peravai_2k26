@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Link from 'next/link';
-import { Bus, Map, Users, ShieldAlert, BarChart3, Radio, GraduationCap } from 'lucide-react';
+import { Bus, Map, Users, ShieldAlert, BarChart3, Radio, GraduationCap, Scale } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Chennai Smart Bus Crowd Tracking System | MTC Chennai',
@@ -68,6 +68,14 @@ export default function RootLayout({
               >
                 <Bus className="w-4 h-4 text-amber-600" />
                 Conductor
+              </Link>
+              <Link
+                href="/demand-supply"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-700 hover:bg-blue-50/70 transition-colors"
+              >
+                <Scale className="w-4 h-4 text-blue-700" />
+                <span className="hidden lg:inline">Demand &amp; Supply</span>
+                <span className="lg:hidden">D&amp;S</span>
               </Link>
               <Link
                 href="/admin"

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import CrowdDistributionChart from '@/components/Charts/CrowdDistributionChart';
 import CrowdIndicator from '@/components/CrowdIndicator';
 import {
@@ -18,7 +19,8 @@ import {
   Layers,
   ArrowUpRight,
   Sparkles,
-  ShieldCheck
+  ShieldCheck,
+  Scale
 } from 'lucide-react';
 import { Bus as BusType, OccupancyHistory } from '@/types';
 
@@ -95,6 +97,16 @@ export default function AdminPage() {
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
+          {/* Phase 2: Demand & Supply Intelligence Link */}
+          <Link
+            href="/demand-supply"
+            className="px-4 py-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs transition-colors flex items-center gap-2 shadow-sm"
+          >
+            <Scale className="w-4 h-4 text-amber-300" />
+            <span>Demand &amp; Supply Intelligence</span>
+            <span className="px-1.5 py-0.2 rounded text-[9px] bg-blue-900 border border-blue-500 font-mono font-bold">Phase 2</span>
+          </Link>
+
           {/* Export ML Dataset CSV */}
           <a
             href="/api/analytics?format=csv"
