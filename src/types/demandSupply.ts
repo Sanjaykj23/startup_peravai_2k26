@@ -33,6 +33,20 @@ export interface RouteDemandSupplyAnalysis {
   statusLabel: string;
   statusColor: string;
   recommendation: string;
+  serviceAction: 'augment' | 'reduce' | 'maintain' | 'schedule';
+  reductionDetails?: {
+    recommendedTripCut: number;
+    headwayAdjustment: string;
+    offPeakWindow: string;
+    fleetReallocationTarget?: string;
+    estimatedCostSavings: string;
+  };
+  augmentationDetails?: {
+    recommendedExtraTrips: number;
+    headwayAdjustment: string;
+    peakWindow: string;
+    reliefImpact: string;
+  };
   recommendationDetails: {
     type: 'add_trips' | 'monitor' | 'balanced' | 'reallocate' | 'insufficient_data';
     priority: 'urgent' | 'medium' | 'low' | 'info';

@@ -49,13 +49,6 @@ export default function RootLayout({
                 <span className="hidden md:inline">Live</span> Map
               </Link>
               <Link
-                href="/student"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-700 hover:bg-blue-50/70 transition-colors"
-              >
-                <GraduationCap className="w-4 h-4 text-emerald-600" />
-                Student
-              </Link>
-              <Link
                 href="/passenger"
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-700 hover:bg-blue-50/70 transition-colors"
               >

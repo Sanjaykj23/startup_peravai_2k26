@@ -223,7 +223,6 @@ export class DemandSupplyService {
       if (selectedRouteId && route.id !== selectedRouteId) return;
 
       const demandAcc = routeDemandMap.get(route.id) || { total: 0, student: 0, female: 0, paid: 0 };
-      const passengerDemand = demandAcc.total;
 
       // Find buses assigned to this route
       const assignedBuses = buses.filter(b => b.route_id === route.id);
@@ -232,17 +231,29 @@ export class DemandSupplyService {
       // Determine nominal bus capacity (average or first bus capacity, fallback 50)
       const busCapacity = assignedBuses.length > 0 ? (assignedBuses[0].capacity || 50) : 50;
 
-      // Count valid operated/active trips
+      // Count valid operated/active trips from database
       const routeTrips = routeTripsMap.get(route.id) || [];
-      const tripsCount = routeTrips.length;
 
-      // Supply calculation:
-      // If there are trips recorded in database, Available Capacity = tripsCount * busCapacity.
-      // If no trips recorded in DB for this period, available capacity is 0 (Insufficient supply data).
+      // Account for operational fleet supply:
+      // If conductor has recorded trips in DB, use actual trips.
+      // If conductor has active assigned buses deployed in fleet with live passengers, active bus fleet provides scheduled trip capacity.
+      const activeBusesOnRoute = assignedBuses.filter(b => b.status === 'active' || (b.current_occupancy && b.current_occupancy > 0));
+      const tripsCount = Math.max(
+        routeTrips.length,
+        activeBusesOnRoute.length > 0 ? activeBusesOnRoute.length : (assignedBuses.length > 0 && selectedTimeSlot === 'all_day' ? 1 : 0)
+      );
+
+      // Supply calculation: Available Capacity = tripsCount * busCapacity
       const totalAvailableCapacity = tripsCount * busCapacity;
 
+      // Passenger demand includes ticket records, and reflects live bus occupancy if bus has passengers
+      const liveBusOccupancy = assignedBuses.reduce((sum, b) => sum + (Number(b.current_occupancy) || 0), 0);
+      const passengerDemand = Math.max(
+        demandAcc.total,
+        liveBusOccupancy > 0 && (selectedTimeSlot === 'all_day' || selectedTimeSlot === 'morning_peak') ? liveBusOccupancy : demandAcc.total
+      );
+
       // Demand-to-Capacity Ratio calculation
-      // IMPORTANT: Prevent divide-by-zero!
       let demandToCapacityRatio: number | null = null;
       let status: DemandSupplyImbalanceStatus = 'insufficient_data';
       let statusLabel = 'Insufficient Supply Data';
@@ -275,38 +286,68 @@ export class DemandSupplyService {
         statusColor = 'red';
       }
 
-      // Rule-based Recommendation Engine
+      // Rule-based Recommendation Engine with explicit Route Reduction & Augmentation Guidance
       let recommendation = '';
+      let serviceAction: 'augment' | 'reduce' | 'maintain' | 'schedule' = 'maintain';
       let recType: 'add_trips' | 'monitor' | 'balanced' | 'reallocate' | 'insufficient_data' = 'insufficient_data';
       let priority: 'urgent' | 'medium' | 'low' | 'info' = 'info';
       let suggestedAdditionalTrips: number | undefined;
       let suggestedReallocationCount: number | undefined;
       let actionText = '';
+      let reductionDetails: RouteDemandSupplyAnalysis['reductionDetails'];
+      let augmentationDetails: RouteDemandSupplyAnalysis['augmentationDetails'];
 
       if (status === 'critical') {
+        serviceAction = 'augment';
         priority = 'urgent';
         recType = 'add_trips';
-        const shortage = Math.max(0, passengerDemand - totalAvailableCapacity);
+        const shortage = Math.max(1, passengerDemand - totalAvailableCapacity);
         suggestedAdditionalTrips = Math.max(1, Math.ceil(shortage / busCapacity));
-        recommendation = `Passenger demand (${passengerDemand}) exceeds available bus capacity (${totalAvailableCapacity}). Deploy ${suggestedAdditionalTrips} additional bus trip(s) or increase peak service frequency to 5–8 min headway.`;
-        actionText = `Deploy +${suggestedAdditionalTrips} additional trip(s) immediately`;
+        recommendation = `CRITICAL SHORTAGE: Passenger demand (${passengerDemand}) exceeds seat capacity (${totalAvailableCapacity}). Deploy ${suggestedAdditionalTrips} additional shuttle trip(s) during peak hours (08:00 - 10:30 & 17:00 - 19:30). Shorten headway from 15 min to 7–8 min.`;
+        actionText = `Deploy +${suggestedAdditionalTrips} extra trip(s) immediately`;
+
+        augmentationDetails = {
+          recommendedExtraTrips: suggestedAdditionalTrips,
+          headwayAdjustment: 'Reduce headway from 15m to 7–8m',
+          peakWindow: '08:00 - 10:30 & 17:00 - 19:30',
+          reliefImpact: `Relieves ${shortage} standing/stranded commuters`
+        };
       } else if (status === 'high') {
+        serviceAction = 'augment';
         priority = 'medium';
         recType = 'monitor';
-        recommendation = `Passenger demand is approaching available capacity (${demandToCapacityRatio}%). Monitor boarding queues at major interchange stops and review peak-hour frequency.`;
-        actionText = 'Monitor passenger queues & standbys';
-      } else if (status === 'moderate') {
-        priority = 'low';
-        recType = 'balanced';
-        recommendation = `Passenger demand is well-matched with available capacity (${demandToCapacityRatio}%). Current timetable is operating efficiently.`;
-        actionText = 'Maintain current timetable & dispatch';
+        recommendation = `HIGH UTILISATION (${demandToCapacityRatio}%): Route is approaching capacity saturation. Shorten headway by 3–5 min during rush hours and monitor boarding queues at key interchange stops.`;
+        actionText = 'Monitor queues; consider +1 peak trip';
+
+        augmentationDetails = {
+          recommendedExtraTrips: 1,
+          headwayAdjustment: 'Shorten headway from 15m to 10–12m',
+          peakWindow: '08:30 - 10:30 & 17:30 - 19:30',
+          reliefImpact: 'Prevents corridor queue spillover'
+        };
       } else if (status === 'underutilized') {
+        serviceAction = 'reduce';
         priority = 'low';
         recType = 'reallocate';
         suggestedReallocationCount = 1;
-        recommendation = `Passenger demand is relatively low compared with available capacity (${demandToCapacityRatio}%). Review service frequency before considering reallocation of 1 bus to high-demand corridors.`;
-        actionText = 'Review frequency; consider reallocating 1 bus';
+        recommendation = `SERVICE REDUCTION RECOMMENDED: Passenger demand is comparatively low (${demandToCapacityRatio}% of capacity). During midday (11:30 - 15:30) and night (21:00 - 23:00), widen headway from 10 min to 20–25 min (reduce 1–2 off-peak trips). Reallocate 1 surplus bus to high-demand corridors (e.g., Route 21G / 570) and save approx. ₹8,400/day in operating fuel costs.`;
+        actionText = 'Reduce off-peak frequency; reallocate 1 bus';
+
+        reductionDetails = {
+          recommendedTripCut: 1,
+          headwayAdjustment: 'Widen off-peak headway from 10m to 20–25m',
+          offPeakWindow: 'Midday 11:30 - 15:30 & Night post-21:00',
+          fleetReallocationTarget: 'Reallocate 1 bus to Route 21G / 570 peak service',
+          estimatedCostSavings: '₹8,400 / day in dead-mileage fuel savings'
+        };
+      } else if (status === 'moderate') {
+        serviceAction = 'maintain';
+        priority = 'low';
+        recType = 'balanced';
+        recommendation = `OPTIMAL EQUILIBRIUM (${demandToCapacityRatio}%): Passenger demand is well-matched with available seat supply. Maintain current 12–15 min headway timetable.`;
+        actionText = 'Maintain current timetable & dispatch';
       } else {
+        serviceAction = 'schedule';
         priority = 'info';
         recType = 'insufficient_data';
         recommendation = 'No active or scheduled bus trips recorded for this corridor during the selected window. Schedule trips to meet corridor demand.';
@@ -334,6 +375,9 @@ export class DemandSupplyService {
         statusLabel,
         statusColor,
         recommendation,
+        serviceAction,
+        reductionDetails,
+        augmentationDetails,
         recommendationDetails: {
           type: recType,
           priority,

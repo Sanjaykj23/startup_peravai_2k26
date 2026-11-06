@@ -142,37 +142,6 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Student Card */}
-          <div className="bg-white border border-slate-200 hover:border-blue-500 hover:shadow-md rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 font-bold">
-                  <GraduationCap className="w-6 h-6" />
-                </div>
-                <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-                  Student Welfare
-                </span>
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">Student Digital Portal</h3>
-              <p className="text-slate-600 text-xs leading-relaxed mb-4">
-                Dedicated digital portal for school and college students under Tamil Nadu Free Bus Pass scheme. Generate digital student smart passes, claim ₹0.00 tickets, and track live college corridor buses.
-              </p>
-              <div className="space-y-1 text-xs text-slate-700 font-mono mb-4 bg-slate-50 p-3 rounded-xl border border-slate-200">
-                <div className="text-[11px] text-blue-700 font-bold mb-1">Highlights:</div>
-                <div>&bull; 100% Free Concession Commute</div>
-                <div>&bull; Digital Smart Card with QR Code</div>
-                <div>&bull; Instant ₹0.00 E-Ticket Issuance</div>
-              </div>
-            </div>
-            <Link
-              href="/student"
-              className="w-full py-2.5 rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs text-center transition-colors flex items-center justify-center gap-1.5 shadow-xs"
-            >
-              Open Student Portal
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-
           {/* Demand & Supply Intelligence Card (Phase 2) */}
           <div className="bg-white border-2 border-blue-400 hover:border-blue-600 hover:shadow-lg rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between">
             <div>

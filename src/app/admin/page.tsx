@@ -20,12 +20,24 @@ import {
   ArrowUpRight,
   Sparkles,
   ShieldCheck,
-  Scale
+  Scale,
+  TrendingUp,
+  TrendingDown,
+  AlertTriangle,
+  CheckCircle2,
+  Clock,
+  ArrowRight,
+  MinusCircle,
+  PlusCircle,
+  ArrowRightLeft
 } from 'lucide-react';
 import { Bus as BusType, OccupancyHistory } from '@/types';
+import { DemandSupplyResponse, RouteDemandSupplyAnalysis } from '@/types/demandSupply';
 
 export default function AdminPage() {
   const [analytics, setAnalytics] = useState<any>(null);
+  const [demandSupply, setDemandSupply] = useState<DemandSupplyResponse | null>(null);
+  const [simulationApproved, setSimulationApproved] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [resetting, setResetting] = useState(false);
@@ -34,10 +46,20 @@ export default function AdminPage() {
   const fetchAnalytics = async () => {
     setIsRefreshing(true);
     try {
-      const res = await fetch('/api/analytics');
-      const data = await res.json();
-      if (data.analytics) {
-        setAnalytics(data.analytics);
+      const [analyticsRes, demandSupplyRes] = await Promise.all([
+        fetch('/api/analytics'),
+        fetch('/api/demand-supply')
+      ]);
+      const [analyticsData, demandSupplyData] = await Promise.all([
+        analyticsRes.json(),
+        demandSupplyRes.json()
+      ]);
+
+      if (analyticsData.analytics) {
+        setAnalytics(analyticsData.analytics);
+      }
+      if (demandSupplyData.success) {
+        setDemandSupply(demandSupplyData);
       }
     } catch (e) {
       console.error(e);
@@ -218,6 +240,264 @@ export default function AdminPage() {
           malePaidTickets={analytics.malePaidTickets}
           ticketRevenue={analytics.ticketRevenue}
         />
+      )}
+
+      {/* PHASE 2: DEMAND & SUPPLY INTELLIGENCE & ROUTE DISPATCH PLANNING */}
+      {demandSupply && (
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-xs space-y-6">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700">
+                <Scale className="w-5 h-5 text-blue-700" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-base font-bold text-slate-900">
+                    Phase 2: Demand–Supply Imbalance &amp; Timetable Optimization
+                  </h2>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200">
+                    Live Dispatch Sync
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500">
+                  Real-time ratio analysis: Identify corridors needing trip augmentation vs off-peak frequency curtailment
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 w-full md:w-auto">
+              <button
+                onClick={() => setSimulationApproved(!simulationApproved)}
+                className={`flex-1 md:flex-none px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 border shadow-2xs ${
+                  simulationApproved
+                    ? 'bg-emerald-600 text-white border-emerald-600 hover:bg-emerald-700'
+                    : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+                }`}
+              >
+                <CheckCircle2 className="w-4 h-4" />
+                <span>{simulationApproved ? 'Dispatch Optimized' : 'Simulate Reallocation'}</span>
+              </button>
+
+              <Link
+                href="/demand-supply"
+                className="flex-1 md:flex-none px-4 py-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold transition-colors flex items-center justify-center gap-1.5 shadow-2xs"
+              >
+                <span>Full Intelligence Hub</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Simulation Notification */}
+          {simulationApproved && (
+            <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>
+                  <strong>Timetable Optimization Simulated:</strong> Fleet frequency adjusted. Off-peak surplus buses from Route 5E &amp; 102 staged to augment peak demand on Route 21G and high-density corridors.
+                </span>
+              </div>
+              <button
+                onClick={() => setSimulationApproved(false)}
+                className="text-xs font-bold text-emerald-700 hover:text-emerald-900 ml-3"
+              >
+                Reset
+              </button>
+            </div>
+          )}
+
+          {/* Quick Stats Strip */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="p-3 bg-slate-50 rounded-2xl border border-slate-100">
+              <span className="text-[11px] text-slate-500 font-medium">Corridors Analysed</span>
+              <div className="text-xl font-black text-slate-900 mt-0.5">
+                {demandSupply.summary.totalRoutesAnalysed} routes
+              </div>
+              <span className="text-[10px] text-slate-400">Total verified MTC network</span>
+            </div>
+
+            <div className="p-3 bg-rose-50/60 rounded-2xl border border-rose-100">
+              <span className="text-[11px] text-rose-700 font-medium">Critical / High Shortage</span>
+              <div className="text-xl font-black text-rose-700 mt-0.5">
+                {demandSupply.summary.criticalRoutesCount + demandSupply.summary.highUtilisationRoutesCount} routes
+              </div>
+              <span className="text-[10px] text-rose-600">Needs trip augmentation</span>
+            </div>
+
+            <div className="p-3 bg-amber-50/60 rounded-2xl border border-amber-100">
+              <span className="text-[11px] text-amber-800 font-medium">Off-Peak Curtailment Target</span>
+              <div className="text-xl font-black text-amber-800 mt-0.5">
+                {demandSupply.summary.underutilisedRoutesCount} routes
+              </div>
+              <span className="text-[10px] text-amber-700">Widen headway &amp; save fuel</span>
+            </div>
+
+            <div className="p-3 bg-blue-50/60 rounded-2xl border border-blue-100">
+              <span className="text-[11px] text-blue-700 font-medium">Fleetwide Demand/Supply</span>
+              <div className="text-xl font-black text-blue-800 mt-0.5">
+                {demandSupply.summary.overallRatio !== null ? `${demandSupply.summary.overallRatio}%` : 'N/A'}
+              </div>
+              <span className="text-[10px] text-blue-600">
+                {demandSupply.summary.totalPassengerDemand} pax / {demandSupply.summary.totalAvailableCapacity} seats
+              </span>
+            </div>
+          </div>
+
+          {/* Two-Column Operational Dispatch Plan */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            {/* Column A: Routes Needing Augmentation */}
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <PlusCircle className="w-4 h-4 text-rose-600" />
+                  <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+                    Corridors Requiring Trip Augmentation
+                  </h3>
+                </div>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200">
+                  Peak Priority
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-500">
+                Passenger demand is approaching or exceeding seat supply. Immediate shuttle frequency additions recommended.
+              </p>
+
+              <div className="space-y-2.5">
+                {demandSupply.routeAnalyses
+                  .filter(r => r.serviceAction === 'augment' || r.imbalanceStatus === 'critical' || r.imbalanceStatus === 'high')
+                  .slice(0, 3)
+                  .map(route => (
+                    <div
+                      key={route.routeId}
+                      className="p-3 bg-white rounded-xl border border-slate-200 shadow-2xs space-y-2"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-blue-50 text-blue-700 border border-blue-200">
+                            Route {route.routeNumber}
+                          </span>
+                          <span className="text-xs font-bold text-slate-800 truncate max-w-[180px]">
+                            {route.corridor}
+                          </span>
+                        </div>
+                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200 font-mono">
+                          {route.demandToCapacityRatio !== null ? `${route.demandToCapacityRatio}%` : 'High'}
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2 text-[11px] bg-slate-50 p-2 rounded-lg border border-slate-100">
+                        <div>
+                          <span className="text-slate-400 block text-[10px]">Peak Time Window</span>
+                          <strong className="text-slate-700 font-semibold">
+                            {route.augmentationDetails?.peakWindow || '08:00–10:30 & 17:00–19:30'}
+                          </strong>
+                        </div>
+                        <div>
+                          <span className="text-slate-400 block text-[10px]">Headway Action</span>
+                          <strong className="text-rose-700 font-semibold">
+                            {route.augmentationDetails?.headwayAdjustment || 'Tighten to 7–8 min'}
+                          </strong>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between text-[11px] text-slate-600">
+                        <span>
+                          Demand: <strong>{route.passengerDemand} pax</strong> ({route.studentPassCount} student, {route.femaleFreeCount} Vidiyal)
+                        </span>
+                        <span className="text-emerald-700 font-bold">
+                          +{route.augmentationDetails?.recommendedExtraTrips || 2} peak trips
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+
+                {demandSupply.routeAnalyses.filter(
+                  r => r.serviceAction === 'augment' || r.imbalanceStatus === 'critical' || r.imbalanceStatus === 'high'
+                ).length === 0 && (
+                  <div className="p-4 bg-white rounded-xl border border-slate-200 text-center text-xs text-slate-500">
+                    No critical shortages detected across current monitored routes.
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Column B: Routes Recommended for Frequency Curtailment */}
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <MinusCircle className="w-4 h-4 text-amber-600" />
+                  <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+                    Corridors Recommended for Off-Peak Curtailment
+                  </h3>
+                </div>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200">
+                  Cost Saver
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-500">
+                Low passenger demand per bus. Widen off-peak headways to save dead-mile fuel and reallocate idle fleet.
+              </p>
+
+              <div className="space-y-2.5">
+                {demandSupply.routeAnalyses
+                  .filter(r => r.serviceAction === 'reduce' || r.imbalanceStatus === 'underutilized')
+                  .slice(0, 3)
+                  .map(route => (
+                    <div
+                      key={route.routeId}
+                      className="p-3 bg-white rounded-xl border border-slate-200 shadow-2xs space-y-2"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                            Route {route.routeNumber}
+                          </span>
+                          <span className="text-xs font-bold text-slate-800 truncate max-w-[180px]">
+                            {route.corridor}
+                          </span>
+                        </div>
+                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200 font-mono">
+                          {route.demandToCapacityRatio !== null ? `${route.demandToCapacityRatio}%` : 'Low'}
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2 text-[11px] bg-slate-50 p-2 rounded-lg border border-slate-100">
+                        <div>
+                          <span className="text-slate-400 block text-[10px]">Off-Peak Window</span>
+                          <strong className="text-slate-700 font-semibold">
+                            {route.reductionDetails?.offPeakWindow || 'Midday 11:30–15:30'}
+                          </strong>
+                        </div>
+                        <div>
+                          <span className="text-slate-400 block text-[10px]">Headway Adjustment</span>
+                          <strong className="text-amber-800 font-semibold">
+                            {route.reductionDetails?.headwayAdjustment || 'Widen to 20–25 min'}
+                          </strong>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between text-[11px] text-slate-600">
+                        <span>
+                          Fuel Savings: <strong className="text-emerald-700">{route.reductionDetails?.estimatedCostSavings || '₹8,400/day'}</strong>
+                        </span>
+                        <span className="text-blue-700 font-bold">
+                          Cut {route.reductionDetails?.recommendedTripCut || 1} off-peak trip
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+
+                {demandSupply.routeAnalyses.filter(
+                  r => r.serviceAction === 'reduce' || r.imbalanceStatus === 'underutilized'
+                ).length === 0 && (
+                  <div className="p-4 bg-white rounded-xl border border-slate-200 text-center text-xs text-slate-500">
+                    No underutilised routes identified for curtailment in current window.
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Real-time Fleet Occupancy Per Bus Table */}
